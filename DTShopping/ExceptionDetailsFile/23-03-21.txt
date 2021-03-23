@@ -1,0 +1,24 @@
+-----------Exception Details on  23-03-2021 11:43:38-----------------
+-------------------------------------------------------------------------------------
+
+
+
+Log Written Date: 23-03-2021 11:43:38
+
+Error Line No : line 85
+
+Error Message: FormatException
+
+Exception Type: System.FormatException
+
+Error Location : Invalid length for a Base-64 char array or string.
+
+ Error Page Url: http://localhost:63692/Account/LoginApiUser?data=KyNZ1griQHF/0SdXc2owX+L5u8iCf2vCytHbC3b/49mslW/ociJxiqz0Jy7Y9r6D
+
+User Host IP: 
+
+
+--------------------------------*End*------------------------------------------
+
+
+

@@ -1,0 +1,208 @@
+﻿@model DTShopping.Models.Dashboard
+@{
+    ViewBag.Title = "Checkout";
+    int CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
+}
+<script>
+    function isNumberKey(evt) {
+        debugger;
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if ((charCode > 31 && (charCode < 48) || (charCode > 57)))
+            return false;
+
+        return true;
+    }
+
+</script>
+
+<div class="">
+    <div class="container">
+        <div class="sixteen columns">
+            <div class="breadcrumbs_box">
+                @*<a href="http://www.ethemeuk.com" class="headerNavigation1">Top</a><a href="index.php" class="headerNavigation1">Catalog</a><span class="headerNavigation">Create an Account</span>*@
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="sixteen columns">
+        <div id="bodyContent" class="twelve columns omega main_part_wrapper">
+
+            <h1>Checkout</h1>
+            <form data-parsley-validate class="validateForm form-horizontal form-style" id="addorderForm" onsubmit="return SaveOrderForm();">
+                <div class="contentContainer">
+                    <div class="contentText">
+                        @Html.HiddenFor(m => m.OrderDetail.point_adjusted, new { name = "pointAdjusted2", id = "pointAdjusted2" })
+                        @Html.Hidden("Amount", Model.NetPayment)
+
+                        @Html.HiddenFor(m => m.OrderDetail.delievryType, new { @id = "deliveryType" })
+                        @Html.HiddenFor(m => m.OrderDetail.user_id)
+                        @Html.HiddenFor(m => m.OrderDetail.id)
+
+                        @******* if company id = 29// for sunvis*** then load this view.*@
+                        @if (CompanyId == 29)
+                        {
+                            <table border="0" width="97%" cellspacing="0" cellpadding="2">
+                                <tr>
+                                    <td colspan="2" style="background:#efefef;">
+                                        <h3 style="font-family:'Oswald';font-size:16px;">Confirm Mobile No. and Email</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Mobile Number</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_phone, new { @type = "text", @id = "billing_phone", @required = "required", @placeholder = "" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Email</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_email, new { @type = "email", @id = "billing_email", @required = "required", @placeholder = "" })
+                                    </td>
+                                </tr>
+
+                            </table>
+                        }
+                        else
+                        {
+                            <table border="0" width="97%" cellspacing="0" cellpadding="2">
+                                <tr>
+                                    <td colspan="2" style="background:#efefef;">
+                                        <h3 style="font-family:'Oswald';font-size:16px;">Shipping  Address</h3>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">First Name</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_first_name, new { @type = "text", @id = "companyName", @required = "required", @placeholder = "" })
+                                    </td>
+
+                                </tr>
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Last Name</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_last_name, new { @type = "text", @id = "billing_last_name", @required = "required", @placeholder = "" })
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Address 1</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_address_1, new { @type = "text", @id = "billing_address_1", @required = "required", @placeholder = "" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Address 2</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_address_2, new { @type = "text", @id = "billing_address_2", @required = "required", @placeholder = "" })
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">State</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.DropDownListFor(m => m.OrderDetail.billing_state, new SelectList(Model.States, "Id", "Name"), new { @required = "0", id = "stateList", @class = "form-control", @style = "width:156px;" })
+                                        @*@Html.TextBoxFor(m => m.OrderDetail.billing_state, new { @type = "text", @id = "stateList", @required = "required", @placeholder = "" })*@
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">City</label>:</td>
+                                    <td class="feWidget">
+                                        @*@Html.TextBoxFor(m => m.OrderDetail.billing_city, new { @type = "text", @id = "cityList", @required = "required", @placeholder = "" })*@
+                                        @Html.DropDownListFor(m => m.OrderDetail.billing_city, new SelectList(Model.Cities, "cityID", "cityName"), new { @required = "0", id = "cityList", @class = "form-control", @style = "width:156px;" })
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Pin Code</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_postcode, new { @type = "text", @id = "billing_postcode", @required = "required", @onkeypress = "return isNumberKey(event)", @placeholder = "" ,@onchange = "ChangePinCode();" })
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Mobile Number</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_phone, new { @type = "text", @id = "billing_phone", @required = "required", @onkeypress = "return isNumberKey(event)", @placeholder = "",@onchange="ChangeMobileNo();" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fieldKey"><label for="username">Email</label>:</td>
+                                    <td class="feWidget">
+                                        @Html.TextBoxFor(m => m.OrderDetail.billing_email, new { @type = "email", @id = "billing_email", @required = "required", @placeholder = "" })
+                                    </td>
+                                </tr>
+
+                            </table>
+                        }
+                    </div>
+
+                    <div class="buttonSet">
+                        <span class="buttonAction">
+                            <button class="unishop_button" id="ConfirmPassword1" type="submit">Submit</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+        @Html.Action("getCatHeirarchy", "Home", new { Cat = ViewBag.ParentId, subCat = ViewBag.category })
+
+    </div>
+</div>
+<script>
+
+    function SaveOrderForm() {
+        $(".preloader").show();
+        var objorder = $('#addorderForm').serialize();
+        var deliveryTypeVal = $('#deliveryType').val();
+
+        $.ajax({
+            url: '/Home/CreateOrder',
+            type: 'Post',
+            datatype: 'Json',
+            data: objorder
+        }).done(function (result) {
+            $(".preloader").hide();
+            if (result == "Success") {
+                window.location.href = "/Manage/GetCartProductList?isWithPayment=true&deliveryType=" + deliveryTypeVal;
+            }
+            ///alert(result.ResponseValue);
+            //location.reload();
+        }).fail(function (error) {
+            $("#error").html(error.statusText);
+            $(".preloader").hide();
+        });
+
+        return false;
+    }
+
+    function ChangeMobileNo()
+    {
+        debugger;
+        var mobileno = $("#billing_phone").val();
+        if(mobileno.length !=10)
+        {
+            alert("This Mobile No is Not valid!")
+            $("#billing_phone").val("");
+        }
+    }
+    function ChangePinCode()
+    {
+        debugger;
+        var pincode = $("#billing_postcode").val();
+        if (pincode.length != 6) {
+            alert("This PinCode No is Not valid!")
+            $("#billing_postcode").val("");
+        }
+
+    }
+</script>
+
+
+<script src="~/Scripts/shopping.js"></script>

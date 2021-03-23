@@ -1,0 +1,115 @@
+﻿@using DTShopping.Properties
+@model DTShopping.Models.Dashboard
+@using DTShopping.Models
+@{
+    string Theme = System.Configuration.ConfigurationManager.AppSettings["Theme"] == null ? string.Empty : System.Configuration.ConfigurationManager.AppSettings["Theme"].ToString();
+    if (Theme == Resources.Orange)
+    {
+        Layout = "~/Views/Shared/_LayoutOrange.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    company current_cmpny = (Session["Company"] != null) ? Session["Company"] as company : new company();
+    string imageUrl = System.Configuration.ConfigurationManager.AppSettings["ImageUrl"];
+    int CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
+    int URSHOPECOMPANYID = 33;
+    string iName = string.Empty;
+}
+
+<div class="container">
+    <table width="100%" border="1" cellspacing="3" cellpadding="3" class="shoptable" style="margin-top:10px;">
+        <tr>
+            @if (CompanyId == URSHOPECOMPANYID)
+            {
+                <td width="20%"><img src="~/images/thanks.png" height="140" width="90" alt="Thank You" style="margin-left: 30%;"></td>
+            }
+            else
+            {
+                <td width="20%"><img src="~/images/thanku.jpg" alt="Thank You" height="120" width="120" style="margin-left: 20%;"></td>
+            }
+            <td width="60%" style="padding-left: 5%;" valign="middle">
+                Thanks for placing your order with us here at @current_cmpny.company_name <br>
+                Please find your order status in the "Orders" section in your account.                                             <br>
+                Your order has been placed successfully.
+            </td>
+            <td width="20%" style="padding-left: 5%;" valign="middle">
+                <h3>Need More Support</h3>
+                <label>Call us:- &nbsp; (91) @current_cmpny.company_landline_no</label>
+                <label>Email us:- &nbsp; @current_cmpny.contact_email</label>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <h3>Your Order Details :-</h3>
+    <table width="100%" border="1" cellspacing="3" cellpadding="3" class="shoptable">
+        <tr>
+            <td>
+                <table width="100%" border="1" cellspacing="3" cellpadding="3" class="shoptable">
+                    <tr>
+
+                        <th>Item Details</th>
+                        <th>Particulars</th>
+                        <th>Delivery Status</th>
+
+                    </tr>
+                    @{ var count = 1;}
+                    @foreach (var product in Model.OrderProducts)
+                    {
+                        iName = product.small_image;
+                        if (string.IsNullOrEmpty(product.small_image))
+                        {
+                            if (string.IsNullOrEmpty(product.medium_image))
+                            {
+                                iName = product.large_image;
+                            }
+                            else
+                            {
+                                iName = product.medium_image;
+                            }
+                        }
+                        <tr>
+                            <td>
+                            <img src="@imageUrl/@iName" height="50" width="50" alt="" itemprop="image" />
+                            </td>
+                            <td>
+                                Product :- @product.productName <br />
+                                Code :- @product.product_id<br />
+                                Offer Price :- @product.price<br />
+                                Discount Points :- @product.RBV_Points<br />
+                                Shipping Charges :- @product.shipping_charge<br />
+                                Net Amount :- @product.Amt<br />
+                            </td>
+                            <td>@product.DispatchStatusStr</td>
+                        </tr>
+                        count = count + 1;
+                    }
+
+
+
+                </table>
+            </td>
+
+            <td>
+                <table width="100%" border="1" cellspacing="3" cellpadding="3" class="shoptable">
+                    <tr>
+                        <th>Order Details</th>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Order Number :- @Model.OrderDetail.id <br />
+                            Order Value :- @Model.OrderDetail.TotalAmount <br />
+                            Order Date :- @Model.OrderDetail.created.ToShortDateString()<br />
+                            Payment Mode :- @Model.OrderDetail.payment_mode<br />
+                            <b>Payment Status :- @Model.OrderDetail.PaymentStatus</b>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<script src="~/Scripts/shopping.js"></script>

@@ -1,0 +1,542 @@
+﻿@using DTShopping.Models
+@{
+    UserDetails current_user = (Session["UserDetail"] != null) ? Session["UserDetail"] as UserDetails : null;
+    company current_cmpny = (Session["Company"] != null) ? Session["Company"] as company : new company();
+
+    string username = current_user != null ? current_user.username : "";
+    double? points = current_user != null ? current_user.balance_point ?? 0.0 : 0.0;
+    string imageUrl = System.Configuration.ConfigurationManager.AppSettings["ImageUrl"];
+    string copyright = System.Configuration.ConfigurationManager.AppSettings["CopyrightText"];
+    if (imageUrl.EndsWith("/"))
+    {
+        imageUrl = imageUrl.Substring(0, imageUrl.LastIndexOf("/"));
+    }
+    int CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
+    int URSHOPECOMPANYID = 33;
+    int OSMARKETCOMPANYID = 34;
+    int FANCLUBCOMPANYID = 35;
+    int SJLABSCOMPANYID = 40;
+    int SHOPENTERTAINMENTCOMPANYID = 37;
+    int GVENTERTAINMENTCOMPANYID = 38;
+    int width = 177;
+
+    string styleDetail = "margin-top:-50px;";
+    var inLineStyle = string.Empty;
+    if (CompanyId == URSHOPECOMPANYID)
+    {
+        inLineStyle = "background-image:none; background-color:transparent;";
+    }
+
+    //if (current_user != null && (CompanyId == SHOPENTERTAINMENTCOMPANYID || CompanyId == GVENTERTAINMENTCOMPANYID))
+    //{
+    //    targetUrl = "https://entertainmentclub.biz/Index.aspx";
+    //}
+}
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome to @current_cmpny.company_name</title>
+    <!-- Mobile Specific Metas
+       ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/ext/jquery/ui/redmond/jquery-ui-1.8.22.css" />
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script type="text/javascript" src="~/ext/jquery/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="~/ext/jquery/ui/jquery-ui-1.8.22.min.js"></script>
+    <script type="text/javascript">
+        // fix jQuery 1.8.0 and jQuery UI 1.8.22 bug with dialog buttons; http://bugs.jqueryui.com/ticket/8484
+        if ($.attrFn) { $.attrFn.text = true; }
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="~/Content/stylesheet.css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/base.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/skeleton.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/unishop.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/sliders_styles.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/layout.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/layerslider.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/effects.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/light-theme.css" />
+    <link rel="stylesheet" type="text/css" href="~/unishop_theme/unishop_styles/light-theme.css" />
+
+    <style>
+        .cat-name {
+            font-size: 82% !important;
+        }
+    </style>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/jquery-ui.js"></script>
+    <script>
+        if (false) { document.documentElement.className += 'ie10'; }
+    </script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/layerslider.kreaturamedia.jquery.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/responsiveslides.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/slider-dark.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/jquery.elastislide.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/cloud-zoom.1.0.2.js"></script>
+    <script type="text/javascript" src="~/unishop_theme/unishop_js/custom.js?v=1"></script>
+    <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+    <style>
+        .cat-name a.main_category {
+            font-size: 11px !important;
+        }
+
+        .img-cart2 {
+            background-color: transparent !important;
+            background-image: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="~/images/wheel.gif" height="100" />
+    </div>
+    <!-- begin bodyWrapper //-->
+    <div id="bodyWrapper" class="default_page">
+        <div id="header">
+            <div class="container">
+                <div class="row">
+                    <div class="row phone offset-by-eleven five columns" style="width: 100%; margin-top: 0px; font-size: 12px;">
+
+                        <span>Call us:(91) @current_cmpny.company_landline_no </span>&nbsp;&nbsp;<span>Email: @current_cmpny.contact_email </span>
+                    </div>
+                    <div class="row">
+                        @if (current_cmpny.id == 29)
+                        {
+                            width = 177;
+                            styleDetail = "margin-top:-50px;";
+                        }
+                        else if (current_cmpny.id == 30)
+                        {
+                            width = 250;
+                            styleDetail = "margin-top:-50px;";
+                        }
+                        else if (current_cmpny.id == URSHOPECOMPANYID || current_cmpny.id == FANCLUBCOMPANYID)
+                        {
+                            width = 130;
+                            styleDetail = string.Empty;
+                        }
+                        else if (current_cmpny.id == SJLABSCOMPANYID)
+                        {
+                            width = 160;
+                            styleDetail = "margin-top:-50px;";
+                        }
+                        else
+                        {
+                            width = 177;
+                            styleDetail = string.Empty;
+                        }
+                        <div id="logo" style="@styleDetail" class="five columns">
+                            @if (current_user != null && (CompanyId == SHOPENTERTAINMENTCOMPANYID || CompanyId == GVENTERTAINMENTCOMPANYID))
+                            {
+                                <div id="storeLogo"> <a class="logo_inner" href='https://entertainmentclub.biz/Index.aspx'><img src="@imageUrl/@current_cmpny.logo" alt="@current_cmpny.company_name" title="@current_cmpny.company_name" width="@width" height="46" class="scale-with-grid" /></a></div>
+                            }
+                            else
+                            {
+                                <div id="storeLogo"> <a class="logo_inner" href='~/Home/Index'><img src="@imageUrl/@current_cmpny.logo" alt="@current_cmpny.company_name" title="@current_cmpny.company_name" width="@width" height="46" class="scale-with-grid" /></a></div>
+                            }
+                        </div>
+                        <div class="six columns">
+                            <div id="top_search" style="width: 120%;margin-left: 70%; margin-bottom:1%;">
+                                <form name="et_quick_find" id="et_quick_find" onsubmit="return false">
+                                    <div class="clearfix">
+                                        <div id="search">
+                                            <input type="text" name="keywords" placeholder="Product search..." id="search_input" />
+                                            &nbsp;
+                                        </div>
+                                        <div class="submit_button">
+                                            <input name="search" value="" type="submit" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                        <div id="header_blocks" class="five columns">
+
+                            <div class="row">
+                                <div class="shopping_cart">
+                                    <div class="shopping_cart_b">
+                                        <div class="cart_wrapper">
+                                            <div class="clearfix">
+                                                @if (Session["UserDetail"] != null)
+                                                {
+                                                    <p class="img_cart" style='@inLineStyle'>
+                                                        <a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">
+                                                            @if (CompanyId == URSHOPECOMPANYID)
+                                                            {
+                                                                <img src="~/unishop_theme/unishop_images/icon-cart2.png" height="30" width="30" />
+                                                            }
+                                                        </a>
+                                                    </p>
+                                                    <div class="open"> <a href="/Manage/GetCartProductList?isWithPayment=false&&deliveryType=0"><span> Cart (<span id="cartCount"></span>)</span></a></div>
+                                                    @*<a class="cart_link" href="checkout_shipping.php">Checkout</a>*@
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<div id="shopping_cart_mini">
+                                        <div class="inner-wrapper">
+                                                                                <p class="empty">You have no items in your shopping cart.</p>
+                                                        </div>
+                                                    </div>*@
+                                </div>
+                                @if (Session["UserDetail"] != null)
+            {
+                                    <div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>
+                                    <div class="welcome" style="float:right; font-family:Oswald; font-size:14px; margin:12px 0 0 0;">
+                                        Welcome @username
+                                        <div class="clear"></div>
+                                    </div>
+
+                                }
+                            </div>
+                            <div class="row">
+
+
+                                <div id="nav_first">
+                                    <div id="nav_block_head">
+                                        <div class="nav_block_head_field">Customer Tools</div>
+                                        <span class="nav_block_head_button"> </span>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="nav_block_dropdown">
+                                        <ul class="links">
+                                            <li class="first"><a href="/Home/Index">Home</a></li>
+
+                                            @if (Session["UserDetail"] != null)
+                                            {
+                                                <li><a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">Shopping Cart</a></li>
+                                                <li><a href="/Home/MyAccount">My Account</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="/Account/Login">My Account</a></li>
+                                                <li><a href="/Account/Login">Login</a></li>
+                                            }
+                                            @if (Session["UserDetail"] != null)
+                                            {
+                                                @*<li class="last"><a href="/Home/Claims">Claims</a></li>*@
+                                                <li class="last"><a href="http://www.gohappycart.com/index-1.asp" target="_blank">Buy Package</a></li>
+                                                <li class="last"><a href="/Account/LogOff">Logout</a></li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="DivCategories">
+
+        </div>
+        <div class="et-content-bg">
+
+            @RenderBody()
+            <!-- bodyContent //-->
+        </div>
+
+        <!-- dropdown footer block -->
+        <!-- end dropdown footer block -->
+        <!-- footer info -->
+        <div class="footer_bg_color">
+            <div id="back-top"><a href="#top"></a></div>
+            <div id="footer">
+                @if (Session["Brands"] != null)
+                {
+                    <div class="container" style="margin-bottom:50px;">
+                        <div class="sixteen columns">
+                            <marquee behavior="scroll" direction="left" onMouseMove="stop()" onMouseOut="start()">
+                                <table align="center" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            @foreach (var brand in Session["Brands"] as List<brand>)
+                                            {
+                                                if (!string.IsNullOrEmpty(brand.logo))
+                                                {
+                                                    <td style="padding:20px;">
+                                                        <a class="brandLink" data-branId="@brand.id" href="/Home/ProductList?BrandId=@brand.id"> <img src="@imageUrl/@brand.logo" alt="@brand.name" title="@brand.name" style="height:75%" /> </a>
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </marquee>
+                        </div>
+                    </div>
+                }
+                <div class="container">
+                    <div class="four columns footer-block footer-copyright">
+
+                        <div id="copyright">
+                            <a class="logo_footer" href="~/Home/Index">
+                                @*<img src="~/images/light/store_logo.png" alt="unishop" title="unishop" width="177" height="46" class="scale-with-grid" />*@
+                                <img src="@imageUrl/@current_cmpny.logo" alt="" title="" width="177" height="46" class="scale-with-grid" />
+                            </a> &copy; @copyright
+                        </div>
+                    </div>
+                    <div class="four columns footer-block footer_information">
+                        <h2>Information</h2>
+                        <nav>
+                            <ul>
+                                <li><a href="~/Home/About" target="_blank">About Us</a></li>
+                                <li><a href="~/Home/PrivacyPolicy">Privacy Policy</a></li>
+                                <li><a href="~/Home/TermsAndConditions">Terms &amp; Conditions</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="four columns footer-block footer_customer_service">
+                        <h2>Customer Assistance</h2>
+                        <nav>
+                            <ul>
+                                <li><a href="#">(91) @current_cmpny.company_landline_no</a></li>
+                                <li><a href="#">@current_cmpny.contact_email</a></li>
+                                <li>
+                                    <a>
+                                        @if (!string.IsNullOrEmpty(current_cmpny.add1))
+                                        {
+                                            <div>@current_cmpny.add1</div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(current_cmpny.add2))
+                                        {
+                                            <div>@current_cmpny.add2</div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(current_cmpny.city))
+                                        {
+                                            <div>@current_cmpny.city</div>
+                                        }
+                                        @if (!string.IsNullOrEmpty(current_cmpny.state))
+                                        {
+                                            <div>@current_cmpny.state</div>
+                                        }
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="four columns footer-block footer_my_account">
+                        <h2>My Account</h2>
+                        <nav>
+                            <ul>
+
+
+
+                                @if (Session["UserDetail"] != null)
+                                {
+                                    <li><a href="/Home/MyAccount">My Account</a></li>
+                                    <li><a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">My Shopping Cart</a></li>
+                                    <li><a href="/Home/Orders">Order history</a></li>
+                                    <li><a href="/Account/LogOff">Log Out</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Account/Login">Log In</a></li>
+                                }
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="four columns footer-block footer_social">
+                        @****change only for go happy cartcompany*****@
+                        @if (current_cmpny.id == 30)
+                        {
+                            <h2>Social Media</h2>
+                            <nav>
+                                <ul>
+                                    <li style="display:inline-block;"><a href="https://fb.me/Gohappyindia" target="_blank"><img src="~/images/fb-page.png" height="25" width="25" /></a></li>
+                                    @*<li style="display:inline-block;"><a href="m.me/Gohappyindia" target="_blank"><img src="~/images/fb-chat.jpg" height="25" width="25" /></a></li>
+                                        <li style="display:inline-block;"><a href="https://www.facebook.com/groups/473906246623921/" target="_blank"><img src="~/images/fb-group.png" height="30" width="40" /></a></li>*@
+                                    <li style="display:inline-block;"><a href="https://twitter.com/gohappyindia" target="_blank"><img src="~/images/twitter.jpg" height="25" width="25" /></a></li>
+                                    @*</ul>
+                                        <ul>*@
+                                    <li style="display:inline-block;"><a href="https://www.instagram.com/gohappyindia/" target="_blank"><img src="~/images/instagram.jpg" height="25" width="25" /></a></li>
+                                    <li style="display:inline-block;"><a href="https://www.pinterest.com/gohappyindia/" target="_blank"><img src="~/images/pintrest.png" height="25" width="25" /></a></li>
+                                    <li style="display:inline-block;"><a href="https://www.linkedin.com/in/go-happy-3160311a2/" target="_blank"><img src="~/images/linkedin.png" height="25" width="25" /></a></li>
+                                    <li style="display:inline-block;"><a href="https://t.me/Gohappyindia" target="_blank"><img src="~/images/telegram.png" height="25" width="25" /></a></li>
+                                </ul>
+                            </nav>
+                        }
+                    </div>
+
+
+                     <div class="four columns footer-block footer_my_account">
+                         <h2>Payment Gateway</h2>
+                         <nav>
+                             
+                             <img src="~/images/paymentgateway.jpg" />
+                             @*<img src="~/images/goHappImage.jpg"  />*@
+                         </nav>
+                     </div>
+                </div>
+            </div>
+        </div>     <!-- end footer info -->
+    </div>
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: "/Home/GetCategories",
+            success: function (result) {
+                $("#DivCategories").html(result);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            }
+        });
+
+        $('#et_categ_box_scroll .cat-name').hover(
+        function () { $('.drop-box-subcat', this).show() },
+        function () { $('.drop-box-subcat', this).hide() }
+    );
+        $('#et_categ_box_scroll .sub-cat-name').hover(
+            function () { $('.drop-box-subsubcat', this).toggle() }
+        );
+        $('#et_categ_box_scroll .subsub-cat-name').hover(
+            function () { $('.drop-box-3subcat', this).toggle() }
+        );
+        $('#et_categ_box_scroll .3sub-cat-name').hover(
+            function () { $('.drop-box-4subcat', this).toggle() }
+        );
+
+        $('#menu_block_head').click(function () {
+            $('.menu_block_dropdown').toggleClass('visible_on');
+        });
+
+        $("#et_quick_find").submit(function () {
+            var searchString = $("#search_input").val();
+
+            uri = '/Home/SearchProductList?page=1&searchString=' + searchString;
+
+            uri = uri.trim().replace(/ /g, '%20');
+            window.location.href = (uri);
+            return false;
+        })
+
+        $('.brandLink').click(
+            function () {
+                var brandid = $(this).attr("data-branId");
+                window.location.href = "/Home/ProductList?BrandId=" + brandid;
+            }
+        );
+
+        getCartCount();
+
+    });
+
+
+    function getCartCount() {
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: "/Home/getCartCount",
+            success: function (result) {
+                $("#cartCount").html(result.CartProductCount);
+                $("#ShowBalancePoint").html(result.Points);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            }
+        });
+    }
+
+    //function getBalancePoints() {
+    //    $.ajax({
+    //        type: "GET",
+    //        async: false,
+    //        url: "/Home/getBalancePoints",
+    //        success: function (result) {
+    //            //alert(result);
+    //            $("#ShowBalancePoint").html(result);
+    //        },
+    //        error: function (XMLHttpRequest, textStatus, errorThrown) {
+    //            alert("Status: " + textStatus); alert("Error: " + errorThrown);
+    //        }
+    //    });
+    //}
+
+
+    function AddProductInCart(prodId, quantity, isDetailPage, sizeD, colorD) {
+        $(".preloader").show();
+        if (quantity == null || quantity == "" || quantity == undefined || quantity == "0") {
+            quantity = 1;
+        }
+        $.ajax({
+            url: '/Manage/AddProductInToCart',
+            type: 'Post',
+            datatype: 'Json',
+            data: { ProductId: prodId, Quantity: quantity, size: sizeD, color: colorD }
+        }).done(function (result) {
+            if (result == null || result == undefined || result == "") {
+                alert("Something went wrong, Please try again later.");
+            }
+            else if (result.Status == false) {
+                if (result.ResponseValue == "login") {
+                    window.location.href = "/Account/Login";
+                }
+                else {
+                    alert(result.ResponseValue);
+                }
+            }
+            else {
+
+                $("#cartCount").html(result.CartProductCount);
+                $("#ShowBalancePoint").html(result.Points);
+
+                if (isDetailPage == true) {
+                    window.location.href = "/Manage/GetCartProductList?isWithPayment=false&deliveryType=0";
+                }
+                else {
+                    alert("Product added to cart.");
+                }
+            }
+
+            $(".preloader").hide();
+        }).fail(function (error) {
+            alert(error.statusText);
+            $(".preloader").hide();
+        });
+
+        return false;
+    }
+</script>
+@if (CompanyId == OSMARKETCOMPANYID)
+{
+    <style>
+        #footer #copyright .logo_footer img {
+            width: 170px !important;
+        }
+    </style>
+}
+@if (CompanyId == FANCLUBCOMPANYID)
+{
+    <style>
+        #footer #copyright .logo_footer img {
+            width: 90px !important;
+        }
+    </style>
+}

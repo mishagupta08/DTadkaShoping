@@ -1,0 +1,190 @@
+﻿@using PagedList.Mvc;
+@using DTShopping.Properties
+@model  DTShopping.Models.Dashboard
+@{
+    ViewBag.Title = "ProductList";
+    string imageUrl = System.Configuration.ConfigurationManager.AppSettings["ImageUrl"];
+    var count = 0;
+    int CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
+    int URSHOPECOMPANYID = 33;
+    int ETRADECOMPANYID = 42;
+    int DUDHAMRITCOMPANYID = 43;
+    int MYDWORLDCOMPANYID = 44;
+    var inLineStyle = string.Empty;
+    if (CompanyId == URSHOPECOMPANYID)
+    {
+        inLineStyle = "background-image:none; background-color:transparent;";
+    }
+    int SJLABSCOMPANYID = 40;
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    .page-link {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        color: black;
+    }
+
+    ul.pagination li {
+        display: inline;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+            ul.pagination li a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            ul.pagination li a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>
+
+<div class="container">
+    <div class="sixteen columns">
+        <div id="bodyContent" class="sixteen columns omega main_part_wrapper">
+            <!-- subcategory view -->
+            <h1>Searched products</h1>
+            <div class="contentContainer">
+                <div class="contentText contConteiner_listing">
+                    <div class="infoBoxContainer">
+                        <div class="infoBoxHeading1 padding_pages_2 margin_bottom_1">
+                            <table class="table_style productListingHeader1">
+                                <tr>
+                                    <td class="padding0">
+                                        Sort by :
+                                        <a href="/Home/SearchProductList?page=1&SearchString=@Model.finalProductList.SearchString&SortBy=points&Order=desc" class="SortProduct" data-SortBy="Points" data-SortOrder="DESC">High Points</a> |
+                                        <a href="/Home/SearchProductList?page=1&SearchString=@Model.finalProductList.SearchString&SortBy=points&Order=asc" class="SortProduct" data-SortBy="Points" data-SortOrder="ASC">Low Points</a> |
+                                        <a href="/Home/SearchProductList?page=1&SearchString=@Model.finalProductList.SearchString&SortBy=price&Order=desc" class="SortProduct" data-SortBy="price" data-SortOrder="DESC">High Price </a> |
+                                        <a href="/Home/SearchProductList?page=1&SearchString=@Model.finalProductList.SearchString&SortBy=price&Order=asc" class="SortProduct" data-SortBy="price" data-SortOrder="ASC">Low Price </a>
+                                        <div></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        @if (Model.finalProductList.ProductList.Count() > 0)
+                        {
+                            foreach (var product in Model.finalProductList.ProductList)
+                            {
+                                count = count + 1;
+                                if (count == 7)
+                                {
+                                    count = 1;
+                                }
+                                <div class="four columns product_wrapper count_3cols_col_@count count_2cols_col_1">
+                                    <div class="product">
+                                        <div class="img_border">
+                                            <div class="product-image-wrapper">
+                                                <a class="product_img" href="~/Home/GetProductDetail?prodId=@product.id">
+                                                    <div><img src="@imageUrl/@product.large_image" alt="@product.title" title="@product.title" width="329" height="417" class="scale-with-grid" /></div>
+                                                    <div class="roll_over_img"><img src="@imageUrl/@product.large_image" alt="" width="329" height="417" class="scale-with-grid" /></div>
+                                                    <div class="product-image-wrapper-hover"></div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="wrapper-hover">
+                                            <div class="product-name"> <a href="~/Home/GetProductDetail?prodId=@product.id"> @product.title </a> </div>
+                                            <div class="clearfix">
+                                                <div class="icon_cart_title product-price">
+                                                    <span class="new_price">
+                                                        <s>Rs.@product.market_price</s><br>
+                                                        <span class="new-special-price">Rs.@product.offer_price</span>
+                                                    </span><br>
+                                                    @if (CompanyId != ETRADECOMPANYID && CompanyId != DUDHAMRITCOMPANYID && CompanyId != MYDWORLDCOMPANYID)
+                                                    {
+                                                        <span class="icon_cart_title product-price" style="font-size:11px; font-family:Arial, Helvetica, sans-serif; line-height:18px;">
+                                                            <br>
+                                                            @if (CompanyId == URSHOPECOMPANYID)
+                                                            {
+                                                                <span>@Resources.ProfitPoint : </span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span>@Resources.EUPoints : </span>
+                                                            }
+                                                            @{var t = product.point_adjusted != null ? product.point_adjusted : 0;}@t
+                                                        </span>
+                                                                }
+                                                    @if (CompanyId == SJLABSCOMPANYID && !(product.RBV == 0 || product.RBV == null))
+                                                    {
+                                                        <span class="icon_cart_title product-price" style="font-size:11px; font-family:Arial, Helvetica, sans-serif; line-height:8px;">
+                                                            <span>@Resources.BV : </span>
+                                                            @Html.Raw(product.RBV)
+                                                        </span>
+                                                    }
+                                                </div>
+                                                <div class="icon_cart_rollover" onclick="AddProductInCart(@product.id, 1)">
+                                                    <a style="@inLineStyle">
+                                                        @if (CompanyId == URSHOPECOMPANYID)
+                                                        {
+                                                            <img src="~/unishop_theme/unishop_images/icon-cart2.png" height="30" width="30" />
+                                                        }
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                }
+                                                                <div class="sixteen columns" style="padding-top:20px;">
+                                                                    <center>
+                                                                        <span class="page-link">Page@(Model.finalProductList.pagerCount.PageCount < Model.finalProductList.pagerCount.PageNumber ? 0 : Model.finalProductList.pagerCount.PageNumber) of @Model.finalProductList.pagerCount.PageCount</span>
+
+
+                                                                        @Html.PagedListPager(Model.finalProductList.pagerCount, page => Url.Action("ProductList", "Home", new { page, SearchString = Model.finalProductList.SearchString, SortBy = Model.finalProductList.sortby, Order = Model.finalProductList.order, cat = ViewBag.category, BrandId = ViewBag.brand, root = ViewBag.ParentId }),
+
+    new PagedListRenderOptions
+    {
+        DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+        DisplayLinkToLastPage = PagedListDisplayMode.Never,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+        DisplayLinkToNextPage = PagedListDisplayMode.Always,
+        MaximumPageNumbersToDisplay = 3
+
+    }
+    )
+                                                                    </center>
+
+                                                                </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="Eight columns"><h2>No Products found</h2></div>
+                                                                }
+
+
+
+                    </div>
+                </div>
+
+                <div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<script src="~/Scripts/dashboard.js"></script>
+
+
+
