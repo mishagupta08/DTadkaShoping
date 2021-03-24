@@ -19,9 +19,27 @@
         inLineStyle = "background-image:none; background-color:transparent;";
     }
 }
+<style>
+  .contain { 
+  height: 100px;
+  position: relative;
 
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+</style>
 
     <div class="about-us-area pt-115 pb-90">
+        <br/>
+        <br/>
         <div class="container">
             <div class="row">
 
@@ -34,6 +52,7 @@
                             <br>
                             <h4 class="text-info"> GV Package  </h4>
                             <h5>Rs. 2000/-</h5>
+                            <br/>
                             @*<p> <a href="#" data-toggle="modal" data-target="#GVPackage"> <strong>GET DETAILS</strong></a> </p>*@
                             <input type="hidden" id="hdnGVpackage" value="2" />
                             <a href="#" data-toggle="modal" data-target="#GVPackage"><input type="button" class="btn btn-success" value="GET BUY PACKAGE" /></a>
@@ -51,6 +70,7 @@
                             <br>
                             <h4 class="text-info"> Online Deals  </h4>
                             <h5>Rs. 2000/-</h5>
+                            <br/>
                             @*<p> <a href="#" data-toggle="modal" data-target="#OnlineDeals"> <strong>GET DETAILS</strong></a> </p>*@
                             <a href="#" data-toggle="modal" data-target="#OnlineDeals"><input type="button" class="btn btn-success" value="GET BUY PACKAGE"/></a>
                              <input  type="hidden" id="hdnOnlineDeals" value="4"/>
@@ -68,6 +88,7 @@
                             <br>
                             <h4 class="text-info"> Utility Package  </h4>
                             <h5>Rs. 2000/-</h5>
+                            <br/>
                             @*<p> <a href="#" data-toggle="modal" data-target="#UtilityPackage"> <strong>GET DETAILS</strong></a> </p>*@
                             <a href="#" data-toggle="modal" data-target="#UtilityPackage"><input type="button" class="btn btn-success" value="GET BUY PACKAGE" /></a>
                             <input type="hidden" id="hdnUtilitypackage" value="3" />
@@ -84,6 +105,7 @@
                             <br>
                             <h4 class="text-info"> Combo Package   </h4>
                             <h5>Rs. 5500/-</h5>
+                            <br/>
                             @*<p> <a href="#" data-toggle="modal" data-target="#ComboPackage"> <strong>GET DETAILS</strong></a> </p>*@
                             <a href="#" data-toggle="modal" data-target="#ComboPackage"><input type="button" class="btn btn-success" value="GET BUY PACKAGE" /></a>
                             <input type="hidden" id="hdncombo" value="5" />
@@ -95,8 +117,6 @@
             </div>
         </div>
       
-
-
     </div>
 
  <!-- Modal -->
@@ -108,13 +128,17 @@
             </div>
             <div class="modal-body">
                 <p>
-                    <h4>Online Deals</h4><br />
-                    <h3>Rs. 2000/-</h3>
+                    <h4 align="center"> Package name:Online Deals</h4><br />
+                    <h3 align="center">Amount:Rs. 2000/-</h3>
                     <input type="hidden" id="hdnOnlineDeals" value="4" />
                 </p>
-                <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'4');">
-                <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage();" style="display:none">
-            </div>
+                <div class="contain">
+                    <div class="center">
+                        <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'4');">
+                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'4');" style="display:none">
+                    </div>
+                </div>
+              </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -131,14 +155,18 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>
-                    <h4>GV Package</h4><br/>
-                    <h3>Rs. 2000/-</h3>
+                <p >
+                    <h4 align="center">GV Package</h4><br/>
+                    <h3 align="center">Rs. 2000/-</h3>
                     <input type="hidden" id="hdnGVpackage" value="2" />
                  </p>
-                    <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'2');">
-                    <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage();" style="display:none">
-            </div>
+                <div class="contain">
+                    <div class="center">
+                        <input type="button" id="btnvalid" value="Validate" class="btn btn-success" align="center" onclick="myvalidate( this,'2');">
+                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this, '2');" style="display:none">
+                    </div>
+                    </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -156,13 +184,17 @@
             </div>
             <div class="modal-body">
                 <p>
-                    <h4>Utility Package </h4>
-                    <h3>Rs. 2000/-</h3>
+                    <h4 align="center">Utility Package </h4>
+                    <h3 align="center">Rs. 2000/-</h3>
                     <input type="hidden" id="hdnUtilitypackage" value="3" />
                 </p>
-                <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'3');">
-                <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage();" style="display:none">
-            </div>
+                <div class="contain">
+                    <div class="center">
+                        <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'3');">
+                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'3');" style="display:none">
+                    </div>
+                </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -180,16 +212,18 @@
             </div>
             <div class="modal-body">
                 <p>
-                    <h4>COMBO PACKAGE</h4>
-                    <h3>Rs. 5500/-</h3>
+                    <h4 align="center">COMBO PACKAGE</h4>
+                    <h3 align="center">Rs. 5500/-</h3>
                     <input type="hidden" id="hdncombo" value="5" />
                </p>
-               
-                <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'5');">
-                <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage();" style="display:none">
+                <div class="contain">
+                    <div class="center">
+                        <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'5');">
+                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'5');" style="display:none">
+                    </div>
+                </div>
 
-
-            </div>
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
@@ -222,6 +256,10 @@
                 {
                     $("#btnsave").show();
                 }
+                else
+                {
+                    alert(data.status);
+                }
             },
             error: function (response) {
                 alert(response.responseText);
@@ -230,6 +268,11 @@
                 alert(response.responseText);
             }
         });
+    }
+    function myPackage(obj,kitid)
+    {
+        debugger;
+        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + "";
     }
 </script>
 

@@ -246,6 +246,8 @@ namespace DTShopping.Repository
                 return Area;
             }
         }
+          
+       
 
 
         public async Task<Response> SaveAPIRequest(ApiPinCoderesponse code)

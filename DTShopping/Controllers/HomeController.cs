@@ -936,11 +936,12 @@ namespace DTShopping.Controllers
             var username = user.username;
             var Combo = username+"/"+ KitID;
             var encode=Base64Encode(Combo);
+            var decode = Base64Decode(encode);
             HttpClient client = new HttpClient();
             var path = "http://gohappy.gohappynetwork.com/CoinResponse.aspx?checkid=" + encode ;
             var response = await client.GetAsync(path);
             var result = await response.Content.ReadAsStringAsync();
-            var myList = JsonConvert.DeserializeObject<List<ResponseBuyPackage>>(result);
+            var myList = JsonConvert.DeserializeObject<ResponseBuyPackage>(result);
             ApiPinCoderesponse Code = new ApiPinCoderesponse();
             {
                 Code.request = encode;
@@ -949,7 +950,7 @@ namespace DTShopping.Controllers
             }
             var statusID = await this.objRepository.SaveAPIRequest(Code);
 
-            return Json(response);
+            return Json(myList);
 
         }
 
@@ -963,6 +964,24 @@ namespace DTShopping.Controllers
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+         public async Task<ActionResult> SaveBuyPackage(string KitId)
+        {
+            var user = Session["UserDetail"] as UserDetails;
+            var username = user.username;
+            var Combo = username + "/" + KitId;
+            var encode = Base64Encode(Combo);
+            var decode = Base64Decode(encode);
+            var path = "http://gohappy.gohappynetwork.com/CoinResponse.aspx?checkid=" + encode;
+            ApiPinCoderesponse Code = new ApiPinCoderesponse();
+            {
+                Code.request = encode;
+                Code.response = "";
+                Code.url = path;
+            }
+            var statusID = await this.objRepository.SaveAPIRequest(Code);
+
+            return Redirect("http://gohappy.gohappynetwork.com/CoinResponse.aspx?token=" + encode);
         }
 
     }
