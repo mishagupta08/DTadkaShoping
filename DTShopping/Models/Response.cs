@@ -17,4 +17,9 @@ namespace DTShopping.Models
 
 
     }
+    public class ResponseBuyPackage
+    {
+        public string status { get; set; }
+        public string response { get; set; }
+    }
 }

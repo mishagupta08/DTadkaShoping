@@ -9,12 +9,14 @@ using System.Linq;
 using PagedList;
 using System.Threading;
 using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace DTShopping.Controllers
 {
     public class HomeController : Controller
     {
         APIRepository objRepository = new APIRepository();
+    
         Dashboard model = new Dashboard();
         private const int SUNVISCOMPANYID = 29;
         string Theme = System.Configuration.ConfigurationManager.AppSettings["Theme"] == null ? string.Empty : System.Configuration.ConfigurationManager.AppSettings["Theme"].ToString();
@@ -922,5 +924,46 @@ namespace DTShopping.Controllers
 
             return null;
         }
+
+         public async Task<ActionResult>BuyPackage()
+        {
+            return View();
+        }
+         public async Task<ActionResult> ValidatePackage(string KitID)
+        {
+           // UserDetails user = new UserDetails();
+               var  user =  Session["UserDetail"] as UserDetails;
+            var username = user.username;
+            var Combo = username+"/"+ KitID;
+            var encode=Base64Encode(Combo);
+            HttpClient client = new HttpClient();
+            var path = "http://gohappy.gohappynetwork.com/CoinResponse.aspx?checkid=" + encode ;
+            var response = await client.GetAsync(path);
+            var result = await response.Content.ReadAsStringAsync();
+            var myList = JsonConvert.DeserializeObject<List<ResponseBuyPackage>>(result);
+            ApiPinCoderesponse Code = new ApiPinCoderesponse();
+            {
+                Code.request = encode;
+                Code.response = result;
+                Code.url = path;
+            }
+            var statusID = await this.objRepository.SaveAPIRequest(Code);
+
+            return Json(response);
+
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
     }
 }

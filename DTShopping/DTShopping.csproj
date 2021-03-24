@@ -468,6 +468,10 @@
     <Content Include="img\flag\en.png" />
     <Content Include="img\flag\fr.png" />
     <Content Include="img\flag\germany.png" />
+    <Content Include="img\gohappy_services_1.png" />
+    <Content Include="img\gohappy_services_2.jpg" />
+    <Content Include="img\gohappy_services_3.jpg" />
+    <Content Include="img\gohappy_services_4.jpg" />
     <Content Include="img\google-play.png" />
     <Content Include="img\home\home-photo\author-1.png" />
     <Content Include="img\home\home-photo\author-2.png" />
@@ -1161,6 +1165,7 @@
     <Content Include="Views\Home\_filterSideBarOrange.cshtml" />
     <Content Include="Views\Manage\CustomErrorPage.cshtml" />
     <Content Include="Views\Account\OtherRegister.cshtml" />
+    <Content Include="Views\Home\BuyPackage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
