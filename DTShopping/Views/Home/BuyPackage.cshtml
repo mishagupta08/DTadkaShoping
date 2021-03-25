@@ -163,7 +163,7 @@
                 <div class="contain">
                     <div class="center">
                         <input type="button" id="btnvalid" value="Validate" class="btn btn-success" align="center" onclick="myvalidate( this,'2');">
-                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this, '2');" style="display:none">
+                        <input type="button" id="btnsaveGV" value="Buy Package" class="btn btn-success" onclick="myPackage(this, '2');" style="display:none">
                     </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                 <div class="contain">
                     <div class="center">
                         <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'3');">
-                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'3');" style="display:none">
+                        <input type="button" id="btnsaveUtility" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'3');" style="display:none">
                     </div>
                 </div>
                 </div>
@@ -219,7 +219,7 @@
                 <div class="contain">
                     <div class="center">
                         <input type="button" id="btnvalid" value="Validate" class="btn btn-success" onclick="myvalidate( this,'5');">
-                        <input type="button" id="btnsave" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'5');" style="display:none">
+                        <input type="button" id="btnsaveCombo" value="Buy Package" class="btn btn-success" onclick="myPackage(this,'5');" style="display:none">
                     </div>
                 </div>
 
@@ -254,7 +254,23 @@
                 debugger;
                 if(data.response=="success")
                 {
-                    $("#btnsave").show();
+                    if (kitid == "4")
+                    {
+                        $("#btnsave").show();
+                    }
+                    else if( kitid=="3")
+                    {
+                        $("#btnsaveUtility").show();
+                    }
+                    else if(kitid=="2")
+                    {
+                        $("#btnsaveGV").show();
+                    }
+                    else if(kitid=="5")
+                    {
+                        $("#btnsaveCombo").show();
+                    }
+                   
                 }
                 else
                 {
