@@ -747,7 +747,23 @@ namespace DTShopping.Controllers
 
                     if (result.Status == true)
                     {
-                        userResponse = result;
+                        //userResponse = result;
+                        
+                        userResponse.CartProductCount = result.CartProductCount;
+                        userResponse.totalPoints = Convert.ToString(result.Points) + "" +"(Balance Point 5000 (Monthly Limit 500))";
+                        userResponse.Points = result.Points;
+                        userResponse.Url = result.Url;
+                        userResponse.ResponseValue = result.ResponseValue;
+                        userResponse.Status = result.Status;
+                        userResponse.TotalRecords = result.TotalRecords;
+                         if(result.Points >0 && companyId == "30")
+                        {
+                            Session["Points"] = result.Points;
+                        }
+                        else
+                        {
+                            Session["Points"] = Convert.ToString(result.Points) + "Balance Point 5000 (Monthly Limit 500)";
+                        }
                         Session["Points"] = result.Points;
                         Session["CartNumber"] = result.CartProductCount;
                     }

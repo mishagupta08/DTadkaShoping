@@ -13,6 +13,7 @@
     }
     int CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
     int URSHOPECOMPANYID = 33;
+    int GOHAPPYCOMPANYID = 30;
     int OSMARKETCOMPANYID = 34;
     int FANCLUBCOMPANYID = 35;
     int SJLABSCOMPANYID = 40;
@@ -148,6 +149,7 @@
                                 <div id="storeLogo"> <a class="logo_inner" href='~/Home/Index'><img src="@imageUrl/@current_cmpny.logo" alt="@current_cmpny.company_name" title="@current_cmpny.company_name" width="@width" height="46" class="scale-with-grid" /></a></div>
                             }
                         </div>
+
                         <div class="six columns">
                             <div id="top_search" style="width: 120%;margin-left: 70%; margin-bottom:1%;">
                                 <form name="et_quick_find" id="et_quick_find" onsubmit="return false">
@@ -164,85 +166,103 @@
                             </div>
 
                         </div>
-                        <div id="header_blocks" class="five columns">
+                       
+                      
+                            <div id="header_blocks" class="five columns">
 
-                            <div class="row">
-                                <div class="shopping_cart">
-                                    <div class="shopping_cart_b">
-                                        <div class="cart_wrapper">
-                                            <div class="clearfix">
-                                                @if (Session["UserDetail"] != null)
-                                                {
-                                                    <p class="img_cart" style='@inLineStyle'>
-                                                        <a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">
-                                                            @if (CompanyId == URSHOPECOMPANYID)
-                                                            {
-                                                                <img src="~/unishop_theme/unishop_images/icon-cart2.png" height="30" width="30" />
-                                                            }
-                                                        </a>
-                                                    </p>
-                                                    <div class="open"> <a href="/Manage/GetCartProductList?isWithPayment=false&&deliveryType=0"><span> Cart (<span id="cartCount"></span>)</span></a></div>
-                                                    @*<a class="cart_link" href="checkout_shipping.php">Checkout</a>*@
-                                                }
+                                <div class="row">
+                                    <div class="shopping_cart">
+                                        <div class="shopping_cart_b">
+                                            <div class="cart_wrapper">
+                                                <div class="clearfix">
+                                                    @if (Session["UserDetail"] != null)
+                                                    {
+                                                        <p class="img_cart" style='@inLineStyle'>
+                                                            <a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">
+                                                                @if (CompanyId == URSHOPECOMPANYID)
+                                                                {
+                                                                    <img src="~/unishop_theme/unishop_images/icon-cart2.png" height="30" width="30" />
+                                                                }
+                                                            </a>
+                                                        </p>
+                                                        <div class="open"> <a href="/Manage/GetCartProductList?isWithPayment=false&&deliveryType=0"><span> Cart (<span id="cartCount"></span>)</span></a></div>
+                                                        @*<a class="cart_link" href="checkout_shipping.php">Checkout</a>*@
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @*<div id="shopping_cart_mini">
-                                        <div class="inner-wrapper">
-                                                                                <p class="empty">You have no items in your shopping cart.</p>
-                                                        </div>
-                                                    </div>*@
-                                </div>
-                                @if (Session["UserDetail"] != null)
-            {
-                                    <div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>
-                                    <div class="welcome" style="float:right; font-family:Oswald; font-size:14px; margin:12px 0 0 0;">
-                                        Welcome @username
                                         <div class="clear"></div>
+                                        @*<div id="shopping_cart_mini">
+                    <div class="inner-wrapper">
+                                                            <p class="empty">You have no items in your shopping cart.</p>
                                     </div>
-
-                                }
-                            </div>
-                            <div class="row">
-
-
-                                <div id="nav_first">
-                                    <div id="nav_block_head">
-                                        <div class="nav_block_head_field">Customer Tools</div>
-                                        <span class="nav_block_head_button"> </span>
-                                        <div class="clear"></div>
+                                </div>*@
                                     </div>
-                                    <div class="nav_block_dropdown">
-                                        <ul class="links">
-                                            <li class="first"><a href="/Home/Index">Home</a></li>
+                                    @if (Session["UserDetail"] != null)
+                                    {
+                                        @*<div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>*@
+                                       
+                                             <div class="balancepoints" style="/* float:right; */font-family:Oswald;font-size: 13px;margin: 19px 170px 4px -143px;">Balance Points <span id="ShowBalancePoint"></span></div>
+                                           <div class="welcome" style="/* float: left; */font-family:Oswald;font-size: 12px;margin: -36px 141px 0px 198px;">
+                                            Welcome @username
+                                            <div class="clear"></div>
+                                        </div>
+                                        @*<div class="welcome" style="float:right; font-family:Oswald; font-size:14px; margin:12px 0 0 0;">
+                                            Welcome @username
+                                            <div class="clear"></div>
+                                        </div>*@
 
-                                            @if (Session["UserDetail"] != null)
-                                            {
-                                                @*<li><a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">Shopping Cart</a></li>*@
-                                                <li><a href="/Home/MyAccount">My Account</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a href="/Account/Login">My Account</a></li>
-                                                <li><a href="/Account/Login">Login</a></li>
-                                            }
-                                            @if (Session["UserDetail"] != null)
-                                            {
-                                                @*<li class="last"><a href="/Home/Claims">Claims</a></li>*@
-                                                <li class="last"><a href="/Home/BuyPackage" target="_blank">Buy Package</a></li> @*href = "http://www.gohappycart.com/index-1.asp"*@
-                                                 <li class="last"><a href="/Account/LogOff">Logout</a></li>
-                                            }
+                                    }
+                                </div>
+                                @*<div class="row">
+                                    @if (Session["UserDetail"] != null)
+                                    {
+                                        <div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>
+                                    }
+                                </div>*@
+                                <div class="row">
 
-                                        </ul>
+
+                                    <div id="nav_first">
+                                        <div id="nav_block_head">
+                                            <div class="nav_block_head_field">Customer Tools</div>
+                                            <span class="nav_block_head_button"> </span>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="nav_block_dropdown">
+                                            <ul class="links">
+                                                <li class="first"><a href="/Home/Index">Home</a></li>
+
+                                                @if (Session["UserDetail"] != null)
+                                                {
+                                                    @*<li><a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">Shopping Cart</a></li>*@
+                                                    <li><a href="/Home/MyAccount">My Account</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="/Account/Login">My Account</a></li>
+                                                    <li><a href="/Account/Login">Login</a></li>
+                                                }
+                                                @if (Session["UserDetail"] != null)
+                                                {
+                                                    @*<li class="last"><a href="/Home/Claims">Claims</a></li>*@
+                                                    <li class="last"><a href="/Home/BuyPackage" target="_blank">Buy Package</a></li> @*href = "http://www.gohappycart.com/index-1.asp"*@
+                                                    <li class="last"><a href="/Account/LogOff">Logout</a></li>
+                                                }
+
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
+
+
+
+
+
                             </div>
-
-
-
-
-
-                        </div>
+                       
+                      
+                        <br/>
                     </div>
                 </div>
             </div>
@@ -455,8 +475,19 @@
             async: false,
             url: "/Home/getCartCount",
             success: function (result) {
+                debugger;
                 $("#cartCount").html(result.CartProductCount);
-                $("#ShowBalancePoint").html(result.Points);
+                 var comapnyid=@CompanyId;
+                //$("#ShowBalancePoint").html(result.totalPoints);
+                if (result.Points > 0 && comapnyid == 30)
+                {
+                   // var points = result.Points + "Balance Point 5000 (Monthly Limit 500)";
+                    $("#ShowBalancePoint").html(result.totalPoints);
+                }
+                else {
+                    $("#ShowBalancePoint").html(result.Points);
+                }
+                
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Status: " + textStatus); alert("Error: " + errorThrown);

@@ -5,6 +5,7 @@
     string imageUrl = System.Configuration.ConfigurationManager.AppSettings["ImageUrl"];
     int CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
     int URSHOPECOMPANYID = 33;
+    int GOHAPPYCOMPANYID = 30;
     int ETRADECOMPANYID = 42;
     int DUDHAMRITCOMPANYID = 43;
     int MYDWORLDCOMPANYID = 44;
@@ -144,7 +145,7 @@
                 }
                 else
                 {
-                    if (!(CompanyId == DUDHAMRITCOMPANYID || CompanyId == ETRADECOMPANYID || CompanyId == MYDWORLDCOMPANYID))
+                    if (!(CompanyId == DUDHAMRITCOMPANYID || CompanyId == ETRADECOMPANYID || CompanyId == MYDWORLDCOMPANYID || CompanyId== GOHAPPYCOMPANYID))
                     {
                         <table width="97%" border="0" cellspacing="5" cellpadding="5" class="shoptable" style="border:1px solid #CCCCCC;">
                             <tr>

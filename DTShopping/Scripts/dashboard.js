@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    debugger;
     $(".preloader").hide();
 
         $('#addToCart').click(function (e) {
