@@ -55,6 +55,20 @@
                             <br/>
                             <p> <a href="#" data-toggle="modal" data-target="#GVPackagedetail" class="text-info"> <strong>GET DETAILS</strong></a> </p>
                             <br/>
+                            <table id="tblGV" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td><input id="GVRbtPayment_0" type="radio" name="RbtPayment" value="C" checked="checked" ><label for="GVRbtPayment_0">Coin Payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="GVRbtPayment_1" type="radio" name="RbtPayment" value="P"><label for="GVRbtPayment_1" >Card/UPI payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="GVRbtPayment_2" type="radio" name="RbtPayment" value="W"><label for="GVRbtPayment_2">Wallet Payment</label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
                             <input type="hidden" id="hdnGVpackage" value="2" /> @*data-toggle="modal" data-target="#GVPackage"*@
                             <a href="#" onclick="myvalidate( this,'2');"><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
                          
@@ -74,6 +88,20 @@
                             <br/>
                             <p> <a href="#" data-toggle="modal" data-target="#OnlineDealsdetails" class="text-info"> <strong>GET DETAILS</strong></a> </p>
                             <br/>@*data-toggle="modal" data-target="#OnlineDeals"*@
+                            <table id="tblOnline" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td><input id="OnlineRbtPayment_0" type="radio" name="RbtPayment" value="C" checked="checked"><label for="OnlineRbtPayment_0">Coin Payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="OnlineRbtPayment_1" type="radio" name="RbtPayment" value="P" ><label for="OnlineRbtPayment_1" >Card/UPI payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="OnlinePayment_2" type="radio" name="RbtPayment" value="W"><label for="OnlinePayment_2">Wallet Payment</label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
                             <a href="#"  onclick="myvalidate( this,'4');" ><input type="button" class="btn btn-success" value="BUY PACKAGE"/></a>
                              <input  type="hidden" id="hdnOnlineDeals" value="4"/>
                             <p>&nbsp;</p>
@@ -93,6 +121,20 @@
                             <br/>
                             <p> <a href="#" data-toggle="modal" data-target="#UtilityPackagedetail" class="text-info"> <strong>GET DETAILS</strong></a> </p>
                             <br/>@*data-toggle="modal" data-target="#UtilityPackage"*@
+                            <table id="tblUtility" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td><input id="UtilityRbtPayment_0" type="radio" name="RbtPayment" value="C" checked="checked" ><label for="UtilityRbtPayment_0">Coin Payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="UtilityRbtPayment_1" type="radio" name="RbtPayment" value="P" ><label for="UtilityRbtPayment_1" >Card/UPI payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="UtilityRbtPayment_2" type="radio" name="RbtPayment" value="W"><label for="UtilityRbtPayment_2">Wallet Payment</label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
                             <a href="#"  onclick="myvalidate( this,'3');"><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
                             <input type="hidden" id="hdnUtilitypackage" value="3" />
                         </div>
@@ -110,9 +152,24 @@
                             <h5>Rs. 5500/-</h5>
                             <br/>
                             <p> <a href="#" data-toggle="modal" data-target="#ComboPackagedetail" class="text-info"> <strong>GET DETAILS</strong></a> </p>
-                            <br/>@*data-toggle="modal" data-target="#ComboPackage"*@
-                            <a href="#"onclick="myvalidate( this,'5');" ><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
                             <input type="hidden" id="hdncombo" value="5" />
+                            <br/>@*data-toggle="modal" data-target="#ComboPackage"*@
+                            <table id="tblCombo" border="0">
+                                <tbody>
+                                    <tr>
+                                        <td><input id="ComboRbtPayment_0" type="radio" name="RbtPayment" value="C" checked="checked" ><label for="ComboRbtPayment_0">Coin Payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="ComboRbtPayment_1" type="radio" name="RbtPayment" value="P" ><label for="ComboRbtPayment_1" >Card/UPI payment</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="ComboRbtPayment_2" type="radio" name="RbtPayment" value="W"><label for="ComboRbtPayment_2">Wallet Payment</label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <a href="#"onclick="myvalidate( this,'5');" ><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
+                          
                         </div>
                     </div>
                 </div>
@@ -385,55 +442,95 @@
     function myvalidate( obj,kitid)
     {
         debugger;
+       
         $(".preloader").show();
-        var kitId = kitid;
-        var kit = $("hdnOnlineDeals").val();
-        $.ajax({
-            url: '/Home/ValidatePackage',
-            data: { KitID: kitId },
-            dataType: "json",
-            type: "POST",
-            success: function (data) {
-                debugger;
-                if(data.response=="success")
-                {
-                    if (kitid == "4")
-                    {
-                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; //$("#btnsave").show();
+        var radiovalue = $('input[name="RbtPayment"]:checked').val();
+        if (radiovalue == "C")
+        {
+            var kitId = kitid;
+            var kit = $("hdnOnlineDeals").val();
+            $.ajax({
+                url: '/Home/ValidatePackage',
+                data: { KitID: kitId },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    debugger;
+                    if (data.response == "success") {
+                        if (kitid == "4") {
+                            window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; //$("#btnsave").show();
+                        }
+                        else if (kitid == "3") {
+                            window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + "";//$("#btnsaveUtility").show();
+                        }
+                        else if (kitid == "2") {
+                            window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; // $("#btnsaveGV").show();
+                        }
+                        else if (kitid == "5") {
+                            window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; // $("#btnsaveCombo").show();
+                        }
                     }
-                    else if( kitid=="3")
-                    {
-                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + "";//$("#btnsaveUtility").show();
+                    else {
+                        alert(data.status);
                     }
-                    else if(kitid=="2")
-                    {
-                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; // $("#btnsaveGV").show();
-                    }
-                    else if(kitid=="5")
-                    {
-                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; // $("#btnsaveCombo").show();
-                    }
+                    $(".preloader").hide();
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
                 }
-                else
-                {
-                    alert(data.status);
-                }
-                $(".preloader").hide();
-            },
-            error: function (response) {
-                alert(response.responseText);
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            }
-                
-        });
+
+            });
+        }
+        else if(radiovalue=="P" && kitid == "4" )
+        {
+            window.location.href = "https://imjo.in/CTt9uw";
+            $(".preloader").hide();//$("#btnsave").show();
+        }
+        else if(radiovalue=="P" && kitid == "3")
+        {
+            window.location.href = "https://imjo.in/J9HWVw";
+            $(".preloader").hide();
+        }
+        else if(radiovalue=="P" && kitid=="2")
+        {
+            window.location.href = "https://imjo.in/4PdACH";
+            $(".preloader").hide();
+        }
+        else if (radiovalue == "P" && kitid == "5") {
+            window.location.href = "https://imjo.in/8yGrrM";
+            $(".preloader").hide();
+        }
+        else if(radiovalue == "W")
+        {
+            $(".preloader").hide();
+        }
         
     }
     function myPackage(obj,kitid)
     {
         debugger;
         window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + "";
+    }
+
+    function CartUpt(obj,kitid)
+    {
+        debugger;
+        if (kitid == "4") {
+            window.location.href = "https://imjo.in/CTt9uw"; //$("#btnsave").show();
+        }
+        else if (kitid == "3") {
+            window.location.href = "https://imjo.in/J9HWVw";//$("#btnsaveUtility").show();
+        }
+        else if (kitid == "2") {
+            window.location.href = "https://imjo.in/4PdACH"; // $("#btnsaveGV").show();
+        }
+        else if (kitid == "5") {
+            window.location.href = "https://imjo.in/8yGrrM"; // $("#btnsaveCombo").show();
+        }
+
     }
 </script>
 
