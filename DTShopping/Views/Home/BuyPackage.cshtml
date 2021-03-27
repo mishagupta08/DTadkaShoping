@@ -379,13 +379,13 @@
 
 
     $(document).ready(function () {
+        debugger;
         $(".preloader").hide();
-
     });
     function myvalidate( obj,kitid)
     {
         debugger;
-       // $(".preloader").show();
+        $(".preloader").show();
         var kitId = kitid;
         var kit = $("hdnOnlineDeals").val();
         $.ajax({
@@ -418,6 +418,7 @@
                 {
                     alert(data.status);
                 }
+                $(".preloader").hide();
             },
             error: function (response) {
                 alert(response.responseText);
@@ -427,7 +428,7 @@
             }
                 
         });
-       // $(".preloader").hide();
+        
     }
     function myPackage(obj,kitid)
     {
