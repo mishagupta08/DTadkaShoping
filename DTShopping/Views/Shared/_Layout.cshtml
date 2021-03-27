@@ -202,9 +202,9 @@
                                     {
                                         @*<div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>*@
                                        
-                                             <div class="balancepoints" style="/* float:right; */font-family:Oswald;font-size: 13px;margin: 19px 170px 4px -143px;">Balance Points <span id="ShowBalancePoint"></span>
-                                                 <span id="spnpointText">(Balance Point 5000 (Monthly Limit 500))</span></div>
-                                           <div class="welcome" style="/* float: left; */font-family:Oswald;font-size: 12px;margin: -36px 141px 0px 198px;">
+                                             <div class="balancepoints" style="font-family:Oswald;font-size: 13px;margin:15px 170px 9px -60px ;"><span id="spnbalence_point">Balance Points <span id="ShowBalancePoint"></span></span>@*19px 170px 4px -143px;*@
+                                                 <span id="spnpointText">Balance Point 5000 (Monthly Limit <span id="ShowBalancePointText"></span>)</span></div>
+                                           <div class="welcome" style="float:right;font-family:Oswald;font-size:12px;margin:-28px 135px -20px 0px;"> @*-36px 141px 0px 198px;*@
                                             Welcome @username
                                             <div class="clear"></div>
                                         </div>
@@ -480,14 +480,19 @@
                 $("#cartCount").html(result.CartProductCount);
                  var comapnyid=@CompanyId;
                 //$("#ShowBalancePoint").html(result.totalPoints);
-                $("#ShowBalancePoint").html(result.Points);
+             
                 if (result.Points > 0 && comapnyid == 30)
                 {
-                   // var points = result.Points + "Balance Point 5000 (Monthly Limit 500)";
+                    // var points = result.Points + "Balance Point 5000 (Monthly Limit 500)";
+                    $("#ShowBalancePointText").html(result.Points);
                     $("#spnpointText").show();
+                    $("#spnbalence_point").hide();
+                  
                 }
                 else 
                 {
+                    $("#spnbalence_point").show();
+                    $("#ShowBalancePoint").html(result.Points);
                     $("#spnpointText").hide();
                 }
                 
