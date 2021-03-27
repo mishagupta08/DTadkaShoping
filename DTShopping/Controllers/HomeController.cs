@@ -958,6 +958,7 @@ namespace DTShopping.Controllers
             var response = await client.GetAsync(path);
             var result = await response.Content.ReadAsStringAsync();
             var myList = JsonConvert.DeserializeObject<ResponseBuyPackage>(result);
+            
             ApiPinCoderesponse Code = new ApiPinCoderesponse();
             {
                 Code.request = encode;
@@ -988,7 +989,7 @@ namespace DTShopping.Controllers
             var Combo = username + "/" + KitId;
             var encode = Base64Encode(Combo);
             var decode = Base64Decode(encode);
-            var path = "http://gohappy.gohappynetwork.com/CoinResponse.aspx?checkid=" + encode;
+            var path = "http://gohappy.gohappynetwork.com/CoinResponse.aspx?token=" + encode;
             ApiPinCoderesponse Code = new ApiPinCoderesponse();
             {
                 Code.request = encode;

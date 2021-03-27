@@ -49,13 +49,14 @@
                         <img src="~/img/gohappy_services_1.png" class="img-thumbnail" />
                         @*<img src="Gohappy/img/gohappy_services_1.png" class="img-thumbnail">*@
                         <div class="caption">
-                            <br>
+                            <br/>
                             <h4 class="text-info"> GV Package  </h4>
                             <h5>Rs. 2000/-</h5>
                             <br/>
-                            @*<p> <a href="#" data-toggle="modal" data-target="#GVPackage"> <strong>GET DETAILS</strong></a> </p>*@
-                            <input type="hidden" id="hdnGVpackage" value="2" />
-                            <a href="#" data-toggle="modal" data-target="#GVPackage"><input type="button" class="btn btn-success" value="GET BUY PACKAGE" /></a>
+                            <p> <a href="#" data-toggle="modal" data-target="#GVPackagedetail" class="text-info"> <strong>GET DETAILS</strong></a> </p>
+                            <br/>
+                            <input type="hidden" id="hdnGVpackage" value="2" /> @*data-toggle="modal" data-target="#GVPackage"*@
+                            <a href="#" onclick="myvalidate( this,'2');"><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
                          
                         </div>
                     </div>
@@ -67,12 +68,13 @@
                         <img src="~/img/gohappy_services_2.jpg" class="img-thumbnail"/>
                         @*<img src="Gohappy/img/gohappy_services_2.jpg" class="img-thumbnail">*@
                         <div class="caption">
-                            <br>
+                            <br/>
                             <h4 class="text-info"> Online Deals  </h4>
                             <h5>Rs. 2000/-</h5>
                             <br/>
-                            @*<p> <a href="#" data-toggle="modal" data-target="#OnlineDeals"> <strong>GET DETAILS</strong></a> </p>*@
-                            <a href="#" data-toggle="modal" data-target="#OnlineDeals"><input type="button" class="btn btn-success" value="GET BUY PACKAGE"/></a>
+                            <p> <a href="#" data-toggle="modal" data-target="#OnlineDealsdetails" class="text-info"> <strong>GET DETAILS</strong></a> </p>
+                            <br/>@*data-toggle="modal" data-target="#OnlineDeals"*@
+                            <a href="#"  onclick="myvalidate( this,'4');" ><input type="button" class="btn btn-success" value="BUY PACKAGE"/></a>
                              <input  type="hidden" id="hdnOnlineDeals" value="4"/>
                             <p>&nbsp;</p>
                         </div>
@@ -89,8 +91,9 @@
                             <h4 class="text-info"> Utility Package  </h4>
                             <h5>Rs. 2000/-</h5>
                             <br/>
-                            @*<p> <a href="#" data-toggle="modal" data-target="#UtilityPackage"> <strong>GET DETAILS</strong></a> </p>*@
-                            <a href="#" data-toggle="modal" data-target="#UtilityPackage"><input type="button" class="btn btn-success" value="GET BUY PACKAGE" /></a>
+                            <p> <a href="#" data-toggle="modal" data-target="#UtilityPackagedetail" class="text-info"> <strong>GET DETAILS</strong></a> </p>
+                            <br/>@*data-toggle="modal" data-target="#UtilityPackage"*@
+                            <a href="#"  onclick="myvalidate( this,'3');"><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
                             <input type="hidden" id="hdnUtilitypackage" value="3" />
                         </div>
                     </div>
@@ -106,8 +109,9 @@
                             <h4 class="text-info"> Combo Package   </h4>
                             <h5>Rs. 5500/-</h5>
                             <br/>
-                            @*<p> <a href="#" data-toggle="modal" data-target="#ComboPackage"> <strong>GET DETAILS</strong></a> </p>*@
-                            <a href="#" data-toggle="modal" data-target="#ComboPackage"><input type="button" class="btn btn-success" value="GET BUY PACKAGE" /></a>
+                            <p> <a href="#" data-toggle="modal" data-target="#ComboPackagedetail" class="text-info"> <strong>GET DETAILS</strong></a> </p>
+                            <br/>@*data-toggle="modal" data-target="#ComboPackage"*@
+                            <a href="#"onclick="myvalidate( this,'5');" ><input type="button" class="btn btn-success" value="BUY PACKAGE" /></a>
                             <input type="hidden" id="hdncombo" value="5" />
                         </div>
                     </div>
@@ -233,6 +237,144 @@
 <!-- Modal -->
 
 
+ <!-- Modal -->
+<div class="modal fade" id="GVPackagedetail" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <h4>GV Package</h4><br>
+                <p>GohappyCart.com</p>
+                <p>
+                    Get points worth Rs. 5000 divided into 10 months from your Date of Activation.
+                    Every month you can use 500 point on purchase of any Gift Voucher.
+                    Min purchase value worth Rs. 3000 or above.
+                </p>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+  <!-- Modal -->
+<div class="modal fade" id="OnlineDealsdetails" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <h4>Online Deals</h4><br>
+                <p> Gohappydeal.com </p>
+                <p>
+                    Get 10 Promo Code, each promocode value worth Rs. 500.
+                    You can use one Promocode in one order Max Discount on each order will be worth Rs. 500.
+                    Min purchase value worth Rs. 1000 or above.
+                </p>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="UtilityPackagedetail" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <h4>Utility Package </h4>
+                    - Get 10 Promo Code, each promocode value worth Rs. 500<br>
+                    - 100% Promovalue can be used in a selected service. <br>
+                    - you will get promocode for use of services<br>
+                    - 2 Promocode for Flight Booking  <br>
+                    - 2 Promocode for Bus Booking <br>
+                    - 1 Promocode for Hotel Booking<br>
+                    - Promocode for Insurance Payment <br>
+                    - 2 Promocode for Credit Card Payment  <br>
+                    - 2 Promocode for Electric Bill Payment <br>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="ComboPackagedetail" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <h4>GV Package</h4>
+                <p>GohappyCart.com</p>
+                <p>
+                    Get points worth Rs. 5000 divided into 10 months from your Date of Activation.
+                    Every month you can use 500 point on purchase of any Gift Voucher.
+                    Min purchase value worth Rs. 3000 or above.
+                </p>
+                </p>
+                <hr>
+
+                <p>
+                    <h4>Online Deals</h4>
+                <p> Gohappydeal.com </p>
+                <p>
+                    Get 10 Promo Code, each promocode value worth Rs. 500.
+                    You can use one Promocode in one order Max Discount on each order will be worth Rs. 500.
+                    Min purchase value worth Rs. 1000 or above.
+                </p>
+                </p>
+
+                <hr>
+
+                <p>
+                    <h4>Utility Package </h4>
+                <p>
+                    - Get 10 Promo Code, each promocode value worth Rs. 500<br>
+                    - 100% Promovalue can be used in a selected service. <br>
+                    - you will get promocode for use of services<br>
+                    - 2 Promocode for Flight Booking  <br>
+                    - 2 Promocode for Bus Booking <br>
+                    - 1 Promocode for Hotel Booking<br>
+                    - Promocode for Insurance Payment <br>
+                    - 2 Promocode for Credit Card Payment  <br>
+                    - 2 Promocode for Electric Bill Payment <br>
+                </p>
+                </p>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
 <script>
 
 
@@ -243,6 +385,7 @@
     function myvalidate( obj,kitid)
     {
         debugger;
+       // $(".preloader").show();
         var kitId = kitid;
         var kit = $("hdnOnlineDeals").val();
         $.ajax({
@@ -256,21 +399,20 @@
                 {
                     if (kitid == "4")
                     {
-                        $("#btnsave").show();
+                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; //$("#btnsave").show();
                     }
                     else if( kitid=="3")
                     {
-                        $("#btnsaveUtility").show();
+                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + "";//$("#btnsaveUtility").show();
                     }
                     else if(kitid=="2")
                     {
-                        $("#btnsaveGV").show();
+                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; // $("#btnsaveGV").show();
                     }
                     else if(kitid=="5")
                     {
-                        $("#btnsaveCombo").show();
+                        window.location.href = "/Home/SaveBuyPackage?KitId=" + kitid + ""; // $("#btnsaveCombo").show();
                     }
-                   
                 }
                 else
                 {
@@ -283,7 +425,9 @@
             failure: function (response) {
                 alert(response.responseText);
             }
+                
         });
+       // $(".preloader").hide();
     }
     function myPackage(obj,kitid)
     {
