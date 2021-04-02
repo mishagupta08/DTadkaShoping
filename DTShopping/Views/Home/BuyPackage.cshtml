@@ -484,28 +484,114 @@
 
             });
         }
-        else if(radiovalue=="P" && kitid == "4" )
+        else if(radiovalue=="P")
         {
-            window.location.href = "https://imjo.in/CTt9uw";
-            $(".preloader").hide();//$("#btnsave").show();
+            var kitId = kitid;
+            $.ajax({
+                url: '/Home/ValidatePackage',
+                data: { KitID: kitId },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.response == "success" && kitid == "4") {
+                        debugger;
+                        window.location.href = "https://imjo.in/CTt9uw";
+                        $(".preloader").hide();//$("#btnsave").show();
+                    }
+                    else if(data.response == "success" && kitid == "3")
+                    {
+                        window.location.href = "https://imjo.in/J9HWVw";
+                        $(".preloader").hide();
+                    }
+                    else if(data.response == "success" && kitid == "2")
+                    {
+                        window.location.href = "https://imjo.in/4PdACH";
+                        $(".preloader").hide();
+                    }
+                    else if (data.response == "success" && kitid == "5")
+                    {
+                        window.location.href = "https://imjo.in/8yGrrM";
+                        $(".preloader").hide();
+                    }
+                    else {
+                        alert(data.status);
+                    }
+
+                    $(".preloader").hide();
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+
+            });//$(".preloader").hide();
+
+            //window.location.href = "https://imjo.in/CTt9uw";
+            //$(".preloader").hide();//$("#btnsave").show();
         }
-        else if(radiovalue=="P" && kitid == "3")
+        //else if(radiovalue=="P" && kitid == "3")
+        //{
+        //    window.location.href = "https://imjo.in/J9HWVw";
+        //    $(".preloader").hide();
+        //}
+        //else if(radiovalue=="P" && kitid=="2")
+        //{
+        //    window.location.href = "https://imjo.in/4PdACH";
+        //    $(".preloader").hide();
+        //}
+        //else if (radiovalue == "P" && kitid == "5") {
+        //    window.location.href = "https://imjo.in/8yGrrM";
+        //    $(".preloader").hide();
+        //}
+        else if (radiovalue == "W")
         {
-            window.location.href = "https://imjo.in/J9HWVw";
-            $(".preloader").hide();
-        }
-        else if(radiovalue=="P" && kitid=="2")
-        {
-            window.location.href = "https://imjo.in/4PdACH";
-            $(".preloader").hide();
-        }
-        else if (radiovalue == "P" && kitid == "5") {
-            window.location.href = "https://imjo.in/8yGrrM";
-            $(".preloader").hide();
-        }
-        else if(radiovalue == "W")
-        {
-            $(".preloader").hide();
+            debugger;
+            $(".preloader").show();
+            var kitId = kitid;
+            $.ajax({
+                url: '/Home/ValidatePackage',
+                data: { KitID: kitId },
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    if (data.response == "success")
+                    {
+                        debugger;
+                        var kitId = kitid;
+                        $.ajax({
+                            url: '/Home/ValidateWalletPackage',
+                            data: { KitID: kitId },
+                            dataType: "json",
+                            type: "POST",
+                            success: function (result) {
+                                if(result.response == "success")
+                                {
+                                    alert(result.status);
+                                }
+                                else {
+                                    alert(result.status);
+                                }
+                            }
+                        });
+                       
+                    }
+                    else {
+                        alert(data.status);
+                    }
+                   
+                    $(".preloader").hide();
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                }
+                  
+            });//$(".preloader").hide();
+          
         }
         
     }

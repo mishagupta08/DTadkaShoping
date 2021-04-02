@@ -1000,6 +1000,28 @@ namespace DTShopping.Controllers
 
             return Redirect("http://gohappy.gohappynetwork.com/CoinResponse.aspx?token=" + encode);
         }
+         public async Task<ActionResult> ValidateWalletPackage(string KitId)
+        {
+            var user = Session["UserDetail"] as UserDetails;
+            var username = user.username;
+            var Combo = username + "/" + KitId;
+            var encode = Base64Encode(Combo);
+            var decode = Base64Decode(encode);
+            var path = "http://gohappy.gohappynetwork.com/CoinResponse.aspx?wallet=" + encode;
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync(path);
+            var result = await response.Content.ReadAsStringAsync();
+            var myList = JsonConvert.DeserializeObject<ResponseBuyPackage>(result);
+
+            ApiPinCoderesponse Code = new ApiPinCoderesponse();
+            {
+                Code.request = encode;
+                Code.response = result;
+                Code.url = path;
+            }
+            var statusID = await this.objRepository.SaveAPIRequest(Code);
+            return Json(myList);
+        }
 
     }
 }
