@@ -39,5 +39,26 @@ namespace DTShopping.Models
         public string ifsc { get; set; }
         public string branch { get; set; }
         public string aadharno { get; set; }
+        // public string religion { get; set; }
+         public string jointype { get; set; }
+         public string religiontype { get; set; }
+        public string religionid { get; set; }
+         public string nonreligionid { get; set; }
+         public string religionname { get; set; }
+        public string nonreligionname { get; set; }
+    }
+     public class ReligionReqType
+    {
+        public string  reqtype { get; set; }
+    }
+     public  class Religion
+    {
+         public string id { get; set; }
+         public string religion { get; set; }
+    }
+    public class RegligionResponse
+    {
+        public List<Religion> religions {get;set;}
+         public List<Religion> nonreligions { get; set; }
     }
 }

@@ -203,6 +203,7 @@ namespace DTShopping
             this.model = new Dashboard();
             this._APIManager = new APIRepository();
             await this.AssignOtherAreaCode("");
+            await this.GetRegilionResponse("");
             return View(this.model);
         }
 
@@ -256,7 +257,7 @@ namespace DTShopping
         }
 
 
-        public async Task<ActionResult> SaveOtherRegister(string mobileNo, string referralid, string name, string address, string statecode, string district, string city, string email, string areacode, string citycode, string districtcode, string panno, string pinCode)
+        public async Task<ActionResult> SaveOtherRegister(string mobileNo, string referralid, string name, string address, string statecode, string district, string city, string email, string areacode, string citycode, string districtcode, string panno, string pinCode,string radiovalue,string religionid, string religionname)
         {
 
             General clsgen = new General();
@@ -266,6 +267,7 @@ namespace DTShopping
             ApiOtherRegister register = new ApiOtherRegister();
             try
             {
+                
                 register.reqtype = "register";
                 register.username = string.Empty;
                 register.name = name;
@@ -298,6 +300,24 @@ namespace DTShopping
                 register.ifsc = "PUNB112478";
                 register.branch = "sanganerigate";
                 register.aadharno = "12323434";
+                register.jointype = "S";
+                register.religiontype = radiovalue;
+           
+                 if(radiovalue=="R")
+                {
+                    register.religionid = religionid;
+                    register.religionname = religionname;
+                    register.nonreligionid = "0";
+                    register.nonreligionname = "";
+                }
+                else
+                {
+                    register.religionid = "0";
+                    register.religionname = "";
+                    register.nonreligionid = religionid;
+                    register.nonreligionname = religionname;
+                }
+               
                 string output1 = JsonConvert.SerializeObject(register);
                 HttpWebRequest reponse;
                 reponse = clsgen.JSON(output1, "https://cpanel.gohappynetwork.com/DTProcess.aspx");
@@ -318,6 +338,57 @@ namespace DTShopping
             return Json(jsonResponse);
         }
 
+         public async Task<ActionResult> GetRegilionResponse(string RadioValue)
+        {
+            ReligionReqType req = new ReligionReqType();
+            General clsgen = new General();
+            this._APIManager = new APIRepository();
+            RegligionResponse Regilion = new RegligionResponse();
+            string jsonResponse = string.Empty;
+         
+            if (RadioValue=="R")
+            {
+                req.reqtype = "religion";
+            }
+            else if(RadioValue=="N")
+            {
+                req.reqtype = "nonreligion";
+            }
+            else if (RadioValue == "")
+            {
+                this.model.religion = new List<Religion>();
+                this.model.religion.Add(new Religion
+                {
+                    id = "0",
+                    religion = "-Not Available-"
+                });
+            }
+            string output1 = JsonConvert.SerializeObject(req);
+            HttpWebRequest reponse;
+            reponse = clsgen.JSON(output1, "https://cpanel.gohappynetwork.com/DTProcess.aspx");
+            jsonResponse = clsgen.GetResponse(reponse);
+            Regilion = JsonConvert.DeserializeObject<RegligionResponse>(jsonResponse);
+             if(RadioValue=="N")
+            {
+                Regilion.nonreligions.RemoveAt(0);
+            }
+            else if(RadioValue=="R")
+            {
+
+                Regilion.religions.RemoveAt(0);
+            }
+       
+
+
+           ApiPinCoderesponse Code = new ApiPinCoderesponse();
+            {
+                Code.request = output1;
+                Code.response = jsonResponse;
+                Code.url = "https://cpanel.gohappynetwork.com/DTProcess.aspx";
+            }
+            var statusID = await this._APIManager.SaveAPIRequest(Code);
+            return Json(Regilion);
+        }
         //
         // POST: /Account/Register
         [HttpPost]

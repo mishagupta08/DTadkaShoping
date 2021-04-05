@@ -13,6 +13,13 @@
                    
                     @*<form data-parsley-validate class="validateForm form-horizontal form-style" id="addForm" onsubmit="return Other_Register();">*@
                         @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="bCancel"></label>
+                        <div class="col-md-8">
+                            <input id="btnradReligon" type="radio" name="RbtReligion" value="R" onclick="GetReligionResponse();"><label for="btnradReligon">Regilion</label>
+                            <input id="btnradNonReligon" type="radio" name="RbtReligion" value="N" onclick="GetReligionResponse();"><label for="btnradNonReligon">NonRegilion</label>
+                        </div>
+                    </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtName">Referal ID</label>
                             <div class="col-md-4">
@@ -27,6 +34,8 @@
 
                             </div>
                         </div>
+
+                   
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtAddress">Address</label>
@@ -75,6 +84,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group" id="divreligion" style="display:none">
+                        <label class="col-md-4 control-label">Religion</label>
+                        <div class="col-md-4">
+                            @*<asp:DropDownList ID="ddlArea" ClientIDMode="Static" runat="server" CssClass="form-control input-md"></asp:DropDownList>*@
+                            @Html.DropDownListFor(m => m.OtherRegister.religionid, new SelectList(Model.religion, "id", "religion"), new { @required = "0", id = "ddlreligion", @class = "form-control multiselect-ui" })
+                        </div>
+                    </div>
+
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtMobileNo">Mobile No.*</label>
                             <div class="col-md-4">
@@ -114,6 +131,10 @@
 
                             </div>
                         </div>
+
+                   
+
+                 
                         <input type="hidden" id="hdnStateCode" />
                         <input type="hidden" id="hdnCityCode" />
                         <input type="hidden" id="hdnDistrictCode" />
@@ -175,10 +196,7 @@
             return false;
         }
         var referralid = $("#referralid").val();
-        //if (referralid == "") {
-        //    alert("Please Enter the referral id! ");
-        //    return false;
-        //}
+       
         var name = $("#name").val();
         if (name == "") {
             alert("Please Enter the name! ");
@@ -191,13 +209,9 @@
         }
         var statecode = $("#hdnStateCode").val();;
         var district = $("#district").val();
-        //if (district = "") {
-        //    alert("Please Enter the district! ")
-        //}
+      
         var city = $("#city").val();
-        //if (city = "") {
-        //    alert("Please Enter the city! ")
-        //}
+      
         var email = $("#email").val();
         if (email == "") {
             alert("Please Enter the email! ");
@@ -222,11 +236,24 @@
             alert("Please pinCode the panno! ");
             return false;
         }
+        var radiovalue = $('input[name="RbtReligion"]:checked').val();
+        if (radiovalue == "" || radiovalue == undefined || radiovalue == null)
+        {
+            alert("Please select  religion option!");
+            return false;
+        }
+        var religionid = $("#ddlreligion").val();
+        if (religionid == "0" || religionid == "" || religionid== null)
+        {
+            alert(" Please select  the Religion!");
+            return false;
+        }
+        var religionname = $("#ddlreligion option:selected").text();
         $.ajax({
             type: "POST",
             url: '/Account/SaveOtherRegister',
             datatype: "Json",
-            data: { mobileNo: mobileNo, referralid: referralid, name: name, address: address, statecode: statecode, district: district, city: city, email: email, areacode: areacode, citycode: citycode, districtcode: districtcode, panno: panno, pinCode: pinCode },
+            data: { mobileNo: mobileNo, referralid: referralid, name: name, address: address, statecode: statecode, district: district, city: city, email: email, areacode: areacode, citycode: citycode, districtcode: districtcode, panno: panno, pinCode: pinCode, radiovalue: radiovalue, religionid: religionid, religionname: religionname },
             success: function (data) {
                 debugger;
 
@@ -256,5 +283,39 @@
 
         });
 
+    }
+
+    function GetReligionResponse()
+    {
+        debugger;
+        $(".preloader").show();
+        var radiovalue = $('input[name="RbtReligion"]:checked').val();
+        $.ajax({
+            type: "POST",
+            url: '/Account/GetRegilionResponse',
+            datatype: "Json",
+            data: { RadioValue: radiovalue },
+            success: function (result) {
+                debugger;
+                $("#divreligion").show();
+                if (radiovalue == "R")
+                {
+                    $.each(result.religions, function (index, value) {
+                        $("#ddlreligion").append($("<option></option>").val(value.id).html(value.religion));
+                    });
+                    $(".preloader").hide();
+                }
+                else if (radiovalue=="N") {
+                    $.each(result.nonreligions, function (index, value) {
+                        $("#ddlreligion").append($("<option></option>").val(value.id).html(value.religion));
+                    });
+                    $(".preloader").hide();
+                }
+              
+               
+                $(".preloader").hide();
+            }
+
+        });
     }
 </script>
