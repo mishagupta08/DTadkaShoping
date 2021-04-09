@@ -279,7 +279,7 @@
                     alert("Registered Successfully!! your ID No. is  " + obj.idno + " and password " + obj.password + "");
                 }
                 else {
-                    alert("invalid pincode");
+                    alert(obj.msg);
                     return false;
                 }
                 $("#mobile").val("");
