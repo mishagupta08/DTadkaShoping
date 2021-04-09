@@ -257,7 +257,7 @@ namespace DTShopping
         }
 
 
-        public async Task<ActionResult> SaveOtherRegister(string mobileNo, string referralid, string name, string address, string statecode, string district, string city, string email, string areacode, string citycode, string districtcode, string panno, string pinCode,string radiovalue,string religionid, string religionname)
+        public async Task<ActionResult> SaveOtherRegister(string mobileNo, string referralid, string name, string address, string statecode, string district, string city, string email, string areacode, string citycode, string districtcode, string panno, string pinCode,string radiovalue,string religionid, string religionname,string State)
         {
 
             General clsgen = new General();
@@ -302,22 +302,25 @@ namespace DTShopping
                 register.aadharno = "12323434";
                 register.jointype = "S";
                 register.religiontype = radiovalue;
-           
-                 if(radiovalue=="R")
-                {
-                    register.religionid = religionid;
-                    register.religionname = religionname;
-                    register.nonreligionid = "0";
-                    register.nonreligionname = "";
-                }
-                else
-                {
-                    register.religionid = "0";
-                    register.religionname = "";
-                    register.nonreligionid = religionid;
-                    register.nonreligionname = religionname;
-                }
-               
+                register.religionid = "0";
+                register.religionname = "";
+                register.nonreligionid = "0";
+                register.nonreligionname = "";
+                // if(radiovalue=="R")
+                //{
+                //    register.religionid = "0";//religionid;
+                //    register.religionname = "";
+                //    register.nonreligionid = "0";
+                //    register.nonreligionname = "";
+                //}
+                //else
+                //{
+                //    register.religionid = "0";
+                //    register.religionname = "";
+                //    register.nonreligionid = religionid;
+                //    register.nonreligionname = religionname;
+                //}
+
                 string output1 = JsonConvert.SerializeObject(register);
                 HttpWebRequest reponse;
                 reponse = clsgen.JSON(output1, "https://cpanel.gohappynetwork.com/DTProcess.aspx");

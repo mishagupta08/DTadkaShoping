@@ -58,7 +58,7 @@ namespace DTShopping.Models
     }
     public class RegligionResponse
     {
-        public List<Religion> religions {get;set;}
+         public List<Religion> religions {get;set;}
          public List<Religion> nonreligions { get; set; }
     }
 }

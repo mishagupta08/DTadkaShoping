@@ -13,13 +13,13 @@
                    
                     @*<form data-parsley-validate class="validateForm form-horizontal form-style" id="addForm" onsubmit="return Other_Register();">*@
                         @Html.AntiForgeryToken()
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label class="col-md-4 control-label" for="bCancel"></label>
                         <div class="col-md-8">
                             <input id="btnradReligon" type="radio" name="RbtReligion" value="R" onclick="GetReligionResponse();"><label for="btnradReligon">Regilion</label>
                             <input id="btnradNonReligon" type="radio" name="RbtReligion" value="N" onclick="GetReligionResponse();"><label for="btnradNonReligon">NonRegilion</label>
                         </div>
-                    </div>
+                    </div>*@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtName">Referal ID</label>
                             <div class="col-md-4">
@@ -28,74 +28,76 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtName">Name</label>
+                            <label class="col-md-4 control-label" for="txtName">Name*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.name, new { @type = "text", @id = "name", @required = "required", @placeholder = "" })
-
+                                @*<span class="inputRequirement">*</span>*@
                             </div>
                         </div>
 
                    
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtAddress">Address</label>
+                            <label class="col-md-4 control-label" for="txtAddress">Address*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.address, new { @type = "text", @id = "address", @required = "required", @placeholder = "" })
+                             
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtPincode">Pin code</label>
+                            <label class="col-md-4 control-label" for="txtPincode">Pin code*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.pincode, new { @type = "text", @id = "pincode", @required = "required", @placeholder = "" , @onchange = "GetStateDetail();" })
-
+                             
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtState">State</label>
+                            <label class="col-md-4 control-label" for="txtState">State*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.statecode, new { @type = "text", @id = "statecode", @required = "required", @placeholder = "" , disabled = "disabled" })
-
+                                
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtDistrict">District</label>
+                            <label class="col-md-4 control-label" for="txtDistrict">District*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.district, new { @type = "text", @id = "district", @required = "required", @placeholder = "", disabled = "disabled" })
-
+                               
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtCity">City</label>
+                            <label class="col-md-4 control-label" for="txtCity">City*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.city, new { @type = "text", @id = "city", @required = "required", @placeholder = "" ,disabled = "disabled" })
-
+                              
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtCity">Area</label>
+                            <label class="col-md-4 control-label" for="txtCity">Area*</label>
                             <div class="col-md-4">
                                 @*<asp:DropDownList ID="ddlArea" ClientIDMode="Static" runat="server" CssClass="form-control input-md"></asp:DropDownList>*@
                                 @Html.DropDownListFor(m => m.OtherRegister.areacode, new SelectList(Model.areacode, "areacode", "areaname"), new { @required = "0", id = "ddlArea", @class = "form-control multiselect-ui" })
+                               
                             </div>
                         </div>
 
-                        <div class="form-group" id="divreligion" style="display:none">
+                        @*<div class="form-group" id="divreligion" style="display:none">
                         <label class="col-md-4 control-label">Religion</label>
                         <div class="col-md-4">
-                            @*<asp:DropDownList ID="ddlArea" ClientIDMode="Static" runat="server" CssClass="form-control input-md"></asp:DropDownList>*@
                             @Html.DropDownListFor(m => m.OtherRegister.religionid, new SelectList(Model.religion, "id", "religion"), new { @required = "0", id = "ddlreligion", @class = "form-control multiselect-ui" })
                         </div>
-                    </div>
+                    </div>*@
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtMobileNo">Mobile No.*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.mobile, new { @type = "text", @id = "mobile", @required = "required", @placeholder = "" })
+                                
                             </div>
                         </div>
 
@@ -108,7 +110,7 @@
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="txtEmailID">PAN No*</label>
+                            <label class="col-md-4 control-label" for="txtEmailID">PAN No</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.panno , new { @type = "text", @id = "panno", @required = "required", @placeholder = "" })
 
@@ -209,12 +211,26 @@
         }
         var statecode = $("#hdnStateCode").val();;
         var district = $("#district").val();
+        if (district == "") {
+            alert("Please Enter the District! ");
+            return false;
+        }
       
         var city = $("#city").val();
+        if (city == "") {
+            alert("Please Enter the City! ");
+            return false;
+        }
       
         var email = $("#email").val();
         if (email == "") {
             alert("Please Enter the email! ");
+            return false;
+        }
+        var State = $("#statecode").val();
+        if (State == "")
+        {
+            lert("Please Enter the State! ");
             return false;
         }
         var ddlArea = $("#ddlArea");
@@ -226,34 +242,34 @@
         var citycode = $("#hdnCityCode").val();
         var districtcode = $("#hdnDistrictCode").val();
         var panno = $("#panno").val();
-        if (panno == "") {
-            alert("Please Enter the panno! ");
-            return false;
-        }
+        //if (panno == "") {
+        //    alert("Please Enter the panno! ");
+        //    return false;
+        //}
         
         var pinCode = $("#pincode").val();
         if (pinCode == "") {
-            alert("Please pinCode the panno! ");
+            alert("Please  enter  the PinCode! ");
             return false;
         }
-        var radiovalue = $('input[name="RbtReligion"]:checked').val();
-        if (radiovalue == "" || radiovalue == undefined || radiovalue == null)
-        {
-            alert("Please select  religion option!");
-            return false;
-        }
-        var religionid = $("#ddlreligion").val();
-        if (religionid == "0" || religionid == "" || religionid== null)
-        {
-            alert(" Please select  the Religion!");
-            return false;
-        }
-        var religionname = $("#ddlreligion option:selected").text();
+        var radiovalue = ""; //$('input[name="RbtReligion"]:checked').val();
+        //if (radiovalue == "" || radiovalue == undefined || radiovalue == null)
+        //{
+        //    alert("Please select  religion option!");
+        //    return false;
+        //}
+        var religionid = "";//'$("#ddlreligion").val();
+        //if (religionid == "0" || religionid == "" || religionid== null)
+        //{
+        //    alert(" Please select  the Religion!");
+        //    return false;
+        //}
+        var religionname = ""; //$("#ddlreligion option:selected").text();
         $.ajax({
             type: "POST",
             url: '/Account/SaveOtherRegister',
             datatype: "Json",
-            data: { mobileNo: mobileNo, referralid: referralid, name: name, address: address, statecode: statecode, district: district, city: city, email: email, areacode: areacode, citycode: citycode, districtcode: districtcode, panno: panno, pinCode: pinCode, radiovalue: radiovalue, religionid: religionid, religionname: religionname },
+            data: { mobileNo: mobileNo, referralid: referralid, name: name, address: address, statecode: statecode, district: district, city: city, email: email, areacode: areacode, citycode: citycode, districtcode: districtcode, panno: panno, pinCode: pinCode, radiovalue: radiovalue, religionid: religionid, religionname: religionname, State: State },
             success: function (data) {
                 debugger;
 
