@@ -342,6 +342,7 @@ namespace DTShopping
         }
 
          public async Task<ActionResult> GetRegilionResponse(string RadioValue)
+
         {
             ReligionReqType req = new ReligionReqType();
             General clsgen = new General();
@@ -391,6 +392,34 @@ namespace DTShopping
             }
             var statusID = await this._APIManager.SaveAPIRequest(Code);
             return Json(Regilion);
+        }
+
+
+      
+         public async Task<ActionResult> ChangeReferalid(string memberid,string reqtype,string userid,string passwd)
+        {
+            getnameByreferalid obj = new getnameByreferalid();
+            ResponseGetNameReferialid res = new ResponseGetNameReferialid();
+            General clsgen = new General();
+            this._APIManager = new APIRepository();
+            obj.memberid = memberid;
+            obj.reqtype = "getmemname";
+            obj.userid = "";
+            obj.passwd = "";
+            string jsonResponse = string.Empty;
+            string output1 = JsonConvert.SerializeObject(obj);
+            HttpWebRequest reponse;
+            reponse = clsgen.JSON(output1, "https://cpanel.gohappynetwork.com/DTProcess.aspx");
+            jsonResponse = clsgen.GetResponse(reponse);
+            res = JsonConvert.DeserializeObject<ResponseGetNameReferialid>(jsonResponse);
+
+            ApiPinCoderesponse Code = new ApiPinCoderesponse();
+            {
+                Code.request = output1;
+                Code.response = jsonResponse;
+                Code.url = "https://cpanel.gohappynetwork.com/DTProcess.aspx";
+            }
+            return Json(jsonResponse);
         }
         //
         // POST: /Account/Register

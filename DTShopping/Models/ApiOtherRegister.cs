@@ -61,4 +61,23 @@ namespace DTShopping.Models
          public List<Religion> religions {get;set;}
          public List<Religion> nonreligions { get; set; }
     }
+    public class getnameByreferalid
+    {
+         public string userid { get; set; }
+         public string passwd { get; set; }
+         public string memberid { get; set; }
+         public string reqtype { get; set; }
+    }
+     public class  ResponseGetNameReferialid
+    {
+         public string response { get; set; }
+         public string memname { get; set; }
+        public string msg { get; set; }
+    }
+     
+        
+
+
+
+
 }
