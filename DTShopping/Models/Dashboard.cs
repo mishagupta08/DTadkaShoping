@@ -44,6 +44,7 @@ namespace DTShopping.Models
         public List<M_areacode> areacode { get; set; }
          public List<Religion>religion { get; set; }
         public List<AreaCoderesponse> AreaCoderesponse { get; set; }
+        public E_Paymentgateway Pg { get; set; }
 
         public void AssignPaymentModes()
         {
@@ -69,5 +70,14 @@ namespace DTShopping.Models
         public byte status { get; set; }
         public System.DateTime created { get; set; }
         public System.DateTime modified { get; set; }
+    }
+
+     public class E_Paymentgateway
+    {
+        public string name { get; set; }
+        public string email { get; set; }
+        public string contactNumber { get; set; }
+        public string address { get; set; }
+        public int amount { get; set; }
     }
 }

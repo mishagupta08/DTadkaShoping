@@ -95,12 +95,14 @@
     //});
 
     $('input[name = paymentmethod]').bind('change', function () {
+        debugger;
         var value = $(this).val();
         $("#offline").hide();
         $("#dtcard").hide();
         $("#dtcardOTP").hide();
         $("#walletPaymentModes").hide();
         $("#cardPaymentMode").hide();
+        $("#divPg").hide();
 
         $("#" + value).show();
     });

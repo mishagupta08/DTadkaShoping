@@ -268,6 +268,20 @@ namespace DTShopping.Repository
             }
         }
 
+         public async Task<Response> SavePaymentRequest(string regXML)
+        {
+            var result = await CallPostFunction(string.Empty, "InstaMojoPayment/" + regXML);
+            if(result == null || !result.Status)
+            {
+                return null;
+            }
+            else
+            {
+                var response = result.ResponseValue;
+                return result;
+            }
+        }
+
         public async Task<List<R_CityMaster>> GetCityListById(string Id)
         {
             var result = await CallPostFunction(string.Empty, "CityList/" + Id);

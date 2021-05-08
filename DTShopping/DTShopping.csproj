@@ -225,6 +225,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="InstamojoAPI\AccessTokenResponse.cs" />
+    <Compile Include="InstamojoAPI\BaseException.cs" />
+    <Compile Include="InstamojoAPI\ConnectionException.cs" />
+    <Compile Include="InstamojoAPI\CreatePaymentOrderResponse.cs" />
+    <Compile Include="InstamojoAPI\CreateRefundResponce.cs" />
+    <Compile Include="InstamojoAPI\Instamojo.cs" />
+    <Compile Include="InstamojoAPI\InstamojoConstants.cs" />
+    <Compile Include="InstamojoAPI\InstamojoImplementation.cs" />
+    <Compile Include="InstamojoAPI\InvalidPaymentOrderException.cs" />
+    <Compile Include="InstamojoAPI\JavaScriptConverters.cs" />
+    <Compile Include="InstamojoAPI\Order.cs" />
+    <Compile Include="InstamojoAPI\PaymentOptions.cs" />
+    <Compile Include="InstamojoAPI\PaymentOrder.cs" />
+    <Compile Include="InstamojoAPI\PaymentOrderDetailsResponse.cs" />
+    <Compile Include="InstamojoAPI\PaymentOrderListRequest.cs" />
+    <Compile Include="InstamojoAPI\PaymentOrderListResponse.cs" />
+    <Compile Include="InstamojoAPI\Properties\AssemblyInfo.cs" />
+    <Compile Include="InstamojoAPI\Refund.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\APIOtherPinCode.cs" />
     <Compile Include="Models\ApiOtherRegister.cs" />
@@ -898,6 +916,12 @@
     <Content Include="img\vendor\store\user\4.jpg" />
     <Content Include="img\vendor\store\user\5.jpg" />
     <Content Include="img\vendor\vendor-store.jpg" />
+    <Content Include="InstamojoAPI\bin\Release\InstamojoAPI.dll" />
+    <Content Include="InstamojoAPI\InstamojoAPI.csproj" />
+    <Content Include="InstamojoAPI\obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="InstamojoAPI\obj\Release\InstamojoAPI.csproj.FileListAbsolute.txt" />
+    <Content Include="InstamojoAPI\obj\Release\InstamojoAPI.csprojResolveAssemblyReference.cache" />
+    <Content Include="InstamojoAPI\obj\Release\InstamojoAPI.dll" />
     <Content Include="js\chart.js" />
     <Content Include="js\main.js" />
     <Content Include="plugins\bootstrap4\css\bootstrap.min.css" />
@@ -1169,6 +1193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="InstamojoAPI\obj\Release\TempPE\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,11 @@ using PagedList;
 using System.Threading;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
+using InstamojoAPI;
+using System.IO;
+using System.Net;
+using System.Data;
 
 namespace DTShopping.Controllers
 {
@@ -21,6 +26,10 @@ namespace DTShopping.Controllers
         private const int SUNVISCOMPANYID = 29;
         string Theme = System.Configuration.ConfigurationManager.AppSettings["Theme"] == null ? string.Empty : System.Configuration.ConfigurationManager.AppSettings["Theme"].ToString();
         string companyId = System.Configuration.ConfigurationManager.AppSettings["CompanyId"];
+        string Insta_client_id = "tmLkZZ0zV41nJwhayBGBOI4m4I7bH55qpUBdEXGS",
+       Insta_client_secret = "IDejdccGqKaFlGav9bntKULvMZ0g7twVFolC9gdrh9peMS0megSFr7iDpWwWIDgFUc3W5SlX99fKnhxsoy6ipdAv9JeQwebmOU6VRvOEQnNMWwZnWglYmDGrfgKRheXs",
+       Insta_Endpoint = InstamojoConstants.INSTAMOJO_API_ENDPOINT,
+       Insta_Auth_Endpoint = InstamojoConstants.INSTAMOJO_AUTH_ENDPOINT;
 
         public async Task<ActionResult> Index()
         {
@@ -1021,6 +1030,143 @@ namespace DTShopping.Controllers
             }
             var statusID = await this.objRepository.SaveAPIRequest(Code);
             return Json(myList);
+        }
+
+         public async Task<ActionResult> BtnPGProceed(string Amount)
+        {
+             if(companyId=="30")
+            {
+                var user = Session["UserDetail"] as UserDetails;
+                string agentid = "";
+                agentid = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("<PaymentRequest>");
+                sb.AppendLine(("<UserId>"
+                                + (Convert.ToString(user.id) + "</UserId>")));
+                sb.AppendLine(("<UserName>"
+                              + (Convert.ToString(user.username) + "</UserName>")));
+                sb.AppendLine(("<Amount>"
+                               + Amount + "</Amount>"));
+                sb.AppendLine(("<OrderID>"
+                               + agentid + "</OrderID>"));
+                sb.AppendLine(("<TID></TID>"));
+                sb.AppendLine(("<TDate>"
+                             + DateTime.Now.ToString("yyyy-MM-dd") + "</TDate>"));
+                sb.AppendLine(("<Status></Status>"));
+                sb.AppendLine("</PaymentRequest>");
+
+                DataSet ds = null;
+                ds = new DataSet();
+                var statusID = await this.objRepository.SavePaymentRequest(sb.ToString());
+                instamojopg(Amount, agentid);
+            }
+            return View();
+        }
+
+        private void instamojopg(string Amount, string agentid)
+        {
+            var user = Session["UserDetail"] as UserDetails;
+          
+           
+           // var s= await this.objRepository.SavePaymentRequest(Convert.ToString(sb));
+            //ds = paymentDb.SavePaymentRequest(sb.ToString());
+            Instamojo objClass = InstamojoImplementation.getApi(Insta_client_id, Insta_client_secret, Insta_Endpoint, Insta_Auth_Endpoint);
+            //  Create Payment Order
+          
+            PaymentOrder objPaymentRequest = new PaymentOrder();
+            //Required POST parameters
+            objPaymentRequest.name = user.first_name;
+            objPaymentRequest.email = Convert.ToString(user.email);
+            objPaymentRequest.phone = Convert.ToString(user.phone);
+            objPaymentRequest.description = "Test description";
+            objPaymentRequest.amount = Convert.ToDouble(Amount);
+            objPaymentRequest.currency = "USD";
+            string randomName = Path.GetRandomFileName();
+            randomName = randomName.Replace(".", string.Empty);
+            objPaymentRequest.transaction_id = agentid;
+            objPaymentRequest.redirect_url = "https://swaggerhub.com/api/saich/pay-with-instamojo/1.0.0";
+            objPaymentRequest.webhook_url = "http://gohappytours.com/PaymentResInstaMojo.aspx";
+            try
+            {
+                if (objPaymentRequest.validate())
+                {
+                    if (objPaymentRequest.nameInvalid)
+                    {
+                        //MessageBox.Show("Name is not valid");
+                    }
+                    else if (objPaymentRequest.phoneInvalid)
+                    {
+                        //MessageBox.Show("Name is not valid");
+                    }
+                    else if (objPaymentRequest.redirectUrlInvalid)
+                    {
+                        //MessageBox.Show("Name is not valid");
+                    }
+                    else
+                    {
+
+
+                    }
+                }
+                else
+                {
+
+                    try
+                    {
+                        CreatePaymentOrderResponse objPaymentResponse = objClass.createNewPaymentRequest(objPaymentRequest);
+                        Response.Redirect(objPaymentResponse.payment_options.payment_url, true);
+                        //MessageBox.Show("Payment URL = " + objPaymentResponse.payment_options.payment_url);
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                    }
+                    catch (WebException ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                    }
+                    catch (IOException ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                    }
+                    catch (InvalidPaymentOrderException ex)
+                    {
+                        if (!ex.IsWebhookValid())
+                        {
+                            // MessageBox.Show("Webhook is invalid");
+                        }
+
+                        if (!ex.IsCurrencyValid())
+                        {
+                            //MessageBox.Show("Currency is Invalid");
+                        }
+
+                        if (!ex.IsTransactionIDValid())
+                        {
+                            //MessageBox.Show("Transaction ID is Inavlid");
+                        }
+                    }
+                    catch (ConnectionException ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                    }
+                    catch (BaseException ex)
+                    {
+                        //MessageBox.Show(ex.Message);
+                    }
+                    catch (Exception ex)
+                    {
+                        //MessageBox.Show("Error:" + ex.Message);
+                    }
+                }
+                //MessageBox.Show("Order Id = " + objPaymentResponse.order.id);
+            }
+            catch (ArgumentNullException ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+            ////Extra POST parameters 
+
         }
 
     }
