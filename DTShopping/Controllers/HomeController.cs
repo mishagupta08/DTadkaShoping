@@ -1266,7 +1266,7 @@ namespace DTShopping.Controllers
                 else
                 {
                     ViewBag.Message = " Payment Failed,Please try Again letter!";
-                    return RedirectToAction("ThankYouPage", "Manage");
+                    return RedirectToAction("Failed", "Home");
                 }
             }
              catch(Exception ex)
