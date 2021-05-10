@@ -268,9 +268,10 @@ namespace DTShopping.Repository
             }
         }
 
-         public async Task<Response> SavePaymentRequest(string regXML)
+         public async Task<Response> SavePaymentRequest(PaymentRequest regXML)
         {
-            var result = await CallPostFunction(string.Empty, "InstaMojoPayment/" + regXML);
+            var filterData = JsonConvert.SerializeObject(regXML);
+            var result = await CallPostFunction(filterData, "InstaMojoPayment");
             if(result == null || !result.Status)
             {
                 return null;

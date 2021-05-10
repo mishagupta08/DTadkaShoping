@@ -88,6 +88,7 @@
                                     <img src="@imageUrl/@imageName" alt="@product.title" title="@product.title" width="50" height="50" class="scale-with-grid" />
                                     <br />
                                     <span>@product.title</span> <br>
+                                   
                                     @if (!string.IsNullOrEmpty(product.product_size))
                                     {
                                         <span>Size : @product.product_size</span>
@@ -113,10 +114,11 @@
                         <tr align="left" class="dgrdcell" bgcolor="#EBC6AD">
                             <td colspan="4">Your Cart Total</td>
                             <td colspan="4" align="right"><h3><span>Rs. @Model.NetPayment</span></h3></td>
-                            <input type="hidden" value="@Model.NetPayment" id="totalCharge" />
+                          
                         </tr>
                     </tbody>
                 </table>
+                <input type="hidden" value="@Model.NetPayment" id="totalCharge" />
                 <p>&nbsp;</p>
                 @*<table width="97%" border="0" cellspacing="0" cellpadding="0" class="shoptable">
 
@@ -612,7 +614,7 @@
                         </form>
                     </div>
                     <br/>
-                    <div id="divPg" >
+                    <div id="divPg" style="display:none" >
                         @*<div class="row">
                             <div class="col-sm-12">
                                 <div class="col-sm-3">
@@ -660,7 +662,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <br />
-                                <div class="col-sm-3">
+                                @*<div class="col-sm-3">
                                     <label class="control-label legendLabel">
                                         Amount:
                                     </label>
@@ -668,7 +670,7 @@
                                     @Html.ValidationMessageFor(x => x.Pg.amount, "", new { @class = "validation_error" })
 
                                 </div>
-                                <br />
+                                <br />*@
                                 <div class="col-sm-3">
                                     <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PGProceed();" />
                                     @*<button type="submit" class="btn btn-primary">Submit</button>*@
@@ -739,26 +741,25 @@
 
     function PGProceed()
     {
-        $(".preloader").show();
-        var Amout = $("#txtAmount").val();
+        //$(".preloader").show();
+        //var Amout = $("#txtAmount").val();
+        var Amout = $("#totalCharge").val();
         $.ajax({
             url: '/Home/BtnPGProceed',
             type: 'Post',
             datatype: 'Json',
             data: { Amount: Amout }
         }).done(function (result) {
+            debugger;
             if (result == null || result == undefined || result == "") {
                 $("#error").html(result);
             }
-            else {
-
-                $("#cityList").html("");
-                $.each(result, function (key, value) {
-                    $("#cityList").append($("<option></option>").val(value.cityID).html(value.cityName));
-                });
+             else
+            {
+                window.location.href = result;
             }
-
-            $(".preloader").hide();
+           
+            //$(".preloader").hide();
         });
     }
 </script>

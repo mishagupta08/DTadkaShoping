@@ -105,6 +105,8 @@
         $("#divPg").hide();
 
         $("#" + value).show();
+        //var hdntotalcharge = $("#totalCharge").val();
+        //var Amount=$("#txtAmount").val(totalCharge);
     });
 
     $('#Pay1').bind('click', function () {

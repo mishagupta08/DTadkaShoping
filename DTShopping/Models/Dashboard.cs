@@ -45,6 +45,7 @@ namespace DTShopping.Models
          public List<Religion>religion { get; set; }
         public List<AreaCoderesponse> AreaCoderesponse { get; set; }
         public E_Paymentgateway Pg { get; set; }
+         
 
         public void AssignPaymentModes()
         {

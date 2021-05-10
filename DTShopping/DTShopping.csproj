@@ -261,6 +261,7 @@
     <Compile Include="Models\M_areacode.cs" />
     <Compile Include="Models\order.cs" />
     <Compile Include="Models\OrderDetailContainer.cs" />
+    <Compile Include="Models\PaymentRequest.cs" />
     <Compile Include="Models\PayuRequest.cs" />
     <Compile Include="Models\Points.cs" />
     <Compile Include="Models\Product.cs" />
