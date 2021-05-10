@@ -1106,7 +1106,7 @@ namespace DTShopping.Controllers
             //objPaymentRequest.redirect_url = "https://swaggerhub.com/api/saich/pay-with-instamojo/1.0.0";
             //objPaymentRequest.redirect_url = "http://localhost:63692/Home/PaymentPgResponse";
             objPaymentRequest.redirect_url = "http://gohappycart.com/Home/PaymentPgResponse";
-            objPaymentRequest.webhook_url = "http://gohappytours.com/PaymentResInstaMojo.aspx";
+            objPaymentRequest.webhook_url = "http://gohappycart.com/Home/PaymentPgResponse";
             try
             {
                 if (objPaymentRequest.validate())
