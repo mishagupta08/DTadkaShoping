@@ -1039,7 +1039,7 @@ namespace DTShopping.Controllers
          public async Task<ActionResult> BtnPGProceed(string Amount)
         {
             string Url = "";
-            Amount = "10";
+            //Amount = "10";
              if (companyId=="30")
             {
                 var user = Session["UserDetail"] as UserDetails;
@@ -1104,7 +1104,8 @@ namespace DTShopping.Controllers
             randomName = randomName.Replace(".", string.Empty);
             objPaymentRequest.transaction_id = agentid;
             //objPaymentRequest.redirect_url = "https://swaggerhub.com/api/saich/pay-with-instamojo/1.0.0";
-            objPaymentRequest.redirect_url = "http://localhost:63692/Home/PaymentPgResponse";
+            //objPaymentRequest.redirect_url = "http://localhost:63692/Home/PaymentPgResponse";
+            objPaymentRequest.redirect_url = "http://gohappycart.com/Home/PaymentPgResponse";
             objPaymentRequest.webhook_url = "http://gohappytours.com/PaymentResInstaMojo.aspx";
             try
             {
