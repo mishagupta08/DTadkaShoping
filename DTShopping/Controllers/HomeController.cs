@@ -26,14 +26,14 @@ namespace DTShopping.Controllers
         private const int SUNVISCOMPANYID = 29;
         string Theme = System.Configuration.ConfigurationManager.AppSettings["Theme"] == null ? string.Empty : System.Configuration.ConfigurationManager.AppSettings["Theme"].ToString();
         string companyId = System.Configuration.ConfigurationManager.AppSettings["CompanyId"];
-       // string Insta_client_id = "tmLkZZ0zV41nJwhayBGBOI4m4I7bH55qpUBdEXGS",
-       //Insta_client_secret = "IDejdccGqKaFlGav9bntKULvMZ0g7twVFolC9gdrh9peMS0megSFr7iDpWwWIDgFUc3W5SlX99fKnhxsoy6ipdAv9JeQwebmOU6VRvOEQnNMWwZnWglYmDGrfgKRheXs",
-       // Insta_Endpoint = InstamojoConstants.INSTAMOJO_API_ENDPOINT,
-       //Insta_Auth_Endpoint = InstamojoConstants.INSTAMOJO_AUTH_ENDPOINT;
-        string Insta_client_id = "MgmTUc8vZDPbv1gaNrcyoHJldS8Slnrol91ljIVs",
-       Insta_client_secret = "vb5CVqPjz0PsUIG3iWVWOreVlElkaQ9EPBeiPaWVrAVtnkyz0JB21oI5cpHyZlxY3gm6AwV4RheXUBduwhukDV1uPwxY4yJxG83v0hXVgosODRWFrNqZCcHSC0P5Xkga",
-       Insta_Endpoint = "https://www.instamojo.com/v2/",
-       Insta_Auth_Endpoint = "https://www.instamojo.com/oauth2/token/";
+        string Insta_client_id = "tmLkZZ0zV41nJwhayBGBOI4m4I7bH55qpUBdEXGS",
+       Insta_client_secret = "IDejdccGqKaFlGav9bntKULvMZ0g7twVFolC9gdrh9peMS0megSFr7iDpWwWIDgFUc3W5SlX99fKnhxsoy6ipdAv9JeQwebmOU6VRvOEQnNMWwZnWglYmDGrfgKRheXs",
+        Insta_Endpoint = InstamojoConstants.INSTAMOJO_API_ENDPOINT,
+       Insta_Auth_Endpoint = InstamojoConstants.INSTAMOJO_AUTH_ENDPOINT;
+        // string Insta_client_id = "MgmTUc8vZDPbv1gaNrcyoHJldS8Slnrol91ljIVs",
+        //Insta_client_secret = "vb5CVqPjz0PsUIG3iWVWOreVlElkaQ9EPBeiPaWVrAVtnkyz0JB21oI5cpHyZlxY3gm6AwV4RheXUBduwhukDV1uPwxY4yJxG83v0hXVgosODRWFrNqZCcHSC0P5Xkga",
+        //Insta_Endpoint = "https://www.instamojo.com/v2/",
+        //Insta_Auth_Endpoint = "https://www.instamojo.com/oauth2/token/";
 
         public async Task<ActionResult> Index()
         {
@@ -1274,6 +1274,14 @@ namespace DTShopping.Controllers
 
             }
             return RedirectToAction("Failed");
+        }
+        public async Task<ActionResult> Failed()
+        {
+            Dashboard data = new Dashboard();
+            data.OrderDetail = new order();
+            data.OrderDetail.id = Session["OrderId"] != null ? Convert.ToInt32(Session["OrderId"]) : 0;
+            ViewBag.Message = " Payment Failed,Please try Again letter!";
+            return View(data);
         }
 
     }

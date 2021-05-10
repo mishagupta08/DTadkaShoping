@@ -1191,6 +1191,7 @@
     <Content Include="Views\Manage\CustomErrorPage.cshtml" />
     <Content Include="Views\Account\OtherRegister.cshtml" />
     <Content Include="Views\Home\BuyPackage.cshtml" />
+    <Content Include="Views\Home\Failed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
