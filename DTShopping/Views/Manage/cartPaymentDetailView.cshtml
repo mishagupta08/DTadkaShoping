@@ -744,6 +744,11 @@
         //$(".preloader").show();
         //var Amout = $("#txtAmount").val();
         var Amout = $("#totalCharge").val();
+        if (Amout < 10)
+        {
+            alert("Payment Amount Should be greater than 10Rs to Proceed.");
+            return false;
+        }
         $.ajax({
             url: '/Home/BtnPGProceed',
             type: 'Post',
