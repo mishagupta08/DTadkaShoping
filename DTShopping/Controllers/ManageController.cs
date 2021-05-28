@@ -175,6 +175,7 @@ namespace DTShopping.Controllers
             var result = new Response();
             var CompanyId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CompanyId"]);
             var detail = (UserDetails)(Session["UserDetail"]);
+            var Ewalletpassword = Session["Ewalletpassword"];
             //detail.username = detailModel.User.username;
             //detail.password_str = detailModel.User.password_str;
             detail.Amount = detailModel.Amount;
@@ -214,10 +215,15 @@ namespace DTShopping.Controllers
                         return Json("ok");
                     }
                 }
-                else if (CompanyId == SHOPCOMPANYID || companyId == SJLABSCOMPANYID || CompanyId == SUNVISCOMPANYID || CompanyId == GOHAPPYCARTCOMPANYID || CompanyId == URSHOPECOMPANYID || CompanyId == GVENTERTAINMENTCOMPANYID || CompanyId == SHOPENTERTAINMENTCOMPANYID || companyId == ETRADECOMPANYID || CompanyId == DUDHAMRITCOMPANYID || CompanyId == MYDWORLDCOMPANYID || CompanyId == MYAIMTRADESERVICESCOMPANYID)
+                 
+                else if (CompanyId == SHOPCOMPANYID || companyId == SJLABSCOMPANYID || CompanyId == SUNVISCOMPANYID  || CompanyId == URSHOPECOMPANYID || CompanyId == GVENTERTAINMENTCOMPANYID || CompanyId == SHOPENTERTAINMENTCOMPANYID || companyId == ETRADECOMPANYID || CompanyId == DUDHAMRITCOMPANYID || CompanyId == MYDWORLDCOMPANYID || CompanyId == MYAIMTRADESERVICESCOMPANYID|| CompanyId == GOHAPPYCARTCOMPANYID)
                 {
                     var usr = new UserDetails();
                     usr = detail;
+                     if(CompanyId == GOHAPPYCARTCOMPANYID)
+                    {
+                        usr.password_str = Convert.ToString(Ewalletpassword);
+                    }
                     //usr.password_str = usr.passwordDetail;
                     usr.orderId = detailModel.OrderDetail.id;
                     var deductWallet = await objRepository.DeductWalletBalnce(usr);
@@ -416,6 +422,7 @@ namespace DTShopping.Controllers
 
             var detail = (UserDetails)(Session["UserDetail"]);
             if (companyId == URSHOPECOMPANYID)
+                
             {
                 if (detailModel == null || detailModel.User == null)
                 {
@@ -426,6 +433,7 @@ namespace DTShopping.Controllers
             else
             {
                 detail.passwordDetail = detailModel.User.password_str;
+                Session["Ewalletpassword"] = detail.passwordDetail;
             }
 
             detail.Amount = detailModel.Amount;
@@ -708,7 +716,7 @@ namespace DTShopping.Controllers
         {
             this.model = new Dashboard();
             this.objRepository = new APIRepository();
-
+            this.model.OrderDetail = new order();
             if (CheckLoginUserStatus())
             {
                 try
