@@ -722,7 +722,7 @@ namespace DTShopping.Controllers
                 try
                 {
                     string companyId = System.Configuration.ConfigurationManager.AppSettings["CompanyId"];
-                    this.model.deliveryTypeList = await objRepository.DeliveryTypeList();
+                    this.model.deliveryTypeList = await objRepository.DeliveryTypeList(Convert.ToInt32(companyId));
                     var cart = new CartFilter();
                     var detail = (UserDetails)(Session["UserDetail"]);
                     cart.username = detail.username;

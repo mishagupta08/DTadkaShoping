@@ -3,6 +3,7 @@
     $("#dtcard").hide();
     $("#walletPaymentModes").hide();
     $("#cardPaymentMode").hide();
+    $("#divPg").hide();
 
     $(".preloader").hide();
     $("button[name=saveButton]").attr("disabled", true);

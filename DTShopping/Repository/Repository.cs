@@ -27,7 +27,7 @@ namespace DTShopping.Repository
 
         private string ManageProductImagesAction = "ManageProductImages/";
 
-        private string DeliveryTypeListAction = "DeliveryTypeList";
+        private string DeliveryTypeListAction = "DeliveryTypeList/";
 
         private string GetCouponListAction = "GetCouponList/";
 
@@ -88,9 +88,9 @@ namespace DTShopping.Repository
             }
         }
 
-        public async Task<List<KeyValue>> DeliveryTypeList()
+        public async Task<List<KeyValue>> DeliveryTypeList( int companyId)
         {
-            var result = await CallPostFunction(string.Empty, DeliveryTypeListAction);
+            var result = await CallPostFunction(string.Empty, DeliveryTypeListAction + companyId);
             if (result == null || !result.Status)
             {
                 return null;

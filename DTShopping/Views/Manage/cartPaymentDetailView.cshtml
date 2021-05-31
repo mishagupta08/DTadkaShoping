@@ -221,6 +221,8 @@
                             <td>
                                 <div class="Paymenttd" style="width:235px;">
                                     <ul>
+                                         @if (CompanyId == GOHAPPYCARTCOMPANYID)
+                                         {
                                         <li>
                                             @*<input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">
                                             <b>Credit Card / Debit Card / Net Banking/PayUMoney</b><br>*@
@@ -228,7 +230,17 @@
                                             <input type="radio" id="MainW"  name="paymentmethod" value="divPg" @*onchange="paymentgatway();"*@>
                                             <b> PaymentGateway</b>
                                         </li>
-                                    </ul>
+                                         }
+                                         else
+                                         {
+                                            <li>
+                                               
+                                                <input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">
+                                                <b>Credit Card / Debit Card / Net Banking/PayUMoney</b><br>
+                                                @*<input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">*@
+                                             </li>
+                                       }
+                                       </ul>
                                 </div>
                             </td>
                         </tr>
@@ -567,6 +579,7 @@
                         </form>
 
                     </div>
+                    <br/>
                     <div id="cardPaymentMode">
                         <form data-parsley-validate class="validateForm form-horizontal form-style" id="addForm" onsubmit="return SaveDetailForm(false);">
                             <div class="contentContainer">
