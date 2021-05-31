@@ -1278,7 +1278,16 @@ namespace DTShopping.Controllers
             }
             else
             {
+                return RedirectToAction("Index", "Home");
 
+                //if (Theme == Resources.Orange)
+                //{
+                //    return PartialView("cartPaymentDetailViewOrange", this.model);
+                //}
+                //else
+                //{
+                //    return PartialView("cartPaymentDetailView", this.model);
+                //}
             }
 
             return null;
