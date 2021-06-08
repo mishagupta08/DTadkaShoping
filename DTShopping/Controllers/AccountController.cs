@@ -83,6 +83,9 @@ namespace DTShopping
                 //var dataStr = "AT6665090|123123|45|02-12-2020 16:39:20";
                 // string encrypted = Encrypt(dataStr, KeyByte, IVByte);
                 //data = encrypted;
+                //var dataStr = "Demo|123|41|" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                //string encrypted = Encrypt(dataStr, KeyByte, IVByte);
+                //data = encrypted; // For halth tadka
                 clsgen.ErrorLog(path, ("SUCCESS-0:" + data));
                 var detail = Decrypt(data.Replace(" ", "+"), KeyByte, IVByte);
                 clsgen.ErrorLog(path, ("SUCCESS-0.1:" + detail));
@@ -153,6 +156,96 @@ namespace DTShopping
                 ExceptionLogging.SendErrorToText(e);
             }
 
+            return null;
+        }
+
+        public static string Base64Decode(string base64EncodedData)
+        {
+            var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult>HealthTadkaDirectLogin (string data)
+        {
+            string path = System.Web.HttpContext.Current.Server.MapPath("~/Logs/ErrorLog");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            clsgen.ErrorLog(path, ("SUCCESS-00:" + data));
+            try
+            {
+                //var dataStr = "Demo|123|41|" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                //string encrypted = Base64Encode(dataStr);
+                //data = encrypted; // For halth tadka
+                clsgen.ErrorLog(path, ("SUCCESS-0:" + data));
+                var detail = Base64Decode(data.Replace(" ", "+"));
+                clsgen.ErrorLog(path, ("SUCCESS-0.1:" + detail));
+                clsgen.ErrorLog(path, ("LoginApiUser:" + detail));
+                if (detail != null && detail.Contains("|"))
+                {
+                    var dataArray = detail.Split('|');
+                    clsgen.ErrorLog(path, ("SUCCESS-1:" + dataArray));
+                    if (dataArray.Length == 4)
+                    {
+                        clsgen.ErrorLog(path, ("SUCCESS-2:" + dataArray));
+                        //check if request is within 1 min
+                        DateTime queryTime = DateTime.ParseExact(dataArray[3], "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        var currenttimeStr = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        DateTime currentTime = DateTime.ParseExact(currenttimeStr, "dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                        var span = currentTime.Subtract(queryTime);
+                        clsgen.ErrorLog(path, ("SUCCESS-3:" + span));
+                        if (span.TotalMinutes <= 1)
+                        {
+                            clsgen.ErrorLog(path, ("SUCCESS-4:" + span.TotalMinutes));
+                            var userDetail = new UserDetails();
+                            userDetail.username = dataArray[0];
+                            userDetail.passwordDetail = dataArray[1];
+                            userDetail.company_id = Convert.ToInt32(dataArray[2]);
+
+                            _APIManager = new APIRepository();
+                            var result = await _APIManager.Login(userDetail);
+                            Session["UserDetail"] = null;
+                            if (result == null)
+                            {
+                                return null;
+                            }
+                            else
+                            {
+                                if (result.Status == true)
+                                {
+                                    clsgen.ErrorLog(path, ("SUCCESS-5:" + JsonConvert.SerializeObject(result)));
+                                    UserDetails user = JsonConvert.DeserializeObject<UserDetails>(result.ResponseValue);
+                                    FormsAuthentication.SetAuthCookie(user.username, false);
+                                    Session["UserDetail"] = user;
+
+                                    return RedirectToAction("Index", "Home");
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
             return null;
         }
         // POST: /Account/Login
