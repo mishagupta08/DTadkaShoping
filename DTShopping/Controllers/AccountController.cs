@@ -183,7 +183,7 @@ namespace DTShopping
             clsgen.ErrorLog(path, ("SUCCESS-00:" + data));
             try
             {
-                //var dataStr = "Demo|123|41|" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                //var dataStr = "Demo3|123|46|" + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss", CultureInfo.InvariantCulture);
                 //string encrypted = Base64Encode(dataStr);
                 //data = encrypted; // For halth tadka
                 clsgen.ErrorLog(path, ("SUCCESS-0:" + data));
@@ -366,7 +366,7 @@ namespace DTShopping
                 register.name = name;
                 register.mobile = "0";
                 register.pincode = pinCode;
-                register.referralid = referralid == null ? "" : referralid;
+                register.referralid = referralid == null ? "0" : referralid;
                 register.side = "1";
                 register.fname = string.Empty;
                 register.dob = "08-04-1992";
@@ -393,7 +393,7 @@ namespace DTShopping
                 register.ifsc = "PUNB112478";
                 register.branch = "sanganerigate";
                 register.aadharno = "12323434";
-                register.jointype = "S";
+                register.jointype = "N";
                 register.religiontype = radiovalue;
                 register.religionid = "0";
                 register.religionname = "";
