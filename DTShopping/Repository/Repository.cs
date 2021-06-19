@@ -282,6 +282,22 @@ namespace DTShopping.Repository
                 return result;
             }
         }
+         public async Task<Response> SavePaymentGohappyRequest(paymentRequestGoHappy regxml)
+        {
+            var filterData = JsonConvert.SerializeObject(regxml);
+            var result = await CallPostFunction(filterData, "GohappyPaymentGetway");
+            {
+                if(result==null||!result.Status)
+                {
+                    return null;
+                }
+                else
+                {
+                    var response = result.ResponseValue;
+                    return result;
+                }
+            }
+        }
 
         public async Task<List<R_CityMaster>> GetCityListById(string Id)
         {

@@ -435,7 +435,6 @@ namespace DTShopping
         }
 
          public async Task<ActionResult> GetRegilionResponse(string RadioValue)
-
         {
             ReligionReqType req = new ReligionReqType();
             General clsgen = new General();

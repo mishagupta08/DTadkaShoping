@@ -21,7 +21,7 @@ namespace DTShopping.Controllers
     public class HomeController : Controller
     {
         APIRepository objRepository = new APIRepository();
-    
+        General clsgen = new General();
         Dashboard model = new Dashboard();
         private const int SUNVISCOMPANYID = 29;
         string Theme = System.Configuration.ConfigurationManager.AppSettings["Theme"] == null ? string.Empty : System.Configuration.ConfigurationManager.AppSettings["Theme"].ToString();
@@ -1283,6 +1283,109 @@ namespace DTShopping.Controllers
             data.OrderDetail.id = Session["OrderId"] != null ? Convert.ToInt32(Session["OrderId"]) : 0;
             ViewBag.Message = " Payment Failed,Please try Again letter!";
             return View(data);
+        }
+
+
+      
+        public async Task<ActionResult> generateToken(string Amount,string cmpId)
+        {
+            string response = string.Empty;
+            try
+            {
+                HttpWebRequest reponse;
+                string URL = string.Empty;
+                PaymentTokenReq paytoken = new PaymentTokenReq();
+                paytoken.amount = Amount;
+                paytoken.contact_number = "";
+                paytoken.email_id = "";
+                paytoken.currency = "INR";
+                paytoken.isSandBox = false;
+                paytoken.companyId = cmpId;
+                string output1 = JsonConvert.SerializeObject(paytoken);
+                reponse = clsgen.PostJSON(output1, "http://uapi.bisplindia.in/api/Home/GeneratePaymentTokenByCompanyId");
+                response = clsgen.GetResponse(reponse);
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+            //return response;
+            return Json(response);
+        }
+         public async Task<ActionResult> SaveRequest(string Amount,string paymentToken)
+        {
+            string urm = "";
+            if (companyId == "30")
+            {
+                var user = Session["UserDetail"] as UserDetails;
+                string agentid = "";
+                agentid = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                paymentRequestGoHappy paymnt = new paymentRequestGoHappy()
+                {
+                    UserId = Convert.ToString(user.id),
+                    Amount = Convert.ToDecimal(Amount),
+                    OrderNo = paymentToken,
+                    TID = "",
+                    TDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                    Status = "",
+                    UserName = Convert.ToString(user.username)
+                };
+                DataSet ds = null;
+                ds = new DataSet();
+                var statusID = await this.objRepository.SavePaymentGohappyRequest(paymnt);
+
+            }
+            return Json(urm);
+        }
+         public async Task<ActionResult> SaveResponse(string paymentToken, string paymentId, string status, string amount, string response)
+        {
+            string output2 = string.Empty;
+            var user = Session["UserDetail"] as UserDetails;
+            string agentid = "";
+            agentid = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            try
+            {
+                paymentRequestGoHappy pay = new paymentRequestGoHappy()
+                {
+                    UserId = Convert.ToString(user.id),
+                    Amount = Convert.ToDecimal(amount),
+                    OrderNo = paymentToken,
+                    TID = paymentId,
+                    TDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                    Status = status,
+                    UserName = Convert.ToString(user.username),
+                    Response = response
+
+                };
+                var statusID = await this.objRepository.SavePaymentGohappyRequest(pay);
+                 if(status.ToUpper() == "CAPTURED")
+                {
+                    Dashboard detailModel = new Dashboard();
+                    objRepository = new APIRepository();
+                    var result = new Response();
+                    detailModel.OrderDetail = new order();
+
+
+                    detailModel.OrderDetail.id = Convert.ToInt32(Session["OrderId"]);
+                    detailModel.OrderDetail.payment_ref_no = paymentId;
+                    detailModel.OrderDetail.id = Session["OrderId"] != null ? Convert.ToInt32(Session["OrderId"]) : 0;
+                    detailModel.OrderDetail.payment_ref_amount = Convert.ToString(amount);
+                    detailModel.OrderDetail.user_id = user.id;
+                    result = await objRepository.CreateOrder(detailModel.OrderDetail, "Paymentgateway");//editwithpoints
+                    ViewBag.Message = " Payment Done Sucessfully.!";
+                    return RedirectToAction("thankYouPage", "Manage");
+                }
+                else
+                {
+                    ViewBag.Message = " Payment Failed,Please try Again letter!";
+                    return RedirectToAction("Failed", "Home");
+                }
+            }
+             catch(Exception ex)
+            {
+
+            }
+             return RedirectToAction("Failed", "Home");
         }
 
     }

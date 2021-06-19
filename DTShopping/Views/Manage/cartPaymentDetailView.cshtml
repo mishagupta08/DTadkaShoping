@@ -685,7 +685,9 @@
                                 </div>
                                 <br />*@
                                 <div class="col-sm-3">
-                                    <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PGProceed();" />
+                                    <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayProceed();" />
+                                    <input type="hidden" id="hdnTId" value="831d6f80-cd0d-11eb-be9b-297bda30bfe1" />
+                                    @*<input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PGProceed();" />*@
                                     @*<button type="submit" class="btn btn-primary">Submit</button>*@
                                 </div>
 
@@ -732,9 +734,11 @@
         <script src="~/Scripts/jquery-ui.min.js"></script>*@
     <script src="~/Scripts/shopping.js?v=1"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-
+  
+   
 </head>
-<script>
+<script id="context" type="text/javascript" src="https://payments.open.money/layer"></script>
+<script type="text/javascript">
     var jq = $.noConflict();
     jq(".preloader").hide();
     //$("#mWallet").attr('checked', 'checked');
@@ -751,6 +755,139 @@
     //    $("#walletPaymentModes").hide();
     //    $("#cardPaymentMode").hide();
     //}
+
+    function PaymentGetwayProceed()
+    {
+        debugger;
+        var Amout = $("#totalCharge").val();
+        generateToken(Amout);
+       
+    }
+
+    function generateToken(Amout)
+    {
+        debugger;
+      
+       
+        $.ajax({
+            url: "/Home/generateToken?Amount=" + Amout + "&cmpId=4",
+            dataType: "json",
+            type: "Post",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                debugger;
+
+                //var obj = $.parseJSON(data)
+                var obj = jq.parseJSON(data)
+                //alert(data);
+                onSaveRequest(obj.id, Amout);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function onSaveRequest(objId, Amout)
+    {
+        debugger;
+        $.ajax({
+            url: "/Home/SaveRequest?amount="+ Amout+ "&paymentToken="+ objId + "",
+            dataType: "json",
+            type: "Post",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                debugger;
+                OnSuccess(objId);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+    function OnSuccess(objId) {
+        debugger;
+        var hdnTId = $('#hdnTId').val();
+        Layer.checkout({
+            token: objId,
+            accesskey: hdnTId
+        },
+           function (response) {
+               debugger;
+
+               //$('#UpdateProgress1').hide();
+               var myJSON = JSON.stringify(response);
+               if (response.status == "captured") {
+                   onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
+                   alert("payment successfuly!");
+
+               } else if (response.status == "created") {
+                   onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
+                   alert("some error occured!");
+
+               } else if (response.status == "pending") {
+                   onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
+                   alert("payment status pending!");
+
+               }
+               else if (response.status == "failed") {
+                   onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
+                   alert("payment failed!");
+
+               } else if (response.status == "cancelled") {
+                   onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
+                   alert("some error occured!");
+               }
+               $('#UpdateProgress1').hide();
+           },
+           function (err) {
+               //integration errors
+               //onSaveResponse("FAILED");
+               
+               alert("payment failed!");
+           }
+
+       );
+    }
+
+    function onSaveResponse(paymentToken, payId, status, objVal) {
+        debugger;
+        var hdnAmount = $('#totalCharge').val();
+
+        var Amout = $("#totalCharge").val();
+        $.ajax({
+            url: "/Home/SaveResponse?amount=" + hdnAmount + "&paymentToken=" + paymentToken + "&paymentId=" + payId + "&status=" + status + "&response=" + objVal + "",
+            dataType: "json",
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                debugger;
+                OnSuccess(objId);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
 
     function PGProceed()
     {
