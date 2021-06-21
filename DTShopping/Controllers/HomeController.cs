@@ -1343,6 +1343,7 @@ namespace DTShopping.Controllers
             var user = Session["UserDetail"] as UserDetails;
             string agentid = "";
             agentid = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            string url = string.Empty;
             try
             {
                 paymentRequestGoHappy pay = new paymentRequestGoHappy()
@@ -1373,19 +1374,24 @@ namespace DTShopping.Controllers
                     detailModel.OrderDetail.user_id = user.id;
                     result = await objRepository.CreateOrder(detailModel.OrderDetail, "Paymentgateway");//editwithpoints
                     ViewBag.Message = " Payment Done Sucessfully.!";
-                    return RedirectToAction("thankYouPage", "Manage");
+                    url = "/Manage/thankYouPage";
+                    return Json(url);
+                   // return RedirectToAction("thankYouPage", "Manage");
                 }
                 else
                 {
                     ViewBag.Message = " Payment Failed,Please try Again letter!";
-                    return RedirectToAction("Failed", "Home");
+                    url = "/Home/Failed";
+                    return Json(url);
+                    //return RedirectToAction("Failed", "Home");
                 }
             }
              catch(Exception ex)
             {
 
             }
-             return RedirectToAction("Failed", "Home");
+            return Json(url);
+            //  return RedirectToAction("Failed", "Home");
         }
 
     }

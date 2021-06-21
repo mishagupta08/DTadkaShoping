@@ -767,8 +767,6 @@
     function generateToken(Amout)
     {
         debugger;
-      
-       
         $.ajax({
             url: "/Home/generateToken?Amount=" + Amout + "&cmpId=4",
             dataType: "json",
@@ -833,10 +831,13 @@
                if (response.status == "captured") {
                    onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
                    alert("payment successfuly!");
+                   window.location.href = "/Manage/thankYouPage";
+                    
 
                } else if (response.status == "created") {
                    onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
                    alert("some error occured!");
+                   window.location.href = "/Home/Failed";
 
                } else if (response.status == "pending") {
                    onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
@@ -846,10 +847,12 @@
                else if (response.status == "failed") {
                    onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
                    alert("payment failed!");
+                   window.location.href = "/Home/Failed";
 
                } else if (response.status == "cancelled") {
                    onSaveResponse(response.payment_token_id, response.payment_id, response.status, myJSON);
                    alert("some error occured!");
+                   window.location.href = "/Home/Failed";
                }
                $('#UpdateProgress1').hide();
            },
@@ -871,11 +874,17 @@
         $.ajax({
             url: "/Home/SaveResponse?amount=" + hdnAmount + "&paymentToken=" + paymentToken + "&paymentId=" + payId + "&status=" + status + "&response=" + objVal + "",
             dataType: "json",
-            type: "GET",
+            type: "Post",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 debugger;
                 OnSuccess(objId);
+                if (data == null || data == undefined || data == "") {
+                    $("#error").html(data);
+                }
+                else {
+                    window.location.href = data;
+                }
             },
             failure: function (response) {
                 alert(response.responseText);
