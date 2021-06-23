@@ -1312,10 +1312,34 @@ namespace DTShopping.Controllers
             //return response;
             return Json(response);
         }
+
+         public async Task<ActionResult> generateHealthToken(string Amount)
+        {
+            string response = string.Empty;
+            try
+            {
+                HttpWebRequest reponse;
+                string URL = string.Empty;
+                PaymentTokenReq paytoken = new PaymentTokenReq();
+                paytoken.amount = Amount;
+                paytoken.contact_number = "";
+                paytoken.email_id = "";
+                paytoken.currency = "INR";
+                string output1 = JsonConvert.SerializeObject(paytoken);
+                reponse = clsgen.PostJSON(output1, "http://uapi.bisplindia.in/api/Home/GeneratePaymentTokenNew");
+                response = clsgen.GetResponse(reponse);
+            }
+             catch(Exception ex)
+            {
+
+            }
+            return Json(response);
+        }
+
          public async Task<ActionResult> SaveRequest(string Amount,string paymentToken)
         {
             string urm = "";
-            if (companyId == "30")
+            if (companyId == "30" || companyId=="41")
             {
                 var user = Session["UserDetail"] as UserDetails;
                 string agentid = "";

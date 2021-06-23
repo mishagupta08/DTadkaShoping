@@ -221,7 +221,7 @@
                             <td>
                                 <div class="Paymenttd" style="width:235px;">
                                     <ul>
-                                         @if (CompanyId == GOHAPPYCARTCOMPANYID)
+                                         @if (CompanyId == GOHAPPYCARTCOMPANYID || CompanyId == HEALTHTADKACOMPANYID)
                                          {
                                         <li>
                                             @*<input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">
@@ -231,10 +231,10 @@
                                             <b> PaymentGateway</b>
                                         </li>
                                          }
+                                       
                                          else
                                          {
-                                            <li>
-                                               
+                                          <li>
                                                 <input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">
                                                 <b>Credit Card / Debit Card / Net Banking/PayUMoney</b><br>
                                                 @*<input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">*@
@@ -685,8 +685,17 @@
                                 </div>
                                 <br />*@
                                 <div class="col-sm-3">
-                                    <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayProceed();" />
-                                    <input type="hidden" id="hdnTId" value="831d6f80-cd0d-11eb-be9b-297bda30bfe1" />
+                                  
+                                     @if (CompanyId == GOHAPPYCARTCOMPANYID)
+                                     {
+                                        <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayProceed();" />
+                                       <input type="hidden" id="hdnTId" value="831d6f80-cd0d-11eb-be9b-297bda30bfe1" />
+                                    }
+                                      @if (CompanyId == HEALTHTADKACOMPANYID)
+                                      {
+                                        <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayHealthTadka();" />
+                                        <input type="hidden" id="hdnTId" value="a250e8c0-eb8e-11ea-b1a4-456c5b20f4f5" />
+                                      }
                                     @*<input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PGProceed();" />*@
                                     @*<button type="submit" class="btn btn-primary">Submit</button>*@
                                 </div>
@@ -696,6 +705,24 @@
                         </div>
 
                     </div>
+
+                    @*<div id="divHealthPg"  style="display:none">
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <br />
+                            
+                                <div class="col-sm-3">
+                                    <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayHealthTadka();" />
+                                    <input type="hidden" id="hdnHealthTId" value="831d6f80-cd0d-11eb-be9b-297bda30bfe1" />
+                               
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>*@
                 </div>
               
             </div>
@@ -764,10 +791,47 @@
        
     }
 
+    function PaymentGetwayHealthTadka()
+    {
+        debugger;
+        var Amout = $("#totalCharge").val();
+        GenerateTokenHealthTadka(Amout)
+    }
+
+    function GenerateTokenHealthTadka(Amout)
+    {
+        debugger;
+        var hdnTId = $('#hdnTId').val();
+        //var Amout = 1;
+        $.ajax({
+            url: "/Home/generateHealthToken?Amount=" + Amout + "",
+            dataType: "json",
+            type: "Post",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                debugger;
+                var obj = jq.parseJSON(data)
+                //alert(data);
+                onSaveRequest(obj.id, Amout);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+   
+
     function generateToken(Amout)
     {
         debugger;
-        $.ajax({
+       $.ajax({
             url: "/Home/generateToken?Amount=" + Amout + "&cmpId=4",
             dataType: "json",
             type: "Post",
