@@ -1313,7 +1313,7 @@ namespace DTShopping.Controllers
             return Json(response);
         }
 
-         public async Task<ActionResult> generateHealthToken(string Amount)
+         public async Task<ActionResult> GenerateTokenHealthStanvee(string Amount)
         {
             string response = string.Empty;
             try
@@ -1339,7 +1339,7 @@ namespace DTShopping.Controllers
          public async Task<ActionResult> SaveRequest(string Amount,string paymentToken)
         {
             string urm = "";
-            if (companyId == "30" || companyId=="41")
+            if (companyId == "30" || companyId=="46")
             {
                 var user = Session["UserDetail"] as UserDetails;
                 string agentid = "";

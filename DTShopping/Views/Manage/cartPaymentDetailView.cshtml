@@ -25,6 +25,7 @@
     int DUDHAMRITCOMPANYID = 43;
     int MYDWORLDCOMPANYID = 44;
     int MYAIMTRADESERVICESCOMPANYID = 45;
+    int HeathCareStanvee = 46;
 }
 
 
@@ -221,7 +222,7 @@
                             <td>
                                 <div class="Paymenttd" style="width:235px;">
                                     <ul>
-                                         @if (CompanyId == GOHAPPYCARTCOMPANYID || CompanyId == HEALTHTADKACOMPANYID)
+                                         @if (CompanyId == GOHAPPYCARTCOMPANYID || CompanyId == HeathCareStanvee)
                                          {
                                         <li>
                                             @*<input type="radio" value="cardPaymentMode" name="paymentmethod" id="Pay4">
@@ -691,9 +692,9 @@
                                         <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayProceed();" />
                                        <input type="hidden" id="hdnTId" value="831d6f80-cd0d-11eb-be9b-297bda30bfe1" />
                                     }
-                                      @if (CompanyId == HEALTHTADKACOMPANYID)
+                                      @if (CompanyId == HeathCareStanvee)
                                       {
-                                        <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayHealthTadka();" />
+                                        <input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PaymentGetwayHealthStanvee();" />
                                         <input type="hidden" id="hdnTId" value="a250e8c0-eb8e-11ea-b1a4-456c5b20f4f5" />
                                       }
                                     @*<input type="button" class="btn btn-primary" name="PgProceed" id="PgProceed" value="Proceed" onclick="PGProceed();" />*@
@@ -791,20 +792,20 @@
        
     }
 
-    function PaymentGetwayHealthTadka()
+    function PaymentGetwayHealthStanvee()
     {
         debugger;
         var Amout = $("#totalCharge").val();
-        GenerateTokenHealthTadka(Amout)
+        GenerateTokenHealthStanvee(Amout)
     }
 
-    function GenerateTokenHealthTadka(Amout)
+    function GenerateTokenHealthStanvee(Amout)
     {
         debugger;
         var hdnTId = $('#hdnTId').val();
         //var Amout = 1;
         $.ajax({
-            url: "/Home/generateHealthToken?Amount=" + Amout + "",
+            url: "/Home/GenerateTokenHealthStanvee?Amount=" + Amout + "",
             dataType: "json",
             type: "Post",
             contentType: "application/json; charset=utf-8",
