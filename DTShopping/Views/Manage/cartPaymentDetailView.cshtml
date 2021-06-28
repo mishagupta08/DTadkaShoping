@@ -43,6 +43,12 @@
     .contentText .fieldValue input {
         height: 29px !important;
     }
+
+    .zoom:hover {
+        -ms-transform: scale(3.5); /* IE 9 */
+        -webkit-transform: scale(3.5); /* Safari 3-8 */
+        transform: scale(3.5);
+    } 
 </style>
 
 <div class="container">
@@ -370,7 +376,7 @@
                                         </tr>
                                         <tr>
                                             <td class="fieldKey"><label for="username">@Resources.AccountName</label> : </td>
-                                            <td class="fieldValue">@Company.CompanyAccountNumber</td>
+                                            <td class="fieldValue">@Company.CompanyAccountName</td>
                                         </tr>
                                         <tr>
                                             <td class="fieldKey"><label for="username">@Resources.BankName</label> : </td>
@@ -401,12 +407,14 @@
                                             <td class="fieldKey" colspan="2">
                                                 <div id="Paytm" @*style="display:none;" *@>
 
-                                                    <img src="@imageUrl/@Company.PaytmQrCode" alt="PaytmQRCode" title="PaytmQRCode" width="100" height="100" class="scale-with-grid" />
+                                                    @*<a  href="@imageUrl/@Company.PaytmQrCode" target="_blank"><img src="@imageUrl/@Company.PaytmQrCode" alt="PaytmQRCode" title="PaytmQRCode" width="100" height="100" class="scale-with-grid" /></a>*@
+                                                    <img   src="@imageUrl/@Company.PhonePeQrCode"  width="100" height="100" class="scale-with-grid zoom" />
+                                                  
 
                                                 </div>
                                                 <div id="phonePay" style="display:none;">
 
-                                                    <img src="@imageUrl/@Company.PhonePeQrCode" alt="PhonePeQRCode" title="PhonePeQRCode" width="100" height="100" class="scale-with-grid" />
+                                                    <img src="@imageUrl/@Company.PhonePeQrCode" width="100" height="100" class="scale-with-grid zoom" />
 
                                                 </div>
                                             </td>
