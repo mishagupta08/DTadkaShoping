@@ -21,4 +21,10 @@ namespace DTShopping.Models
       
 
     }
+
+     public  class GetStateRequest
+    {
+         public string reqtype { get; set; }
+         public string countrycode { get; set; }
+    } 
 }

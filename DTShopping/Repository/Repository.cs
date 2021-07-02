@@ -480,9 +480,6 @@ namespace DTShopping.Repository
                 return result;
             }
         }
-
-
-
         public async Task<Response> getCartCount(UserDetails userDetail)
         {
             CartFilter filter = new CartFilter();

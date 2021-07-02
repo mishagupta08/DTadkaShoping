@@ -297,6 +297,9 @@ namespace DTShopping
             this._APIManager = new APIRepository();
             await this.AssignOtherAreaCode("");
             await this.GetRegilionResponse("");
+           ddlStateList list= await this.GetDDLStateList();
+            this.model.State = list.states;
+
             return View(this.model);
         }
 
@@ -349,8 +352,42 @@ namespace DTShopping
             return Json(Area);
         }
 
+         public async Task<ActionResult> GetDDLStateList1()
+        {
+            this.model = new Dashboard();
+            this._APIManager = new APIRepository();
+            ddlStateList State = new ddlStateList();
+            List<StateList> stateList = new List<StateList>();
+            Response responseDetail = new Response();
+            General clsgen = new General();
+            string jsonResponse = string.Empty;
+            try
+            {
+                GetStateRequest statereq = new GetStateRequest();
+                statereq.reqtype = "statelist";
+                statereq.countrycode = "1";
+                string output1 = JsonConvert.SerializeObject(statereq);
+                HttpWebRequest reponse;
+                reponse = clsgen.JSON(output1, "https://cpanel.gohappynetwork.com/DTProcess.aspx");
+                jsonResponse = clsgen.GetResponse(reponse);
+                State = JsonConvert.DeserializeObject<ddlStateList>(jsonResponse);
+                ApiPinCoderesponse Code = new ApiPinCoderesponse();
+                {
+                    Code.request = output1;
+                    Code.response = jsonResponse;
+                    Code.url = "https://cpanel.gohappynetwork.com/DTProcess.aspx";
+                }
+                var statusID = await this._APIManager.SaveAPIRequest(Code);
+            }
+             catch(Exception ex)
+            {
+                
+            }
+            return Json(State);
+        }
 
-        public async Task<ActionResult> SaveOtherRegister(string mobileNo, string referralid, string name, string address, string statecode, string district, string city, string email, string areacode, string citycode, string districtcode, string panno, string pinCode,string radiovalue,string religionid, string religionname,string State)
+
+        public async Task<ActionResult> SaveOtherRegister(string mobileNo, string referralid, string name, string address, string statecode, string district, string city, string email, string areacode, string citycode, string districtcode, string panno, string pinCode,string radiovalue,string religionid, string religionname)
         {
 
             General clsgen = new General();
@@ -382,9 +419,9 @@ namespace DTShopping
                 register.nominee = "testjfds";
                 register.relation = "dsdd";
                 register.mpasswd = "123456";
-                register.areacode = areacode;
-                register.citycode = citycode;
-                register.districtcode = districtcode;
+                register.areacode = "0";
+                register.citycode = "0";
+                register.districtcode = "0";
                 register.frelation = "D/O";
                 register.actype = "CHOOSE Account Type";
                 register.bankcode = "30";
@@ -543,6 +580,40 @@ namespace DTShopping
                     areaname = "-Not Available-"
                 });
             }
+        }
+
+        private async Task <ddlStateList> GetDDLStateList()
+        {
+            this.model = new Dashboard();
+            this._APIManager = new APIRepository();
+            ddlStateList State = new ddlStateList();
+            List<StateList> stateList = new List<StateList>();
+            Response responseDetail = new Response();
+            General clsgen = new General();
+            string jsonResponse = string.Empty;
+            try
+            {
+                GetStateRequest statereq = new GetStateRequest();
+                statereq.reqtype = "statelist";
+                statereq.countrycode = "1";
+                string output1 = JsonConvert.SerializeObject(statereq);
+                HttpWebRequest reponse;
+                reponse = clsgen.JSON(output1, "https://cpanel.gohappynetwork.com/DTProcess.aspx");
+                jsonResponse = clsgen.GetResponse(reponse);
+                State = JsonConvert.DeserializeObject<ddlStateList>(jsonResponse);
+                ApiPinCoderesponse Code = new ApiPinCoderesponse();
+                {
+                    Code.request = output1;
+                    Code.response = jsonResponse;
+                    Code.url = "https://cpanel.gohappynetwork.com/DTProcess.aspx";
+                }
+                var statusID = await this._APIManager.SaveAPIRequest(Code);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return State;
         }
 
         private async Task AssignStateCityList()

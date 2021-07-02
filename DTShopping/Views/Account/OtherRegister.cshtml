@@ -50,26 +50,35 @@
                             </div>
                         </div>
 
+                       <div class="form-group">
+                        <label class="col-md-4 control-label" for="txtCity">State*</label>
+                        <div class="col-md-4">
+                            @Html.DropDownListFor(m => m.OtherRegister.statecode, new SelectList(Model.State, "statecode", "statename"), new { @required = "0", id = "ddlState", @class = "form-control multiselect-ui" })
+                        </div>
+                      </div>
+
+
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtPincode">Pin code*</label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.OtherRegister.pincode, new { @type = "text", @id = "pincode", @required = "required", @placeholder = "" , @onchange = "GetStateDetail();" })
+                                @Html.TextBoxFor(m => m.OtherRegister.pincode, new { @type = "text", @id = "pincode", @required = "required", @placeholder = "" @*, @onchange = "GetStateDetail();"*@ })
                              
                             </div>
                         </div>
+                
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="col-md-4 control-label" for="txtState">State*</label>
                             <div class="col-md-4">
                                 @Html.TextBoxFor(m => m.OtherRegister.statecode, new { @type = "text", @id = "statecode", @required = "required", @placeholder = "" , disabled = "disabled" })
                                 
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtDistrict">District*</label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.OtherRegister.district, new { @type = "text", @id = "district", @required = "required", @placeholder = "", disabled = "disabled" })
+                                @Html.TextBoxFor(m => m.OtherRegister.district, new { @type = "text", @id = "district", @required = "required", @placeholder = "" })
                                
                             </div>
                         </div>
@@ -77,19 +86,27 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="txtCity">City*</label>
                             <div class="col-md-4">
-                                @Html.TextBoxFor(m => m.OtherRegister.city, new { @type = "text", @id = "city", @required = "required", @placeholder = "" ,disabled = "disabled" })
+                                @Html.TextBoxFor(m => m.OtherRegister.city, new { @type = "text", @id = "city", @required = "required", @placeholder = ""  })
                               
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="col-md-4 control-label" for="txtCity">Area*</label>
                             <div class="col-md-4">
-                                @*<asp:DropDownList ID="ddlArea" ClientIDMode="Static" runat="server" CssClass="form-control input-md"></asp:DropDownList>*@
                                 @Html.DropDownListFor(m => m.OtherRegister.areacode, new SelectList(Model.areacode, "areacode", "areaname"), new { @required = "0", id = "ddlArea", @class = "form-control multiselect-ui" })
                                
                             </div>
+                        </div>*@
+
+                    @*<div class="form-group">
+                        <label class="col-md-4 control-label" for="txtCity">Area*</label>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.OtherRegister.areacode, new { @type = "text", @id = "ddlArea", @required = "0", @placeholder = "" })
+
                         </div>
+                    </div>*@
+                   
 
                         @*<div class="form-group" id="divreligion" style="display:none">
                         <label class="col-md-4 control-label">Religion</label>
@@ -154,6 +171,8 @@
     </div>
 <script src="~/Scripts/dashboard.js"></script>
 <script>
+    
+   
     function GetStateDetail()
     {
         debugger;
@@ -214,7 +233,7 @@
             alert("Please Enter the address! ");
             return false;
         }
-        var statecode = $("#hdnStateCode").val();;
+        //var statecode = $("#hdnStateCode").val();;
         var district = $("#district").val();
         if (district == "") {
             alert("Please Enter the District! ");
@@ -232,18 +251,24 @@
             alert("Please Enter the email! ");
             return false;
         }
-        var State = $("#statecode").val();
-        if (State == "")
-        {
-            lert("Please Enter the State! ");
-            return false;
-        }
+        //var State = $("#statecode").val();
+        //if (State == "")
+        //{
+        //    lert("Please Enter the State! ");
+        //    return false;
+        //}
         var ddlArea = $("#ddlArea");
         if (ddlArea == "") {
-            alert("Please Select the Area! ");
+            alert("Please Enter the Area! ");
             return false;
         }
-        var areacode = ddlArea.val();
+        var statecode = $("#ddlState").val();
+        if (statecode == "0")
+        {
+            alert("Please Select the State! ");
+            return false;
+        }
+        var areacode = "0";//ddlArea.val();
         var citycode = $("#hdnCityCode").val();
         var districtcode = $("#hdnDistrictCode").val();
         var panno = $("#panno").val();
@@ -274,7 +299,7 @@
             type: "POST",
             url: '/Account/SaveOtherRegister',
             datatype: "Json",
-            data: { mobileNo: mobileNo, referralid: referralid, name: name, address: address, statecode: statecode, district: district, city: city, email: email, areacode: areacode, citycode: citycode, districtcode: districtcode, panno: panno, pinCode: pinCode, radiovalue: radiovalue, religionid: religionid, religionname: religionname, State: State },
+            data: { mobileNo: mobileNo, referralid: referralid, name: name, address: address, statecode: statecode, district: district, city: city, email: email, areacode: areacode, citycode: citycode, districtcode: districtcode, panno: panno, pinCode: pinCode, radiovalue: radiovalue, religionid: religionid, religionname: religionname },
             success: function (data) {
                 debugger;
 

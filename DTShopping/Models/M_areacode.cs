@@ -22,4 +22,14 @@ namespace DTShopping.Models
         public string citycode { get; set; }
         public string response { get; set; }
     }
+
+    public class StateList
+    {
+        public string statecode { get; set; }
+        public string statename {get;set;}
+    }
+     public class ddlStateList
+    {
+        public List<StateList> states { get; set; }
+    }
 }
