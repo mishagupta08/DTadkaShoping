@@ -145,8 +145,8 @@ namespace DTShopping.Controllers
 
         public async Task<ActionResult> GetProductDetail(int prodId)
         {
-            if (CheckLoginUserStatus())
-            {
+            //if (CheckLoginUserStatus())
+            //{
                 var dashboard = new Dashboard();
                 this.objRepository = new APIRepository();
                 try
@@ -203,12 +203,12 @@ namespace DTShopping.Controllers
                 {
                     return View("productDetailPage", dashboard);
                 }
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
-        }
+    //    }
+    //        else
+    //        {
+    //            return RedirectToAction("Login", "Account");
+    //}
+}
 
         public async Task<ActionResult> ProductList(string cat, string BrandId, string root, int? page, string SortBy, string Order, string FilterFromPoint, string FilterToPoint, string searchString, string pointsFilterList)
         {

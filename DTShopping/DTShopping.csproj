@@ -973,6 +973,7 @@
     <Content Include="plugins\lightGallery-master\dist\fonts\lgd641.eot" />
     <Content Include="plugins\lightGallery-master\dist\fonts\lgd641.ttf" />
     <Content Include="plugins\lightGallery-master\dist\fonts\lgd641.woff" />
+    <None Include="Properties\PublishProfiles\DtShopping.pubxml" />
     <None Include="Properties\PublishProfiles\ETrade.pubxml" />
     <None Include="Properties\PublishProfiles\ShoppingPortalDeployUrShope.pubxml" />
     <None Include="Properties\PublishProfiles\Stanvee.pubxml" />

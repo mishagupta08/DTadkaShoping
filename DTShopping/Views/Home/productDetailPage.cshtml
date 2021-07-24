@@ -55,33 +55,33 @@
                                 <div class="cloudzoom_gallery">
                                     <div class="clearfix gallery_smallimg_wrapper" style="display:inline-block;float:left; margin-right:5px;">
                                         <div class="gallery_smallimg">
-                                            <a href="@imageUrl/@Model.ProductDetail.small_image.Replace("'","")" style="display:inline-block !important;" class="cloud-zoom-gallery"
-                                               rel="useZoom:'zoom1', smallImage: '@imageUrl/@Model.ProductDetail.small_image.Replace("'","")' "><img src="@imageUrl/@Model.ProductDetail.small_image.Replace("'","")" alt="" /></a>
+                                            <a href="@imageUrl/@Model.ProductDetail.small_image" style="display:inline-block !important;" class="cloud-zoom-gallery"
+                                               rel="useZoom:'zoom1', smallImage: '@imageUrl/@Model.ProductDetail.small_image' "><img src="@imageUrl/@Model.ProductDetail.small_image" alt="" /></a>
 
                                             @if (!(Model.ProductDetail.prodImageList == null || Model.ProductDetail.prodImageList.Count == 0))
                                             {
-                                            foreach (var img in Model.ProductDetail.prodImageList)
-                                            {
-                                            <a href="@imageUrl/@img.images.Replace("'","")" class="cloud-zoom-gallery"
-                                               rel="useZoom:'zoom1', smallImage: '@imageUrl/@img.images.Replace("'","")' "><img src="@imageUrl/@img.images.Replace("'","")" alt="" /></a>
-                                            }
+                                                foreach (var img in Model.ProductDetail.prodImageList)
+                                                {
+                                                    <a href="@imageUrl/@img.images" class="cloud-zoom-gallery"
+                                                       rel="useZoom:'zoom1', smallImage: '@imageUrl/@img.images' "><img src="@imageUrl/@img.images" alt="" /></a>
+                                                }
                                             }
                                         </div>
                                     </div>
                                     <div class="gallery_bigimg" style="display:inline-block;">
                                         @*<a href="~/images/24_2.jpg" class="cloud-zoom" id="zoom1"
-                                        rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="~/@Model.ProductDetail.large_image" alt="" itemprop="image" /></a>*@
-                                        <a href="@imageUrl/@Model.ProductDetail.large_image.Replace("'","")" style="height:450px !important;width:450px !important;" class="cloud-zoom" id="zoom1"
-                                           rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="@imageUrl/@Model.ProductDetail.large_image.Replace("'","")" alt="" itemprop="image" /></a>
+                                            rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="~/@Model.ProductDetail.large_image" alt="" itemprop="image" /></a>*@
+                                        <a href="@imageUrl/@Model.ProductDetail.large_image" style="height:450px !important;width:450px !important;" class="cloud-zoom" id="zoom1"
+                                           rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="@imageUrl/@Model.ProductDetail.large_image" alt="" itemprop="image" /></a>
 
                                         @*@if (!(Model.ProductDetail.prodImageList == null || Model.ProductDetail.prodImageList.Count == 0))
-                                        {
-                                        foreach (var img in Model.ProductDetail.prodImageList)
-                                        {
-                                        <a href="@imageUrl/@img.images" class="cloud-zoom" id="zoom1"
-                                        rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="@imageUrl/@img.images" alt="" itemprop="image" /></a>
-                                        }
-                                        }*@
+                                            {
+                                                foreach (var img in Model.ProductDetail.prodImageList)
+                                                {
+                                                <a href="@imageUrl/@img.images" class="cloud-zoom" id="zoom1"
+                                                   rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="@imageUrl/@img.images" alt="" itemprop="image" /></a>
+                                                }
+                                            }*@
 
                                     </div>
                                     <div class="gallery_note">Roll over the image to view it</div>
@@ -96,38 +96,38 @@
                                             <div class="prod_info_name_price">
                                                 <div class="prod_info_name">
                                                     <h1 itemprop="name">
-                                                        @Model.ProductDetail.title.Replace("'","")<br />
+                                                        @Model.ProductDetail.title<br />
                                                         @*<span class="smallText">[MSINTKB]</span>*@
-                                                        </h1>
-                                                        </div>
-                                                        @if (Model.ProductDetail.instock == 1)
-                                                        {
-                                                        <p class="availability">
+                                                    </h1>
+                                                </div>
+                                                @if (Model.ProductDetail.instock == 1)
+                                                {
+                                                    <p class="availability">
                                                         @Resources.Availability :
 
                                                         @if (CompanyId == SUNVISCOMPANYID)
                                                         {
-                                                        <strong itemprop="availability">
-                                                        @Resources.CouponDeliveryText
-                                                        </strong>
+                                                            <strong itemprop="availability">
+                                                                @Resources.CouponDeliveryText
+                                                            </strong>
                                                         }
                                                         else
                                                         {
-                                                        <strong itemprop="availability">
-                                                        @Resources.InStockText
-                                                        </strong>
+                                                            <strong itemprop="availability">
+                                                                @Resources.InStockText
+                                                            </strong>
                                                         }
-                                                        </p>
-                                                        }
-                                                        else
-                                                        {
-                                                        <p class="availability">@Resources.Availability :<strong itemprop="availability"> @Resources.OutOfStock </strong> </p>
-                                                        }
+                                                    </p>
+                                                }
+                                                else
+                                                {
+                                                    <p class="availability">@Resources.Availability :<strong itemprop="availability"> @Resources.OutOfStock </strong> </p>
+                                                }
 
-                                                        <div itemprop="offerDetails" itemscope class="prod_info_price">
-                                                        @*<p class="old_price_box"><span class="old_price_label">@Resources.Vendor :</span> Rs. @Model.ProductDetail.VendorName</p>*@
-                                                        @if (Convert.ToDouble(string.IsNullOrEmpty(Model.ProductDetail.market_price) ? "0" : Model.ProductDetail.market_price) > Convert.ToDouble(string.IsNullOrEmpty(Model.ProductDetail.offer_price) ? "0" : Model.ProductDetail.offer_price))
-                                                        {
+                                                <div itemprop="offerDetails" itemscope class="prod_info_price">
+                                                    @*<p class="old_price_box"><span class="old_price_label">@Resources.Vendor :</span> Rs. @Model.ProductDetail.VendorName</p>*@
+                                                    @if (Convert.ToDouble(string.IsNullOrEmpty(Model.ProductDetail.market_price) ? "0" : Model.ProductDetail.market_price) > Convert.ToDouble(string.IsNullOrEmpty(Model.ProductDetail.offer_price) ? "0" : Model.ProductDetail.offer_price))
+                                                    {
                                                         <p class="old_price_box"><span class="old_price_label">@Resources.MarketPrice :</span><s> Rs. @Model.ProductDetail.market_price</s></p>
                                                         <p class="new_price_box">
                                                             <span class="special_price_label"> @Resources.OfferPrice :</span>
@@ -135,9 +135,9 @@
                                                                 Rs. @Model.ProductDetail.offer_price<br>
                                                             </span>
                                                         </p>
-                                                        }
-                                                        else
-                                                        {
+                                                    }
+                                                    else
+                                                    {
                                                         <p class="new_price_box">
                                                             <span class="special_price_label"> Price :</span>
 
@@ -145,49 +145,49 @@
                                                                 Rs. @Model.ProductDetail.offer_price<br>
                                                             </span>
                                                         </p>
-                                                        }
-                                                        <p>
-                                                            <span class="icon_cart_title product-price" style="font-size:11px; font-family:Arial, Helvetica, sans-serif; line-height:18px;">
-                                                                @if (CompanyId != ETRADECOMPANYID && CompanyId != DUDHAMRITCOMPANYID && CompanyId != MYDWORLDCOMPANYID)
-                                                                {
+                                                    }
+                                                    <p>
+                                                        <span class="icon_cart_title product-price" style="font-size:11px; font-family:Arial, Helvetica, sans-serif; line-height:18px;">
+                                                            @if (CompanyId != ETRADECOMPANYID && CompanyId != DUDHAMRITCOMPANYID && CompanyId != MYDWORLDCOMPANYID)
+                                                            {
                                                                 <strong>
                                                                     @if (CompanyId == URSHOPECOMPANYID)
                                                                     {
-                                                                    <span>@Resources.ProfitPoint : </span>
+                                                                        <span>@Resources.ProfitPoint : </span>
                                                                     }
                                                                     else
                                                                     {
-                                                                    <span>@Resources.EUPoints : </span>
+                                                                        <span>@Resources.EUPoints : </span>
                                                                     }
                                                                     @{var t = @Model.ProductDetail.point_adjusted != null ? @Model.ProductDetail.point_adjusted : 0;}@t
                                                                 </strong><br>
-                                                                }
-                                                                @if (CompanyId == SJLABSCOMPANYID && !(Model.ProductDetail.RBV == 0 || Model.ProductDetail.RBV == null))
-                                                                {
+                                                                        }
+                                                            @if (CompanyId == SJLABSCOMPANYID && !(Model.ProductDetail.RBV == 0 || Model.ProductDetail.RBV == null))
+                                                            {
                                                                 <span class="icon_cart_title product-price" style="font-size:11px; font-family:Arial, Helvetica, sans-serif; line-height:8px;">
                                                                     <span>@Resources.BV : </span>
                                                                     @Html.Raw(Model.ProductDetail.RBV)
                                                                 </span>
-                                                                }
+                                                            }
 
-                                                                @if (Model.ProductDetail.sizeList != null && Model.ProductDetail.sizeList.Count > 0)
-                                                                {
+                                                            @if (Model.ProductDetail.sizeList != null && Model.ProductDetail.sizeList.Count > 0)
+                                                            {
                                                                 <strong>
                                                                     @Resources.Size :
                                                                 </strong>
                                                                 @Html.DropDownListFor(m => m.ProductDetail.product_size, new SelectList(Model.ProductDetail.sizeList), new { @required = "0", id = "sizeDropDown", @class = "form-control", @style = "width: 156px;height: 30px;" })
-                                                                }
+                                                            }
 
-                                                                @if (Model.ProductDetail.colorList != null && Model.ProductDetail.sizeList.Count > 0)
-                                                                {
+                                                            @if (Model.ProductDetail.colorList != null && Model.ProductDetail.sizeList.Count > 0)
+                                                            {
                                                                 <strong>
                                                                     @Resources.Color :
                                                                 </strong>
                                                                 @Html.DropDownListFor(m => m.ProductDetail.Color, new SelectList(Model.ProductDetail.colorList), new { @required = "0", id = "colorDropDown", @class = "form-control", @style = "width: 156px;height: 30px;" })
-                                                                }
-                                                            </span>
-                                                        </p>
-                                                        <div class="clear"></div>
+                                                            }
+                                                        </span>
+                                                    </p>
+                                                    <div class="clear"></div>
                                                 </div>
 
 
@@ -197,7 +197,7 @@
                                                     <input type="hidden" id="product_id" name="product_id" value="@Model.ProductDetail.id" />
                                                     @if (CompanyId == DUDHAMRITCOMPANYID || CompanyId == ETRADECOMPANYID || CompanyId == MYDWORLDCOMPANYID)
                                                     {
-                                                    @Html.TextBoxFor(m => m.ProductDetail.vendor_qty, new { @type = "number", @min=1, @max=50, @id = "quantity", @required = "required", @class = "form-control ", @placeholder = "quantity", @style="width:31%;"  })
+                                                        @Html.TextBoxFor(m => m.ProductDetail.vendor_qty, new { @type = "number", @min = 1, @max = 50, @id = "quantity", @required = "required", @class = "form-control ", @placeholder = "quantity", @style = "width:31%;" })
                                                     }
 
                                                     <br />
@@ -210,8 +210,8 @@
                                             @Resources.TandCText
                                         </div>
                                         <div class="product_description">
-                                            <h1>@Resources.ProductDescription.Replace("'", "")</h1>
-                                            @Html.Raw(Model.ProductDetail.short_description.Replace("'", ""))
+                                            <h1>@Resources.ProductDescription</h1>
+                                            @Html.Raw(Model.ProductDetail.short_description)
                                         </div>
                                     </div>
                                 </div>
