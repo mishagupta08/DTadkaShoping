@@ -306,4 +306,7 @@
   <data name="BV" xml:space="preserve">
     <value>BV</value>
   </data>
+  <data name="StanveePoints" xml:space="preserve">
+    <value>Member Points</value>
+  </data>
 </root>

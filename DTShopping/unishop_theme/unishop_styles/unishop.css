@@ -82,7 +82,7 @@
 #storeLogo {
     overflow: hidden;
     clear: both;
-    padding-top: 14px;
+    padding-top: 0px;
     margin-top: 0px;
     margin-bottom: 10px;
     width: 100%;
@@ -389,11 +389,11 @@
 
 /*box search in header*/
 #top_search {
-    width: 850px;
+    width: 500px;
     background-color: #fff;
     border: 1px solid #EFEFEF;
     float: left;
-    margin-top: 90px;
+    margin-top: 23px;
     margin-bottom: 0;
 }
 
@@ -1011,7 +1011,8 @@
 
     #footer #copyright .logo_footer img {
         width: 127px;
-        height: 81px;
+        /*height: 81px;*/
+         height: 100%;
     }
 
 
@@ -1930,3 +1931,29 @@ A.pageResults:hover {
 .icon_related {
     background-image: url(../unishop_images/icon-related.png);
 }
+
+.viewall {
+    margin-top: -40px;
+    margin-right: 115px;
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+
+ .viewall {
+    margin-top: -44px;
+    margin-right: 75px;
+}
+
+#nav_first, #nav_first1 {
+    position: relative;
+    left: 45px;
+    top: 0px;
+    width: 185px;
+    float: left;
+}
+
+}
+
+
+
+

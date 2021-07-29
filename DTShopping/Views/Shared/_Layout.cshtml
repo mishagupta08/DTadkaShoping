@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="six columns">
-                            <div id="top_search" style="width: 120%;margin-left: 70%; margin-bottom:1%;">
+                            <div id="top_search" style="width: 120%; margin-bottom:1%;">
                                 <form name="et_quick_find" id="et_quick_find" onsubmit="return false">
                                     <div class="clearfix">
                                         <div id="search">
@@ -308,7 +308,8 @@
                     </div>
                 }
                 <div class="container">
-                    <div class="four columns footer-block footer-copyright">
+                    @*<div class="four columns footer-block footer_my_account">*@
+                    <div class="col-sm-2">
 
                         <div id="copyright">
                             <a class="logo_footer" href="~/Home/Index">
@@ -317,7 +318,8 @@
                             </a> &copy; @copyright
                         </div>
                     </div>
-                    <div class="four columns footer-block footer_information">
+                    @*<div class="four columns footer-block footer_my_account">*@
+                    <div class="col-sm-2">
                         <h2>Information</h2>
                         <nav>
                             <ul>
@@ -327,41 +329,46 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="four columns footer-block footer_customer_service">
+                    @*<div class="four columns footer-block footer_my_account">*@
+                    <div class="col-sm-3">
                         <h2>Customer Assistance</h2>
                         <nav>
                             <ul>
                                 <li><a href="#">(91) @current_cmpny.company_landline_no</a></li>
                                 <li><a href="#">@current_cmpny.contact_email</a></li>
                                 <li>
+
                                     <a>
                                         @if (!string.IsNullOrEmpty(current_cmpny.add1))
                                         {
                                             <div>@current_cmpny.add1</div>
                                         }
-                                        @if (!string.IsNullOrEmpty(current_cmpny.add2))
-                                        {
-                                            <div>@current_cmpny.add2</div>
-                                        }
-                                        @if (!string.IsNullOrEmpty(current_cmpny.city))
-                                        {
-                                            <div>@current_cmpny.city</div>
-                                        }
-                                        @if (!string.IsNullOrEmpty(current_cmpny.state))
-                                        {
-                                            <div>@current_cmpny.state</div>
-                                        }
+                                        @*@if (!string.IsNullOrEmpty(current_cmpny.add2))
+                                            {
+                                                <div>@current_cmpny.add2</div>
+                                            }
+                                            @if (!string.IsNullOrEmpty(current_cmpny.city))
+                                            {
+                                                <div>@current_cmpny.city</div>
+                                            }
+                                            @if (!string.IsNullOrEmpty(current_cmpny.state))
+                                            {
+                                                <div>@current_cmpny.state</div>
+                                            }*@
                                     </a>
                                 </li>
+
+
+
                             </ul>
                         </nav>
                     </div>
-                    <div class="four columns footer-block footer_my_account">
+                    @*<div class="four columns footer-block footer_my_account">*@
+                    <div class="col-sm-2">
+
                         <h2>My Account</h2>
                         <nav>
                             <ul>
-
-
 
                                 @if (Session["UserDetail"] != null)
                                 {
@@ -377,7 +384,8 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="four columns footer-block footer_social">
+                    @*<div class="four columns footer-block footer_my_account">*@
+                    <div class="col-sm-3">
                         @****change only for go happy cartcompany*****@
                         @if (current_cmpny.id == 30)
                         {
@@ -400,14 +408,15 @@
                     </div>
 
 
-                     <div class="four columns footer-block footer_my_account">
-                         <h2>Payment Gateway</h2>
-                         <nav>
-                             
-                             <img src="~/images/paymentgateway.jpg" />
-                             @*<img src="~/images/goHappImage.jpg"  />*@
-                         </nav>
-                     </div>
+                     @*<div class="four columns footer-block footer_my_account">*@
+                    <div class="col-sm-3">
+                        <h2>Payment Gateway</h2>
+                        <nav>
+
+                            <img src="~/images/paymentgateway.jpg" />
+                            @*<img src="~/images/goHappImage.jpg"  />*@
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>     <!-- end footer info -->

@@ -14,6 +14,7 @@
     int SJLABSCOMPANYID = 40;
     int DUDHAMRITCOMPANYID = 43;
     int MYDWORLDCOMPANYID = 44;
+    int StanveeHealthCare = 46;
     var inLineStyle = string.Empty;
     if (CompanyId == URSHOPECOMPANYID)
     {
@@ -80,7 +81,7 @@
                     </div>
                 </div>
             }
-            <div class="carousel_bestsellers_outer">
+            @*<div class="carousel_bestsellers_outer">
                 <div class="container">
                     <div id="carousel_bestsellers" class="es-carousel-wrapper">
                         <div class="es-carousel-inner">
@@ -123,11 +124,15 @@
                                                                 {
                                                                     <span>@Resources.ProfitPoint : </span>
                                                                 }
+                                                                @if (CompanyId == StanveeHealthCare)
+                                                                {
+                                                                    <span>@Resources.StanveePoints:</span>
+                                                                }
                                                                 else
                                                                 {
                                                                     <span>@Resources.EUPoints : </span>
-                                                                }
-                                                                @Html.Raw(segment.point_adjusted)
+                                                                 }
+                                                                 @Html.Raw(segment.point_adjusted)
                                                             </span>
                                                         }
                                                         @if (CompanyId == SJLABSCOMPANYID && !(segment.RBV == 0 || segment.RBV == null))
@@ -156,7 +161,8 @@
                     </div>
 
                 </div>
-            </div>
+            </div>*@
+
             @if (Model.FontpageSections != null && Model.FontpageSections.SpeacialSegment != null && Model.FontpageSections.DealOfDay.Count > 0)
             {
                 <div class="container">
@@ -209,6 +215,10 @@
                                                                 @if (CompanyId == URSHOPECOMPANYID)
                                                                 {
                                                                     <span>@Resources.ProfitPoint : </span>
+                                                                }
+                                                                 @if (CompanyId == StanveeHealthCare)
+                                                                {
+                                                                    <span>@Resources.StanveePoints:</span>
                                                                 }
                                                                 else
                                                                 {
@@ -297,6 +307,11 @@
                                                                     {
                                                                         <span>@Resources.ProfitPoint : </span>
                                                                     }
+                                                                      @if (CompanyId == StanveeHealthCare)
+                                                                     {
+                                                                       <span>@Resources.StanveePoints:</span>
+                                                                      }
+
                                                                     else
                                                                     {
                                                                         <span>@Resources.EUPoints : </span>
@@ -334,14 +349,14 @@
 
             @******start code for show display 1 category list*********@
             @if (Model.FontpageSections != null && Model.FontpageSections.CatProductsList != null && Model.FontpageSections.CatProductsList.Count > 0)
-            {
+            {   
                 foreach (var catProd in Model.FontpageSections.CatProductsList)
                 {
                     <div class="container">
                         <div class="sixteen columns">
                             <h1 id="bestsellers_title"><span class="icon_bestsellers">&nbsp;</span>@catProd.CategoryName</h1>
 
-                            <a href="/Home/GetAllDealProducts?Deal=ByCategoryId&page=1&catId=@catProd.CategoryId">(View All)</a>
+                            <a href="/Home/GetAllDealProducts?Deal=ByCategoryId&page=1&catId=@catProd.CategoryId" class="pull-right viewall">(View All)</a>
                         </div>
                     </div>
 
@@ -388,6 +403,11 @@
                                                                         {
                                                                             <span>@Resources.ProfitPoint : </span>
                                                                         }
+                                                                        @if (CompanyId == StanveeHealthCare)
+                                                                     {
+                                                                       <span>@Resources.StanveePoints:</span>
+                                                                      }
+
                                                                         else
                                                                         {
                                                                             <span>@Resources.EUPoints : </span>

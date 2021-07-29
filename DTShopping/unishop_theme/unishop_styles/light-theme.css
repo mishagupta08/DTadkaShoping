@@ -197,3 +197,27 @@ a.unishop_submit:hover,
 
 
 
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+ #top_search {
+    width: 298px;
+    background-color: #fff;
+    border: 1px solid #EFEFEF;
+    float: left;
+    margin-top: 14px;
+     margin-bottom: -40px;
+    margin-left: 30px;
+}
+
+ #storeLogo {
+    overflow: hidden;
+    clear: both;
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    margin-left: 34px;
+}
+
+
+}
+

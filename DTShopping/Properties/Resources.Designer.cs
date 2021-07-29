@@ -592,6 +592,15 @@ namespace DTShopping.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Points.
+        /// </summary>
+        public static string StanveePoints {
+            get {
+                return ResourceManager.GetString("StanveePoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Terms &amp;amp; Conditions.
         /// </summary>
         public static string TAndC {
