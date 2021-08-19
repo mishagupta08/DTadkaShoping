@@ -24,5 +24,6 @@ namespace DTShopping.Models
         public string Size { get; set; }
 
         public string Color { get; set; }
+         public decimal hwallet { get; set; }
     }
 }

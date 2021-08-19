@@ -38,6 +38,7 @@ namespace DTShopping.Repository
         private string GetUserPointsByUserIdAction = "GetUserPointsByUserId/";
 
         private string ManageCartAction = "ManageCart/";
+        private string ManageHWallet = "ManageHWallet/";
 
         private string ManageCompaniesAction = "ManageCompany/";
 
@@ -499,6 +500,28 @@ namespace DTShopping.Repository
                 return result;
             }
         }
+
+         public async Task<Response> getHWalletBalance(UserDetails userdetail)
+        {
+                CartFilter filter = new CartFilter();
+                filter.username = userdetail.username;
+                filter.password = userdetail.password_str;
+                filter.userId = userdetail.id;
+                filter.companyId = userdetail.company_id ?? 0;
+                var productData = JsonConvert.SerializeObject(filter);
+               var result = await CallPostFunction(productData, ManageHWallet + "GetHWalletBalance");
+                 if( result==null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return result;
+                }
+            
+           
+            return result;
+        }
         public async Task<order> GetUserOpenOrder(order orderDetail)
         {
             var productData = JsonConvert.SerializeObject(orderDetail);
@@ -545,6 +568,20 @@ namespace DTShopping.Repository
         {
             var productData = JsonConvert.SerializeObject(orderDetail);
             var result = await CallPostFunction(productData, "ManageOrder/" + action);
+            if (result == null)
+            {
+                return null;
+            }
+            else
+            {
+                return result;
+            }
+        }
+
+         public async Task<Response> DeductHWallet(order orderDetail,string action)
+        {
+            var productData = JsonConvert.SerializeObject(orderDetail);
+            var result = await CallPostFunction(productData, "DeductHWallet/" + action);
             if (result == null)
             {
                 return null;

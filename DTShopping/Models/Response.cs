@@ -15,6 +15,7 @@ namespace DTShopping.Models
         public double TotalRecords { get; set; }
         public int CartProductCount { get; set; }
          public string totalPoints { get; set; }
+         public decimal hwallet { get; set; }
 
 
     }

@@ -449,8 +449,9 @@
         margin:0;
     }
     .shopping_cart {
-        float:left;
-       margin-bottom: 20px
+       float:left;
+       margin-bottom: 20px;
+	   margin-left: 50px;
     }
     .shopping_cart > .shopping_cart_b > a {
         padding-right:20px;

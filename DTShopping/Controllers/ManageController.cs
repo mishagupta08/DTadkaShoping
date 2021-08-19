@@ -724,7 +724,13 @@ namespace DTShopping.Controllers
                     string companyId = System.Configuration.ConfigurationManager.AppSettings["CompanyId"];
                     this.model.deliveryTypeList = await objRepository.DeliveryTypeList(Convert.ToInt32(companyId));
                     var cart = new CartFilter();
-                    var detail = (UserDetails)(Session["UserDetail"]);
+                    var detail = (UserDetails)(Session["UserDetail"]); 
+                    if(companyId=="46")
+                    {
+                        var hwallet = await objRepository.getHWalletBalance(detail);
+                        this.model.Hwallet = hwallet.hwallet;
+                         
+                    }
                     cart.username = detail.username;
                     cart.password = detail.password_str;
                     cart.userId = detail.id;
@@ -762,6 +768,7 @@ namespace DTShopping.Controllers
                             {
                                 if (prod.offer_price == null || prod.offer_price == "0")
                                 {
+
                                     prodPrice = Convert.ToDouble(prod.market_price);
                                 }
                                 else
@@ -773,8 +780,11 @@ namespace DTShopping.Controllers
                                 //prod.TotalPayment = prodPrice * (prod.vendor_qty ?? 1) + (prod.shippng_charge ?? 0);
                                 //this.model.TotalProductPoints += (prod.RBV ?? 0) * (prod.vendor_qty ?? 1);
                                 //this.model.NetPayment += prod.TotalPayment;
-
-                                this.model.NetPayment += prod.amount;
+                               
+                        
+                              
+                                    this.model.NetPayment += prod.amount;
+                               
                             }
                             this.model.OrderDetail.payment_ref_amount = Convert.ToString(this.model.NetPayment);
                         }
@@ -835,6 +845,7 @@ namespace DTShopping.Controllers
                 }
 
                 this.model.couponList = await this.objRepository.GetCouponList(this.model.User.id);
+                 
                 this.model.User.WalletType = "M";
                 if (Theme == Resources.Orange)
                 {
@@ -867,18 +878,22 @@ namespace DTShopping.Controllers
             {
                 if (CheckLoginUserStatus())
                 {
+                
                     var cart = new CartFilter();
                     cart.productId = ProductId;
                     cart.quantity = Quantity;
                     cart.companyId = Convert.ToInt16(companyId);
 
                     var detail = (UserDetails)(Session["UserDetail"]);
+                    
+                     var hwallet = await objRepository.getHWalletBalance(detail);
                     cart.username = detail.username;
                     cart.password = detail.password_str;
                     cart.userId = Convert.ToInt16(detail.id);
+                    cart.hwallet = hwallet.hwallet;
                     cart.Size = size;
                     cart.Color = color;
-
+                 
                     var response = await objRepository.ManageCart(cart, AddAction);
                     return Json(response);
                 }

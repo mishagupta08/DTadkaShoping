@@ -92,6 +92,7 @@
         float: left;
         margin-right: 16px;
         display: block;
+        margin-top: 60px;
     }
 
     #storeLogo .shopping_pleasure {
@@ -414,7 +415,7 @@
         padding: 4px 0px 4px 2px;
         height: 22px;
         /* padding-left: 12px; */
-        width: 430px;
+        width: 300px;
         margin-left: 0px;
         float: right;
     }
@@ -1939,6 +1940,12 @@ A.pageResults:hover {
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
 
+/*.wlcmuser{
+margin: -28px 35px -20px 0px !important;
+}*/
+
+
+
  .viewall {
     margin-top: -44px;
     margin-right: 75px;
@@ -1952,8 +1959,36 @@ A.pageResults:hover {
     float: left;
 }
 
+
+/*.mobwallet {
+    float: right;
+    font-family: Oswald;
+    font-size: 13px;
+    margin: -20px 14px -20px 0px;
+}*/
+
+#mobmagin {
+   margin-left: 50px;
 }
 
+
+.deskmargin {
+    margin-top: 20px;
+}
+
+
+	
+	
+}
+
+
+.deskmargin{
+	font-family: oswald;
+    font-size: 13px;
+	float: left;
+    margin-right: 55px;
+	margin-top: 15px;
+}
 
 
 

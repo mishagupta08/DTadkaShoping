@@ -313,6 +313,24 @@ namespace DTShopping.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MemberPrice.
+        /// </summary>
+        public static string MemberPrice {
+            get {
+                return ResourceManager.GetString("MemberPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MRP.
+        /// </summary>
+        public static string MRP {
+            get {
+                return ResourceManager.GetString("MRP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Net Price.
         /// </summary>
         public static string NetPrice {

@@ -11,6 +11,7 @@
     int ETRADECOMPANYID = 42;
     int DUDHAMRITCOMPANYID = 43;
     int MYDWORLDCOMPANYID = 44;
+    int StanveeHealthCare = 46;
     var inLineStyle = string.Empty;
     if (CompanyId == URSHOPECOMPANYID)
     {
@@ -132,8 +133,17 @@
                                             <div class="clearfix">
                                                 <div class="icon_cart_title product-price">
                                                     <span class="new_price">
+                                                        @if (CompanyId == StanveeHealthCare)
+                                                        {
+                                                        <span>MRP:@product.market_price</span><br>
+                                                        <span class="new-special-price"> Member price:@product.offer_price</span>
+                                                        }
+                                                        else
+                                                        {
                                                         <s>Rs.@product.market_price</s><br>
                                                         <span class="new-special-price">Rs.@product.offer_price</span>
+                                                        }
+                                                    
                                                     </span><br>
                                                     @if (CompanyId != ETRADECOMPANYID && CompanyId != DUDHAMRITCOMPANYID && CompanyId != MYDWORLDCOMPANYID)
                                                     {
@@ -143,11 +153,23 @@
                                                             {
                                                                 <span>@Resources.ProfitPoint : </span>
                                                             }
+                                                            else if(CompanyId == StanveeHealthCare)
+                                                            {
+
+                                                            }
                                                             else
                                                             {
                                                                 <span>@Resources.EUPoints : </span>
                                                             }
-                                                            @{var t = product.point_adjusted != null ? product.point_adjusted : 0;}@t
+                                                             @if (CompanyId == StanveeHealthCare)
+                                                             {
+
+                                                             }
+                                                             else
+                                                             {
+                                                                @product.point_adjusted
+                                                             }
+                                                            @*@{var t = product.point_adjusted != null ? product.point_adjusted : 0;}@t*@
                                                         </span>
                                                                 }
                                                     @if (CompanyId == SJLABSCOMPANYID && !(product.RBV == 0 || product.RBV == null))

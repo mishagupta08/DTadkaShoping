@@ -26,6 +26,7 @@ namespace DTShopping.Controllers
         private const int SUNVISCOMPANYID = 29;
         string Theme = System.Configuration.ConfigurationManager.AppSettings["Theme"] == null ? string.Empty : System.Configuration.ConfigurationManager.AppSettings["Theme"].ToString();
         string companyId = System.Configuration.ConfigurationManager.AppSettings["CompanyId"];
+        private const string CartProductListAction = "CartProductList";
         // string Insta_client_id = "tmLkZZ0zV41nJwhayBGBOI4m4I7bH55qpUBdEXGS",
         //Insta_client_secret = "IDejdccGqKaFlGav9bntKULvMZ0g7twVFolC9gdrh9peMS0megSFr7iDpWwWIDgFUc3W5SlX99fKnhxsoy6ipdAv9JeQwebmOU6VRvOEQnNMWwZnWglYmDGrfgKRheXs",
         // Insta_Endpoint = InstamojoConstants.INSTAMOJO_API_ENDPOINT,
@@ -741,9 +742,28 @@ namespace DTShopping.Controllers
             }
         }
 
+        //public async Task<ActionResult> getHWalletBalance()
+        //{
+        //    string hWalletBalance = "";
+        //    UserDetails userDetail = new UserDetails();
+        //    Response userResponse = new Response();
+        //    try
+        //    {
+        //        userDetail = Session["UserDetail"] as UserDetails;
+        //        var result = await objRepository.getHWalletBalance(userDetail);
+        //    }
+        //     catch(Exception ex)
+        //    {
+
+        //    }
+        //    return userResponse;
+        //}
+
         [HttpGet]
         public async Task<ActionResult> getCartCount()
         {
+            this.model = new Dashboard();
+            this.model.Products = new List<Product>();
             UserDetails userDetail = new UserDetails();
             Response userResponse = new Response();
             try
@@ -756,7 +776,61 @@ namespace DTShopping.Controllers
                 else
                 {
                     userDetail = Session["UserDetail"] as UserDetails;
+                    decimal Hwalletbalance = 0;
+                    //Session["HWallet"] = Convert.ToDecimal(userDetail.hwallet);
                     var result = await objRepository.getCartCount(userDetail);
+                    var cart = new CartFilter();
+                    //var detail = (UserDetails)(Session["UserDetail"]);
+                    cart.userId = userDetail.id;
+                    cart.username = userDetail.username;
+                    cart.password = userDetail.password_str;
+                    cart.companyId = Convert.ToInt16(companyId);
+                
+                        if (companyId == "46")
+                    {
+                        var hwallet = await objRepository.getHWalletBalance(userDetail);
+                        Hwalletbalance = hwallet.hwallet;
+                        var response = await objRepository.ManageCart(cart, CartProductListAction);
+                        if (response != null && response.Status)
+                        {
+                            this.model.Products = JsonConvert.DeserializeObject<List<Product>>(response.ResponseValue);
+                            if (this.model.Products.Count() >0 )
+                             {
+                                
+                                var prodPrice = 0.0;
+                                foreach (var prod in this.model.Products)
+                                {
+
+                                     if(Hwalletbalance > 0)
+                                    {
+                                        var totalhwallet = prod.amount;
+                                        var remaining = Hwalletbalance - totalhwallet;
+                                        userResponse.hwallet = remaining;
+                                    }
+                                    if (prod.offer_price == null || prod.offer_price == "0")
+                                    {
+                                        prodPrice = Convert.ToDouble(prod.market_price);
+                                    }
+                                    else
+                                    {
+                                        prodPrice = Convert.ToDouble(prod.offer_price);
+                                    }
+
+                                    prod.shippng_charge = (prod.vendor_qty ?? 1) * (prod.shippng_charge ?? 0);
+                                   
+
+                                    this.model.NetPayment += prod.amount;
+                                }
+                               
+                            }
+                            else
+                            {
+                                userResponse.hwallet = Hwalletbalance;
+                            }
+                        }
+                        
+                    }
+                
 
                     if (result.Status == true)
                     {
@@ -769,7 +843,8 @@ namespace DTShopping.Controllers
                         userResponse.ResponseValue = result.ResponseValue;
                         userResponse.Status = result.Status;
                         userResponse.TotalRecords = result.TotalRecords;
-                         if(result.Points >0 && companyId == "30")
+                        //userResponse.hwallet = Hwalletbalance;//Convert.ToDecimal(userDetail.hwallet);//hwallet.hwallet;
+                         if (result.Points >0 && companyId == "30")
                         {
                             Session["Points"] = result.Points;
                         }
@@ -1416,6 +1491,102 @@ namespace DTShopping.Controllers
             }
             return Json(url);
             //  return RedirectToAction("Failed", "Home");
+        }
+
+         public async Task<ActionResult> PaymentUsingHwallet(string Amount)
+        {
+            try
+            {
+                if(companyId=="46")
+                {
+                    var user = Session["UserDetail"] as UserDetails;
+                    string agentid = "";
+                    agentid = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                    DataSet ds = null;
+                    ds = new DataSet();
+                    Dashboard detailModel = new Dashboard();
+                    objRepository = new APIRepository();
+                    var result = new Response();
+                    detailModel.OrderDetail = new order();
+
+
+                    //detailModel.OrderDetail.id = Convert.ToInt32(Session["OrderId"]);
+                    //detailModel.OrderDetail.payment_ref_no = agentid;
+                    //detailModel.OrderDetail.id = Session["OrderId"] != null ? Convert.ToInt32(Session["OrderId"]) : 0;
+                    //detailModel.OrderDetail.payment_ref_amount = Convert.ToString(Amount);
+                    //detailModel.OrderDetail.user_id = user.id;
+                    //result = await objRepository.CreateOrder(detailModel.OrderDetail, "PaymentHwalllet");
+                    var txndata = Convert.ToInt32(Session["OrderId"]) + ";" + Convert.ToDecimal(Amount);
+                    user.orderId = Session["OrderId"] != null ? Convert.ToInt32(Session["OrderId"]) : 0;
+                    user.Amount = Convert.ToDouble(Amount);
+                    user.company_id = Convert.ToInt32(companyId);
+                    var deductWallet = await objRepository.DeductWalletBalnce(user);
+                    if (deductWallet.Status)
+                    {
+                        var Wallet = JsonConvert.DeserializeObject<WalletHDeduction>(deductWallet.ResponseValue);
+                        if (Wallet.response.ToLower() == "ok")
+                        {
+                            user.Voucher = Wallet.voucherno;
+                            var Walletconfirm = new Response();
+                            Walletconfirm = await objRepository.WalletConfirmationAPI(user);
+                            if (Walletconfirm.Status)
+                            {
+                                var ConfirmWallet = new WalletDetails();
+                                ConfirmWallet = JsonConvert.DeserializeObject<WalletDetails>(Walletconfirm.ResponseValue);
+                                if (ConfirmWallet == null || ConfirmWallet.response == null)
+                                {
+                                    return Json("Empty reponse received while wallet confirmation.");
+                                }
+                                if (ConfirmWallet.response.ToLower() == "ok")
+                                {
+                                    detailModel.OrderDetail = new order();
+                                    detailModel.OrderDetail.id = Session["OrderId"] != null ? Convert.ToInt32(Session["OrderId"]) : 0;
+                                    detailModel.OrderDetail.payment_ref_no = Wallet.voucherno;
+                                    detailModel.OrderDetail.payment_ref_amount = Amount;//detailModel.Amount.ToString();
+                                    detailModel.OrderDetail.user_id = user.id;
+                                    result = await objRepository.CreateOrder(detailModel.OrderDetail, "PaymentHwalllet");
+                                    if (result == null)
+                                    {
+                                        return Json(Resources.ErrorMessage);
+                                    }
+                                    else if (!result.Status)
+                                    {
+                                        return Json(result.ResponseValue);
+                                    }
+                                    else
+                                    {
+                                        return Json("ok");
+                                    }
+                                }
+                                else
+                                {
+                                    return Json("Something went wrong");
+                                }
+                            }
+                            else
+                            {
+                                return Json(Walletconfirm.ResponseValue);
+                            }
+                        }
+
+                        else
+                        {
+                            return Json(Wallet.msg);
+                        }
+                    }
+                    else
+                    {
+                        return Json(deductWallet.ResponseValue);
+                    }
+
+
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+            return Json("Something went wrong");
         }
 
     }

@@ -19,6 +19,7 @@
     int SJLABSCOMPANYID = 40;
     int SHOPENTERTAINMENTCOMPANYID = 37;
     int GVENTERTAINMENTCOMPANYID = 38;
+    int StanveeHealthCare = 46;
     int width = 177;
 
     string styleDetail = "margin-top:-50px;";
@@ -106,6 +107,7 @@
     </div>
     <!-- begin bodyWrapper //-->
     <div id="bodyWrapper" class="default_page">
+
         <div id="header">
             <div class="container">
                 <div class="row">
@@ -151,7 +153,7 @@
                         </div>
 
                         <div class="six columns">
-                            <div id="top_search" style="width: 120%; margin-bottom:1%;">
+                            <div id="top_search" style="width: 100%; margin-bottom:1%;">
                                 <form name="et_quick_find" id="et_quick_find" onsubmit="return false">
                                     <div class="clearfix">
                                         <div id="search">
@@ -166,108 +168,112 @@
                             </div>
 
                         </div>
-                       
-                      
-                            <div id="header_blocks" class="five columns">
 
-                                <div class="row">
-                                    <div class="shopping_cart">
-                                        <div class="shopping_cart_b">
-                                            <div class="cart_wrapper">
-                                                <div class="clearfix">
-                                                    @if (Session["UserDetail"] != null)
-                                                    {
-                                                        <p class="img_cart" style='@inLineStyle'>
-                                                            <a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">
-                                                                @if (CompanyId == URSHOPECOMPANYID)
-                                                                {
-                                                                    <img src="~/unishop_theme/unishop_images/icon-cart2.png" height="30" width="30" />
-                                                                }
-                                                            </a>
-                                                        </p>
+
+                        <div id="header_blocks" class="five columns">
+
+                            <div class="row" style="margin-top: 13px;">
+
+                                <div class="shopping_cart">
+                                    <div class="shopping_cart_b">
+                                        <div class="cart_wrapper">
+                                            <div class="clearfix">
+                                                @if (Session["UserDetail"] != null)
+                                                {
+                                                    <p class="img_cart" style='@inLineStyle'>
+                                                        <a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">
+                                                            @if (CompanyId == URSHOPECOMPANYID)
+                                                            {
+                                                                <img src="~/unishop_theme/unishop_images/icon-cart2.png" height="30" width="30" />
+                                                            }
+                                                        </a>
+                                                    </p>
                                                         <div class="open"> <a href="/Manage/GetCartProductList?isWithPayment=false&&deliveryType=0"><span> Cart (<span id="cartCount"></span>)</span></a></div>
-                                                        @*<a class="cart_link" href="checkout_shipping.php">Checkout</a>*@
-                                                    }
-                                                </div>
+                                                     
+                                                }
                                             </div>
                                         </div>
-                                        <div class="clear"></div>
-                                        @*<div id="shopping_cart_mini">
-                    <div class="inner-wrapper">
-                                                            <p class="empty">You have no items in your shopping cart.</p>
                                     </div>
-                                </div>*@
-                                    </div>
-                                    @if (Session["UserDetail"] != null)
-                                    {
-                                        @*<div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>*@
-                                       
-                                             <div class="balancepoints" style="font-family:Oswald;font-size: 13px;margin:15px 170px 9px -60px ;"><span id="spnbalence_point">Balance Points <span id="ShowBalancePoint"></span></span>@*19px 170px 4px -143px;*@
-                                                 <span id="spnpointText">Balance Point 5000 (Monthly Limit <span id="ShowBalancePointText"></span>)</span></div>
-                                           <div class="welcome" style="float:right;font-family:Oswald;font-size:12px;margin:-28px 135px -20px 0px;"> @*-36px 141px 0px 198px;*@
-                                            Welcome @username
-                                            <div class="clear"></div>
-                                        </div>
-                                        @*<div class="welcome" style="float:right; font-family:Oswald; font-size:14px; margin:12px 0 0 0;">
-                                            Welcome @username
-                                            <div class="clear"></div>
-                                        </div>*@
-
-                                    }
+                                    <div class="clear"></div>
+                                   
                                 </div>
-                                @*<div class="row">
-                                    @if (Session["UserDetail"] != null)
-                                    {
-                                        <div class="balancepoints" style="float:right; font-family:Oswald; font-size:12px; margin:15px 20px 0 20px;">Balance Points <span id="ShowBalancePoint"></span></div>
-                                    }
-                                </div>*@
-                                <div class="row">
+                                <!-- <div class="clearfix"></div> -->
 
-
-                                    <div id="nav_first">
-                                        <div id="nav_block_head">
-                                            <div class="nav_block_head_field">Customer Tools</div>
-                                            <span class="nav_block_head_button"> </span>
-                                            <div class="clear"></div>
-                                        </div>
-                                        <div class="nav_block_dropdown">
-                                            <ul class="links">
-                                                <li class="first"><a href="/Home/Index">Home</a></li>
-
-                                                @if (Session["UserDetail"] != null)
-                                                {
-                                                    @*<li><a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">Shopping Cart</a></li>*@
-                                                    <li><a href="/Home/MyAccount">My Account</a></li>
-                                                }
-                                                else
-                                                {
-                                                    <li><a href="/Account/Login">My Account</a></li>
-                                                    <li><a href="/Account/Login">Login</a></li>
-                                                }
-                                                @if (Session["UserDetail"] != null)
-                                                {
-                                                    @*<li class="last"><a href="/Home/Claims">Claims</a></li>*@
-                                                    <li class="last"><a href="/Home/BuyPackage" target="_blank">Buy Package</a></li> @*href = "http://www.gohappycart.com/index-1.asp"*@
-                                                    <li class="last"><a href="/Account/LogOff">Logout</a></li>
-                                                }
-
-                                            </ul>
-                                        </div>
+                                @if (Session["UserDetail"] != null)
+                                {
+                                   
+                                    <div class="balancepoints mobwallet deskmargin">
+                                        <span id="spnHwallet">Wallet Balance <span id="ShowHwalletBalancePoint"></span></span>
+                                     
+                                        <span id="spnbalence_point">Balance Points <span id="ShowBalancePoint"></span></span>
+                                        <span id="spnpointText">Balance Point 5000 (Monthly Limit <span id="ShowBalancePointText"></span>)</span>
+                                      
                                     </div>
-                                </div>
-
-
-
-
-
+                                                <div class="welcome wlcmuser deskmargin">
+                                                
+                                                    Welcome @username
+                                                    <div class="clear"></div>
+                                                </div>
+                                              
+                                }
                             </div>
-                       
-                      
-                        <br/>
+                           
+                            <div class="row">
+
+
+                                <div id="nav_first">
+                                    <div id="nav_block_head">
+                                        <div class="nav_block_head_field">Customer Tools</div>
+                                        <span class="nav_block_head_button"> </span>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="nav_block_dropdown">
+                                        <ul class="links">
+                                            <li class="first"><a href="/Home/Index">Home</a></li>
+                                            @if (CompanyId == StanveeHealthCare)
+                                            {
+                                            <li class="last"><a href="https://stanveeservices.com/package.aspx" target="_blank">Buy Package</a></li>
+                                            }
+                                            else
+                                            {
+                                            <li class="last"><a href="/Home/BuyPackage" target="_blank">Buy Package</a></li>
+                                            }
+
+                                            @if (Session["UserDetail"] != null)
+                                            {
+                                                @*<li><a href="/Manage/GetCartProductList?isWithPayment=false&deliveryType=0">Shopping Cart</a></li>*@
+                                          
+                                                }
+                                           else
+                                            {
+                                                <li><a href="/Account/Login">My Account</a></li>
+                                                    <li><a href="/Account/Login">Login</a></li>
+                                            }
+                                            @if (Session["UserDetail"] != null)
+                                            {
+                                               
+                                                <li><a href="/Home/MyAccount">My Account</a></li> @*href = "http://www.gohappycart.com/index-1.asp"*@
+                                                <li class="last"><a href="/Account/LogOff">Logout</a></li>
+                                            }
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                        <br />
                     </div>
                 </div>
             </div>
         </div>
+
         <div id="DivCategories">
 
         </div>
@@ -408,7 +414,7 @@
                     </div>
 
 
-                     @*<div class="four columns footer-block footer_my_account">*@
+                    @*<div class="four columns footer-block footer_my_account">*@
                     <div class="col-sm-3">
                         <h2>Payment Gateway</h2>
                         <nav>
@@ -489,22 +495,32 @@
                 $("#cartCount").html(result.CartProductCount);
                  var comapnyid=@CompanyId;
                 //$("#ShowBalancePoint").html(result.totalPoints);
-             
+
                 if (result.Points > 0 && comapnyid == 30)
                 {
                     // var points = result.Points + "Balance Point 5000 (Monthly Limit 500)";
                     $("#ShowBalancePointText").html(result.Points);
                     $("#spnpointText").show();
                     $("#spnbalence_point").hide();
-                  
+                    $("#ShowHwalletBalancePoint").hide();
+                    $("#spnHwallet").hide();
+
                 }
-                else 
+                else if(comapnyid== 46)
+                {
+                    $("#ShowHwalletBalancePoint").html(result.hwallet);
+                    $("#spnpointText").hide();
+                    $("#ShowBalancePoint").hide();
+                    //$("#ShowBalancePoint").html(result.Points);
+                    $("#spnbalence_point").hide();
+                }
+                else
                 {
                     $("#spnbalence_point").show();
                     $("#ShowBalancePoint").html(result.Points);
                     $("#spnpointText").hide();
                 }
-                
+
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert("Status: " + textStatus); alert("Error: " + errorThrown);

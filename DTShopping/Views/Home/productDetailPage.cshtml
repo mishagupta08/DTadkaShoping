@@ -10,6 +10,7 @@
     int ETRADECOMPANYID = 42;
     int DUDHAMRITCOMPANYID = 43;
     int MYDWORLDCOMPANYID = 44;
+    int StanveeHealthCare = 46;
 }
 
 @*<div class="">
@@ -71,7 +72,7 @@
                                     <div class="gallery_bigimg" style="display:inline-block;">
                                         @*<a href="~/images/24_2.jpg" class="cloud-zoom" id="zoom1"
                                             rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="~/@Model.ProductDetail.large_image" alt="" itemprop="image" /></a>*@
-                                        <a href="@imageUrl/@Model.ProductDetail.large_image" style="height:450px !important;width:450px !important;" class="cloud-zoom" id="zoom1"
+                                        <a href="@imageUrl/@Model.ProductDetail.large_image" class="cloud-zoom" id="zoom1"
                                            rel="adjustX:-4, adjustY:-4, softFocus:true"><img src="@imageUrl/@Model.ProductDetail.large_image" alt="" itemprop="image" /></a>
 
                                         @*@if (!(Model.ProductDetail.prodImageList == null || Model.ProductDetail.prodImageList.Count == 0))
@@ -128,13 +129,26 @@
                                                     @*<p class="old_price_box"><span class="old_price_label">@Resources.Vendor :</span> Rs. @Model.ProductDetail.VendorName</p>*@
                                                     @if (Convert.ToDouble(string.IsNullOrEmpty(Model.ProductDetail.market_price) ? "0" : Model.ProductDetail.market_price) > Convert.ToDouble(string.IsNullOrEmpty(Model.ProductDetail.offer_price) ? "0" : Model.ProductDetail.offer_price))
                                                     {
-                                                        <p class="old_price_box"><span class="old_price_label">@Resources.MarketPrice :</span><s> Rs. @Model.ProductDetail.market_price</s></p>
-                                                        <p class="new_price_box">
-                                                            <span class="special_price_label"> @Resources.OfferPrice :</span>
-                                                            <span itemprop="price" class="new-special-price">
-                                                                Rs. @Model.ProductDetail.offer_price<br>
-                                                            </span>
-                                                        </p>
+                                                        if (CompanyId == StanveeHealthCare)
+                                                        {
+                                                            <p class="old_price_box"><span class="old_price_label">@Resources.MRP :</span>Rs. @Model.ProductDetail.market_price</p>
+                                                            <p class="new_price_box">
+                                                                <span class="special_price_label"> @Resources.MemberPrice :</span>
+                                                                <span itemprop="price" class="new-special-price">
+                                                                    Rs. @Model.ProductDetail.offer_price<br>
+                                                                </span>
+                                                            </p>
+                                                        }
+                                                        else
+                                                        {
+                                                            <p class="old_price_box"><span class="old_price_label">@Resources.MarketPrice :</span><s> Rs. @Model.ProductDetail.market_price</s></p>
+                                                            <p class="new_price_box">
+                                                                <span class="special_price_label"> @Resources.OfferPrice :</span>
+                                                                <span itemprop="price" class="new-special-price">
+                                                                    Rs. @Model.ProductDetail.offer_price<br>
+                                                                </span>
+                                                            </p>
+                                                        }
                                                     }
                                                     else
                                                     {
@@ -155,13 +169,25 @@
                                                                     {
                                                                         <span>@Resources.ProfitPoint : </span>
                                                                     }
+                                                                    else if (CompanyId == StanveeHealthCare)
+                                                                    {
+
+                                                                    }
                                                                     else
                                                                     {
                                                                         <span>@Resources.EUPoints : </span>
                                                                     }
-                                                                    @{var t = @Model.ProductDetail.point_adjusted != null ? @Model.ProductDetail.point_adjusted : 0;}@t
+                                                                    @if (CompanyId == StanveeHealthCare)
+                                                                    {
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @Model.ProductDetail.point_adjusted
+                                                                    }
+                                                                    @*@{var t = @Model.ProductDetail.point_adjusted != null ? @Model.ProductDetail.point_adjusted : 0;}@t*@
                                                                 </strong><br>
-                                                                        }
+                                                            }
                                                             @if (CompanyId == SJLABSCOMPANYID && !(Model.ProductDetail.RBV == 0 || Model.ProductDetail.RBV == null))
                                                             {
                                                                 <span class="icon_cart_title product-price" style="font-size:11px; font-family:Arial, Helvetica, sans-serif; line-height:8px;">

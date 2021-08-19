@@ -199,8 +199,19 @@
                                                         <span class="new_price">
                                                             @if (Convert.ToDouble(string.IsNullOrEmpty(segment.market_price) ? "0" : segment.market_price) > Convert.ToDouble(string.IsNullOrEmpty(segment.offer_price) ? "0" : segment.offer_price))
                                                             {
-                                                                <s>Rs.@segment.market_price</s><br>
-                                                                <span class="new-special-price">Rs.@segment.offer_price</span>
+                                                                if (CompanyId == StanveeHealthCare)
+                                                                {
+                                                                    <span>MRP:@segment.market_price</span><br>
+                                                                    <span class="new-special-price"> Member price:@segment.offer_price</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <s>Rs.@segment.market_price</s><br>
+                                                                    <span class="new-special-price"> Rs.@segment.offer_price</span>
+                                                                }
+
+
+
                                                             }
                                                             else
                                                             {
@@ -218,12 +229,22 @@
                                                                 }
                                                                  @if (CompanyId == StanveeHealthCare)
                                                                 {
-                                                                    <span>@Resources.StanveePoints:</span>
+                                                                    @*<span>@Resources.StanveePoints:</span>*@
                                                                 }
                                                                 else
                                                                 {
                                                                     <span>@Resources.EUPoints : </span>
-                                                                } @Html.Raw(segment.point_adjusted)
+                                                                } 
+                                                                @if (CompanyId == StanveeHealthCare)
+                                                                {
+                                                                    @*@Html.Raw(segment.point_adjusted)*@
+                                                                }
+                                                                else
+                                                                {
+                                                                    @Html.Raw(segment.point_adjusted)
+                                                                }
+
+
                                                             </span>
                                                         }
                                                         @if (CompanyId == SJLABSCOMPANYID && !(segment.RBV == 0 || segment.RBV == null))
@@ -290,8 +311,18 @@
                                                             <span class="new_price">
                                                                 @if (Convert.ToDouble(string.IsNullOrEmpty(segment.market_price) ? "0" : segment.market_price) > Convert.ToDouble(string.IsNullOrEmpty(segment.offer_price) ? "0" : segment.offer_price))
                                                                 {
-                                                                    <s>Rs.@segment.market_price</s><br>
-                                                                    <span class="new-special-price">Rs.@segment.offer_price</span>
+                                                                    if (CompanyId == StanveeHealthCare)
+                                                                    {
+                                                                        <span>MRP:@segment.market_price</span><br>
+                                                                        <span class="new-special-price"> Member price:@segment.offer_price</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <s>Rs.@segment.market_price</s><br>
+                                                                        <span class="new-special-price">Rs.@segment.offer_price</span>
+                                                                    }
+                                                                    @*<s>Rs.@segment.market_price</s><br>*@
+                                                                 
                                                                 }
                                                                 else
                                                                 {
@@ -309,13 +340,22 @@
                                                                     }
                                                                       @if (CompanyId == StanveeHealthCare)
                                                                      {
-                                                                       <span>@Resources.StanveePoints:</span>
+                                                                       @*<span>@Resources.StanveePoints:</span>*@
                                                                       }
 
                                                                     else
                                                                     {
                                                                         <span>@Resources.EUPoints : </span>
-                                                                    } @Html.Raw(segment.point_adjusted)
+                                                                    }
+                                                                       @if (CompanyId == StanveeHealthCare)
+                                                                       {
+                                                                        @*@Html.Raw(segment.point_adjusted)*@
+                                                                       }
+                                                                       else
+                                                                       {
+                                                                           @Html.Raw(segment.point_adjusted)
+                                                                       }
+                                                                     
                                                                 </span>
                                                             }
                                                             @if (CompanyId == SJLABSCOMPANYID && !(segment.RBV == 0 || segment.RBV == null))
@@ -386,8 +426,18 @@
                                                                 <span class="new_price">
                                                                     @if (Convert.ToDouble(string.IsNullOrEmpty(segment.market_price) ? "0" : segment.market_price) > Convert.ToDouble(string.IsNullOrEmpty(segment.offer_price) ? "0" : segment.offer_price))
                                                                     {
-                                                                        <s>Rs.@segment.market_price</s><br>
-                                                                        <span class="new-special-price">Rs.@segment.offer_price</span>
+                                                                        if (CompanyId == StanveeHealthCare)
+                                                                        {
+                                                                            <span>MRP:@segment.market_price</span><br>
+                                                                            <span class="new-special-price"> Member price:@segment.offer_price</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <s>Rs.@segment.market_price</s><br>
+                                                                            <span class="new-special-price">Rs.@segment.offer_price</span>
+                                                                        }
+                                                                        @*<s>Rs.@segment.market_price</s><br>*@
+                                                                    
                                                                     }
                                                                     else
                                                                     {
@@ -405,14 +455,22 @@
                                                                         }
                                                                         @if (CompanyId == StanveeHealthCare)
                                                                      {
-                                                                       <span>@Resources.StanveePoints:</span>
+                                                                       @*<span>@Resources.StanveePoints:</span>*@
                                                                       }
 
                                                                         else
                                                                         {
                                                                             <span>@Resources.EUPoints : </span>
                                                                         }
-                                                                        @Html.Raw(segment.point_adjusted)
+                                                                        @if (CompanyId == StanveeHealthCare)
+                                                                        {
+                                                                            @*@Html.Raw(segment.point_adjusted)*@
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.Raw(segment.point_adjusted)
+                                                                        }
+                                                                        
                                                                     </span>
                                                                 }
                                                                 @if (CompanyId == SJLABSCOMPANYID && !(segment.RBV == 0 || segment.RBV == null))

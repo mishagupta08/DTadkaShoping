@@ -44,6 +44,7 @@ namespace DTShopping.Models
         public string IfscCode { get; set; }
         public double Amount { get; set; }
         public string Voucher { get; set; }
+        public Nullable<decimal> hwallet { get; set; }
     }
 
     public class WalletDetails
@@ -63,4 +64,16 @@ namespace DTShopping.Models
         public string voucherno { get; set; }
         public string msg { get; set; }
     }
+
+
+    public class WalletHDeduction
+    {
+        public string loginid { get; set; }
+        public string response { get; set; }
+        public double deductamount { get; set; }
+        public string voucherno { get; set; }
+        public string msg { get; set; }
+        public string wallettype { get; set; }
+    }
+
 }

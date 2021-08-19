@@ -9,7 +9,7 @@
     int ETRADECOMPANYID = 42;
     int DUDHAMRITCOMPANYID = 43;
     int MYDWORLDCOMPANYID = 44;
-    int Stanvee = 46;
+    int StanveeHealthCare = 46;
     string url = "";
     var imageName = string.Empty;
 }
@@ -25,7 +25,11 @@
     else
     {
         <div class="sixteen columns">
-            <div id="bodyContent" class="twelve columns omega main_part_wrapper">
+            <div id="bodyContent">
+                <!-- <div id="bodyContent" class="twelve columns omega main_part_wrapper"> -->
+
+
+
                 <h1>your cart details</h1>
 
                 <table cellspacing="5" cellpadding="5" border="0" style="width: 97%; border-collapse: collapse;" id="ItemList" class="shoptable">
@@ -34,11 +38,31 @@
                             <td bgcolor="#E4E4E4"><h3>Action</h3></td>
                             <td bgcolor="#E4E4E4"><h3>Product</h3></td>
                             <td bgcolor="#E4E4E4"><h3>Quantity</h3></td>
-                            <td bgcolor="#E4E4E4"></td>
-                            <td bgcolor="#E4E4E4"><h3>Market Price</h3></td>
+                            @if (CompanyId == StanveeHealthCare)
+                            {
+
+                                <td bgcolor="#E4E4E4"><h3>MRP</h3></td>
+                            }
+                            else
+                            {
+                                <td bgcolor="#E4E4E4"><h3>Market Price</h3></td>
+                            }
+                         
                             <td bgcolor="#E4E4E4"><h3>Offer Price</h3></td>
+                           @if (CompanyId == StanveeHealthCare)
+                           {
+
+                           }
+                           else
+                           {
                             <td bgcolor="#E4E4E4"><h3>Discount Points</h3></td>
+                           }
+                          
                             <td bgcolor="#E4E4E4"><h3>Shipping Charge</h3></td>
+                            @if (CompanyId == StanveeHealthCare)
+                            {
+                                <td bgcolor="#E4E4E4"><h3> Wallet used </h3></td>
+                            }
                             <td bgcolor="#E4E4E4"><h3>Net Price</h3></td>
                         </tr>
 
@@ -72,15 +96,15 @@
                                         <span>Color : @product.Color</span>
                                     }
                                 </td>
-                                @if (CompanyId == ETRADECOMPANYID||CompanyId== Stanvee)
+                                @if (CompanyId == ETRADECOMPANYID || CompanyId == StanveeHealthCare)
                                 {
 
                                     @*/***uncomment this td towork with quantity****/*@
                                     <td>
-                                        @Html.TextBoxFor(m => product.vendor_qty, new { @min = 1, @type = "number", @id = quantityID, @required = "required", @class = "form-control",@name= "quantitytxt", @placeholder = "" })
+                                        @Html.TextBoxFor(m => product.vendor_qty, new { @min = 1, @type = "number", @id = quantityID, @required = "required", @class = "form-control", @name = "quantitytxt", @placeholder = "" })
                                         <br />
                                         <a href="#" name="updateQuantity" data-id="@product.id" class="text-uppercase">Update</a>
-                                      
+
                                     </td>
                                     @*/**End**/*@
                                 }
@@ -92,20 +116,60 @@
                                         <br />
                                     </td>
                                 }
-                                <td>@product.market_price</td>
+                              
+                                 <td>@product.market_price</td>
+                                     
+                                @if (Model.Hwallet > 0)
+                                {
+                                    <td>@product.market_price</td>
+                                }
+                                else
+                                {
+                                    <td>@product.offer_price</td>
+                                }
+                                
+                                 
 
-                                <td>@product.offer_price</td>
+                               
+                                @if (CompanyId == StanveeHealthCare)
+                                {
 
-                                <td>@(product.point_adjusted ?? 0)</td>
-
+                                }
+                                else
+                                {
+                                    <td>@(product.point_adjusted ?? 0)</td>
+                                }
+                              
                                 <td><span name="actualAmount">@(product.shippng_charge ?? 0)</span></td>
+                                
 
                                 <td>@product.amount</td>
+
+                                @if (CompanyId == StanveeHealthCare)
+                                {
+                                    if (Model.Hwallet > 0)
+                                    {
+                                        <td>0</td>
+                                    }
+                                    else
+                                    {
+                                        @product.amount
+                                    }
+
+                                }
                             </tr>
                         }
                         <tr align="left" class="dgrdcell" bgcolor="#EBC6AD">
                             <td colspan="4">Your Cart Total</td>
-                            <td colspan="4" align="right"><h3><span id="labelTotalCharge2">Rs. @Model.NetPayment</span></h3></td>
+                             @if (Model.Hwallet > 0)
+                             {
+                                <td colspan="4" align="right"><h3><span id="labelTotalCharge2">Rs. 0</span></h3></td>
+                             }
+                             else
+                             {
+                                <td colspan="4" align="right"><h3><span id="labelTotalCharge2">Rs. @Model.NetPayment</span></h3></td>
+                             }
+
                         </tr>
                     </tbody>
                 </table>
@@ -147,7 +211,7 @@
                 }
                 else
                 {
-                    if (!(CompanyId == DUDHAMRITCOMPANYID || CompanyId == ETRADECOMPANYID || CompanyId == MYDWORLDCOMPANYID || CompanyId== GOHAPPYCOMPANYID))
+                    if (!(CompanyId == DUDHAMRITCOMPANYID || CompanyId == ETRADECOMPANYID || CompanyId == MYDWORLDCOMPANYID || CompanyId == GOHAPPYCOMPANYID))
                     {
                         <table width="97%" border="0" cellspacing="5" cellpadding="5" class="shoptable" style="border:1px solid #CCCCCC;">
                             <tr>
@@ -249,7 +313,7 @@
         //}
     }
 
-    
+
     $("[type='number']").keypress(function (evt) {
         evt.preventDefault();
     });
